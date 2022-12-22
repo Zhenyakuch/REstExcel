@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,8 @@ import java.util.List;
 @Setter
 @ToString
 public class CountryReport {
-    private Date starDate;
-    private Date endDate;
+    private LocalDate starDate;
+    private LocalDate endDate;
     private String product;
     private boolean isImport;
     private List<CountryRow> countryRows;

@@ -1,9 +1,10 @@
 package com.example.demo;
 
+import com.aspose.cells.*;
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.CountryReport;
-import com.example.demo.model.dto.CountryRow;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.CellRange;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,70 +16,39 @@ import java.io.*;
 public class ProductController {
 
     @PostMapping("/product")
-    public String printData(@RequestBody CountryReport countryRow) throws IOException {
+    public String printData(@RequestBody CountryReport countryRow) throws Exception {
         log.debug("CountryReport "+ countryRow);
+
+        System.out.println(countryRow.getProduct());
+        System.out.println(countryRow.getStarDate());
+        System.out.println(countryRow.getEndDate());
+        System.out.println(countryRow.getCountryRows());
+
+        System.out.println();
         TotalMass totalMass= new TotalMass(countryRow);
         log.debug("TotalMass "+ totalMass);
-       //converter.my();
-//        ArrayList <String> names = new ArrayList<>();
-//        names.add(product.getProduct());
-//        names.add(product.getCountry());
-//        names.add(String.valueOf(product.getBrest()));
 
 
+        Workbook workbook = new Workbook("src/main/resources/Ввоз.xlsx");
+        Worksheet worksheet = workbook.getWorksheets().get(0);
+        worksheet.replace("product", countryRow.getProduct());
+        worksheet.replace("startDate", countryRow.getStarDate().toString());
+        worksheet.replace("endDate", countryRow.getEndDate().toString());
 
-      //  File xlsxFile = new File("C:/Users/evgen/OneDrive/Рабочий стол/123.xlsx");
-      //  FileInputStream inputStream = new FileInputStream(xlsxFile);
-//        Workbook workbook = new XSSFWorkbook();
-//     //   FileOutputStream os = new FileOutputStream(xlsxFile);
+        // Получить ссылку на ячейку «A1» из ячеек рабочего листа
+        //Cell cell = workbook.getWorksheets().get(0).getCells().get("A4");
+
+// Установите «Привет, мир!» значение в ячейку "A1"
+       // cell.setValue(countryRow.getProduct());
+       // workbook.getWorksheets().removeAt("Evaluation Warning");
+
+//        ReplaceOptions replaceOptions = new ReplaceOptions();
+//        replaceOptions.setCaseSensitive(false);
+//        replaceOptions.setMatchEntireCellContents(false);
 //
-//        Sheet sheet1 = workbook.createSheet(String.valueOf(1));
-//        Cell cell_product;
-//        Cell cell_country;
-//        Cell cell_brest;
-//        Cell cell_vitebsk;
-//        Cell cell_minsk;
-//        Cell cell_mogilev;
-//
-//       int i = sheet1.getLastRowNum()+1;
-//
-//            Row row = sheet1.createRow(i);
-//            cell_product = sheet1.getRow(i).getCell(i);
-//            cell_product = row.createCell(i);
-//            cell_product.setCellValue(countryRow.getProduct());
-//
-//            cell_country = sheet1.getRow(i).getCell(i+1);
-//            cell_country = row.createCell(i+1);
-//            cell_country.setCellValue(countryRow.getCountry());
-//
-//            cell_brest = sheet1.getRow(i).getCell(i+2);
-//            cell_brest = row.createCell(i+2);
-//            cell_brest.setCellValue(countryRow.getBrest());
-//
-//            cell_vitebsk = sheet1.getRow(i).getCell(i+3);
-//            cell_vitebsk = row.createCell(i+3);
-//            cell_vitebsk.setCellValue(countryRow.getVitebsk());
-//
-//            cell_minsk = sheet1.getRow(i).getCell(i+4);
-//            cell_minsk = row.createCell(i+4);
-//            cell_minsk.setCellValue(countryRow.getMinsk());
-//
-//            cell_mogilev = sheet1.getRow(i).getCell(i+5);
-//            cell_mogilev = row.createCell(i+5);
-//            cell_mogilev.setCellValue(countryRow.getMogilev());
-//
-//
-//
-//        FileOutputStream fileOut = new FileOutputStream("C:/Users/evgen/OneDrive/Рабочий стол/1.xlsx");
-//        workbook.write(fileOut);
-//        fileOut.close();
-//
-//       // workbook.write(os);
-//       // workbook.close();
-//
-//        System.out.println("Excel file has been updated successfully.");
-//        System.out.println("Printing the product data:"+ countryRow.getCountry()  + countryRow.getProduct()+ countryRow.getBrest());
-//
+//        workbook.replace("product",countryRow.getProduct(),replaceOptions);
+        workbook.save("src/main/resources/updated.xlsx");
+
 
 return "";
 
