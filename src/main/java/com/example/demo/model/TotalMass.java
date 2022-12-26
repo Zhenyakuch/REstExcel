@@ -15,13 +15,13 @@ public class TotalMass {
     private List<ElementRegion> regions;
 
     public TotalMass(CountryReport report) {
-        massProduct = new ElementMass();
-        regions = new ArrayList<>();
+        this.massProduct = new ElementMass();
+        this.regions = new ArrayList<>();
 
         List<CountryRow> countryRows = report.getCountryRows();
         for (CountryRow row : countryRows) {
-            plus(massProduct, row.getMassProduct());
-            plusList(regions, row.getRegions());
+            plus(this.massProduct, row.getMassProduct());
+            plusList(this.regions, row.getRegions());
         }
     }
 
@@ -35,14 +35,19 @@ public class TotalMass {
                     break;
                 }
             }
-            if (!find)
-                first.add(reg);
+            if (!find) {
+                ElementRegion newReg = new ElementRegion();
+                newReg.setRegion(reg.getRegion());
+                newReg.setDateWeight(reg.getDateWeight());
+                newReg.setWeekWeight(reg.getWeekWeight());
+                first.add(newReg);
+            }
         }
     }
 
     private ElementMass plus(ElementMass first, ElementMass second) {
-        first.setDateWeight(first.getDateWeight() + second.getDateWeight());
-        first.setWeekWeight(first.getWeekWeight() + second.getWeekWeight());
+        first.setDateWeight(first.getDateWeight().add(second.getDateWeight()));
+        first.setWeekWeight(first.getWeekWeight().add(second.getWeekWeight()));
         return first;
     }
 }
