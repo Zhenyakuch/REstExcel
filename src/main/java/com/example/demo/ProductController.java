@@ -39,9 +39,9 @@ public class ProductController {
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook("src/main/resources/Ввоз.xlsx");
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         String fromTitle = sheet.getRow(0).getCell(0).toString();
-        fromTitle.replace("product", countryRow.getProduct());
-        fromTitle.replace("startDate", countryRow.getStarDate().toString());
-        fromTitle.replace("endDate", countryRow.getEndDate().toString());
+        fromTitle = fromTitle.replace("product", countryRow.getProduct());
+        fromTitle = fromTitle.replace("startDate", countryRow.getStarDate().toString());
+        fromTitle = fromTitle.replace("endDate", countryRow.getEndDate().toString());
         sheet.getRow(0).getCell(0).setCellValue(fromTitle);
 
 //        int rowLast = sheet.getLastRowNum();
@@ -89,7 +89,7 @@ public class ProductController {
             cellMassProductWeekWeight.setCellValue(countryRow.getCountryRows().get(cellCount).getMassProduct().weekWeightDouble());
 
             List<ElementRegion> regions = countryRow.getCountryRows().get(cellCount).getRegions();
-            for(int i= 0; regions.size()>i;i++) {
+            for (int i = 0; regions.size() > i; i++) {
                 ElementRegion elementRegion = regions.get(i);
                 switch (elementRegion.getRegion()) {
                     case 1:
