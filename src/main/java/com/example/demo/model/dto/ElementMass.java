@@ -19,6 +19,6 @@ public class ElementMass {
     }
 
     public Double weekWeightDouble() {
-        return dateWeight.doubleValue();
+        return weekWeight.doubleValue();
     }
 }

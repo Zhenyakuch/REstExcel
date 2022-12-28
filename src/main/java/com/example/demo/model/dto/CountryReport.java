@@ -14,7 +14,8 @@ import java.util.List;
 public class CountryReport {
     private LocalDate starDate;
     private LocalDate endDate;
-    private String product;
+    private String reqCountryOrProduct;
+    private String resCountryOrProduct;
     private boolean isImport;
     private List<CountryRow> countryRows;
 }

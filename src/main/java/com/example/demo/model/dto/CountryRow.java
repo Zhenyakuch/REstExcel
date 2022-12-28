@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 public class CountryRow {
-    private String country;
+    private String resCountryOrProduct;
     private ElementMass massProduct;
     private List<ElementRegion> regions;
 

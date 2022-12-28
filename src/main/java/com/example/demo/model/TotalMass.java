@@ -4,12 +4,14 @@ import com.example.demo.model.dto.CountryReport;
 import com.example.demo.model.dto.CountryRow;
 import com.example.demo.model.dto.ElementMass;
 import com.example.demo.model.dto.ElementRegion;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @ToString
+@Getter
 public class TotalMass {
     private ElementMass massProduct;
     private List<ElementRegion> regions;
