@@ -1,17 +1,12 @@
 package com.example.demo;
 
-import com.aspose.cells.Workbook;
-import com.aspose.cells.Worksheet;
+import com.aspose.cells.ReplaceOptions;
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.CountryReport;
 import com.example.demo.model.dto.CountryRow;
 import com.example.demo.model.dto.ElementMass;
 import com.example.demo.model.dto.ElementRegion;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @Slf4j
 public class ProductController {
 
-    @PostMapping("/product")
+    @PostMapping("/import-export")
     public String printData(@RequestBody CountryReport countryRequest) throws Exception {
+
+
         log.debug("CountryReport " + countryRequest);
         TotalMass totalMass = new TotalMass(countryRequest);
         log.debug("TotalMass " + totalMass);
@@ -42,12 +40,36 @@ public class ProductController {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         String fromTitle = sheet.getRow(0).getCell(0).toString();
-        String fromTitle2= sheet.getRow(1).getCell(1).toString();
+         String fromTitle2 = sheet.getRow(1).getCell(1).toString();
+
         fromTitle = fromTitle.replace("startDate", countryRequest.getStarDate().toString());
         fromTitle = fromTitle.replace("endDate", countryRequest.getEndDate().toString());
 
-        fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
-        fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна направления");
+         for (int i=2; i<=14; i++){
+             String date2 = sheet.getRow(2).getCell(i).toString();
+             date2 = date2.replace("startDate", countryRequest.getStarDate().toString());
+             date2 = date2.replace("endDate", countryRequest.getEndDate().toString());
+             sheet.getRow(2).getCell(i).setCellValue(date2);
+
+         }
+        fromTitle = fromTitle.replace("startDate", countryRequest.getStarDate().toString());
+        fromTitle = fromTitle.replace("endDate", countryRequest.getEndDate().toString());
+
+
+        
+        String namefile = "";
+
+        if (countryRequest.isImportexport() == true) {
+            fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
+            fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь");
+            fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна направления");
+            namefile = "import";
+        }else if (countryRequest.isImportexport() == false) {
+            fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
+            fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь");
+            fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Наименование подкарантинной продукции");
+            namefile = "export";
+        }
 
         sheet.getRow(1).getCell(1).setCellValue(fromTitle2);
         sheet.getRow(0).getCell(0).setCellValue(fromTitle);
@@ -61,20 +83,17 @@ public class ProductController {
             CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
 
             XSSFCell numer = row.createCell(0);
-            numer.setCellValue(cellCount +1);
+            numer.setCellValue(cellCount + 1);
             numer.setCellStyle(cellStyle);
 
             createRows(xssfWorkbook, row, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct());
         }
         rowLast = sheet.getLastRowNum();
         XSSFRow rowTotal = sheet.createRow(rowLast + 1);
-        //rowTotal = sheet.createRow(new CellRangeAddress(rowLast + 1,2));
-//        sheet.addMergedRegion(new CellRangeAddress(rowLast + 1,rowLast + 1,0,1));
-       // System.out.println("rwwefwrre   "+ new CellRangeAddress(rowLast + 1,rowLast + 1,0,1).getNumberOfCells());
 
         createRows(xssfWorkbook, rowTotal, totalMass.getRegions(), totalMass.getMassProduct(), "ИТОГО, тонн");
 
-        try (OutputStream fileOut = new FileOutputStream("src/main/resources/updated.xlsx")) {
+        try (OutputStream fileOut = new FileOutputStream("src/main/resources/" + namefile + LocalDate.now() + ".xlsx")) {
             xssfWorkbook.write(fileOut);
         }
 
