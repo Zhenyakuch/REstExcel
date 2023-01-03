@@ -59,12 +59,12 @@ public class ProductController {
         
         String namefile = "";
 
-        if (countryRequest.isImportexport() == true) {
+        if (countryRequest.isImport()) {
             fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
             fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь");
             fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна направления");
             namefile = "import";
-        }else if (countryRequest.isImportexport() == false) {
+        }else {
             fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
             fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь");
             fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Наименование подкарантинной продукции");
