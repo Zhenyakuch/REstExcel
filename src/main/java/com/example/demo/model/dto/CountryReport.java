@@ -16,6 +16,6 @@ public class CountryReport {
     private LocalDate endDate;
     private String reqCountryOrProduct;
     private String resCountryOrProduct;
-    private boolean importexport;
+    private boolean isImport;
     private List<CountryRow> countryRows;
 }
