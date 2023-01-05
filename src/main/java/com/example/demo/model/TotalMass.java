@@ -42,6 +42,7 @@ public class TotalMass {
                 newReg.setRegion(reg.getRegion());
                 newReg.setDateWeight(reg.getDateWeight());
                 newReg.setWeekWeight(reg.getWeekWeight());
+                newReg.setDateFromTo(reg.getDateFromTo());
                 first.add(newReg);
             }
         }
@@ -50,6 +51,7 @@ public class TotalMass {
     private ElementMass plus(ElementMass first, ElementMass second) {
         first.setDateWeight(first.getDateWeight().add(second.getDateWeight()));
         first.setWeekWeight(first.getWeekWeight().add(second.getWeekWeight()));
+        first.setDateFromTo(first.getDateFromTo().add(second.getDateFromTo()));
         return first;
     }
 }

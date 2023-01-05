@@ -13,6 +13,11 @@ import java.math.BigDecimal;
 public class ElementMass {
     private BigDecimal dateWeight = new BigDecimal(0);
     private BigDecimal weekWeight = new BigDecimal(0);
+    private BigDecimal dateFromTo= new BigDecimal(0);
+
+    public Double dateFromToDouble() {
+        return dateFromTo.doubleValue();
+    }
 
     public Double dateWeightDouble() {
         return dateWeight.doubleValue();

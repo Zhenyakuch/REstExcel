@@ -10,4 +10,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ElementRegion extends ElementMass{
     private int region;
+    private int date2021;
+    private int date2022;
 }
