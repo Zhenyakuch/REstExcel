@@ -5,13 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
 public class CountryReport {
+
+    //переменные json импорта экспорта и реэк
     private LocalDate starDate;
     private LocalDate endDate;
     private String reqCountryOrProduct;
