@@ -43,6 +43,8 @@ public class TotalMass {
                 newReg.setDateWeight(reg.getDateWeight());
                 newReg.setWeekWeight(reg.getWeekWeight());
                 newReg.setDateFromTo(reg.getDateFromTo());
+                newReg.setDate2021(reg.getDate2021());
+                newReg.setDate2022(reg.getDate2022());
                 first.add(newReg);
             }
         }
@@ -52,6 +54,8 @@ public class TotalMass {
         first.setDateWeight(first.getDateWeight().add(second.getDateWeight()));
         first.setWeekWeight(first.getWeekWeight().add(second.getWeekWeight()));
         first.setDateFromTo(first.getDateFromTo().add(second.getDateFromTo()));
+        first.setDate2021(first.getDate2021().add(second.getDate2021()));
+        first.setDate2022(first.getDate2022().add(second.getDate2022()));
         return first;
     }
 }

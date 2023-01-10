@@ -16,4 +16,5 @@ public class CountryRow {
     private ElementMass massProduct;
     private List<ElementRegion> regions;
 
+
 }

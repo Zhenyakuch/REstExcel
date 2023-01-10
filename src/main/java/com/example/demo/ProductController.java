@@ -52,12 +52,12 @@ public class ProductController {
 
         if (countryRequest.isImport()) {
             fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
-            fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь");
+            fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь ");
             fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна направления");
             namefile = "import";
         } else {
             fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
-            fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь");
+            fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь ");
             fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Наименование подкарантинной продукции");
             namefile = "export";
         }
@@ -154,41 +154,12 @@ public class ProductController {
 
         ReExport.createRowsReExport(xssfWorkbook, rowTotal, cellStyle, totalMass.getRegions(), totalMass.getMassProduct(), "ИТОГО, тонн", 5);
 
-        XSSFRow rowTotal2 = sheet.createRow(rowLast + 2);
-        XSSFCell cellCountry = rowTotal2.createCell(0);
-        XSSFCell cellCountry2 = rowTotal2.createCell(1);
 
-        cellCountry.setCellStyle(cellStyle);
-        cellCountry2.setCellStyle(cellStyle);
-        sheet.addMergedRegion(new CellRangeAddress(rowLast + 2, rowLast + 2, 0, 1));
+        //
+        CountryRow countryRow = countryRequest.getCountryRows().get(0);//проверить дебагом
+        ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 
-        XSSFRow rowTotal3 = sheet.createRow(rowLast + 3);
-        XSSFCell cellCountry3 = rowTotal3.createCell(0);
-        XSSFCell cellCountry33 = rowTotal3.createCell(1);
-
-        cellCountry3.setCellStyle(cellStyle);
-        cellCountry33.setCellStyle(cellStyle);
-        sheet.addMergedRegion(new CellRangeAddress(rowLast + 3, rowLast + 3, 0, 1));
-
-        cellCountry3.setCellValue("Срезы и посадочный материал цветочной и лесодекоративной, горшечной продукции");
-        rowTotal3.setHeight((short) 1100);
-        XSSFCell massa = rowTotal2.createCell(2);
-        massa.setCellStyle(cellStyle);
-        massa.setCellValue("тр. ед.");
-        XSSFCell massa2 = rowTotal3.createCell(2);
-        massa2.setCellStyle(cellStyle);
-        massa2.setCellValue("млн. шт.");
-
-        XSSFRow rowTotal4 = sheet.createRow(rowLast + 4);
-        XSSFCell fss = rowTotal4.createCell(0);
-        XSSFCell fss2 = rowTotal4.createCell(1);
-        XSSFCell fss3 = rowTotal4.createCell(2);
-        fss.setCellStyle(cellStyle);
-        fss2.setCellStyle(cellStyle);
-        fss3.setCellStyle(cellStyle);
-        rowTotal4.setHeight((short) 900);
-        sheet.addMergedRegion(new CellRangeAddress(rowLast + 4, rowLast + 4, 0, 2));
-        fss.setCellValue("Выдано ФСС, оформленных на реэкспорт (на всю продукцию), шт");
+        ReExport.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 
         XSSFRow fssobl = sheet.createRow(rowLast + 5);
         XSSFCell fssobl0 = fssobl.createCell(0);
@@ -242,27 +213,9 @@ public class ProductController {
         fssMinsk2.setCellStyle(cellStyle);
         fssMogilev2.setCellStyle(cellStyle);
 
-        XSSFRow rowTotal6 = sheet.createRow(rowLast + 6);
-        XSSFCell fss2021 = rowTotal6.createCell(0);
-        XSSFCell fss22021 = rowTotal6.createCell(1);
-        XSSFCell fss32021 = rowTotal6.createCell(2);
-        fss2021.setCellStyle(cellStyle);
-        fss22021.setCellStyle(cellStyle);
-        fss32021.setCellStyle(cellStyle);
-        rowTotal6.setHeight((short) 900);
-        sheet.addMergedRegion(new CellRangeAddress(rowLast + 6, rowLast + 6, 0, 2));
-        fss2021.setCellValue("Выдано ФСС, оформленных на реэкспорт             (на всю продукцию), шт в 2021 г.");
 
-        XSSFRow rowTotal7 = sheet.createRow(rowLast + 7);
-        XSSFCell fss2022 = rowTotal7.createCell(0);
-        XSSFCell fss22022 = rowTotal7.createCell(1);
-        XSSFCell fss32022 = rowTotal7.createCell(2);
-        fss2022.setCellStyle(cellStyle);
-        fss22022.setCellStyle(cellStyle);
-        fss32022.setCellStyle(cellStyle);
-        rowTotal7.setHeight((short) 900);
-        sheet.addMergedRegion(new CellRangeAddress(rowLast + 7, rowLast + 7, 0, 2));
-        fss2022.setCellValue("Выдано ФСС, оформленных на реэкспорт             (на всю продукцию), шт в 2022 г.");
+        ReExport.createRowsFss2021(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+        ReExport.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 
         try (OutputStream fileOut = new FileOutputStream("src/main/resources/" + namefile + LocalDate.now() + ".xlsx")) {
             xssfWorkbook.write(fileOut);

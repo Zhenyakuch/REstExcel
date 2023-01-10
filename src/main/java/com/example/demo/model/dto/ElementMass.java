@@ -16,6 +16,17 @@ public class ElementMass {
     private BigDecimal weekWeight = new BigDecimal(0);
     private BigDecimal dateFromTo = new BigDecimal(0);
 
+    private BigDecimal date2021 = new BigDecimal(0);
+    private BigDecimal date2022 = new BigDecimal(0);
+
+    public Double date2021Double() {
+        return date2021.doubleValue();
+    }
+
+    public double date2022Double() {
+        return date2022.doubleValue();
+    }
+
     public Double dateFromToDouble() {
         return dateFromTo.doubleValue();
     }
