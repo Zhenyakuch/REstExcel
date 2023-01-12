@@ -31,6 +31,14 @@ public class ProductController {
         cellStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+        cellStyle.setWrapText(true);
+
+        XSSFFont font = xssfWorkbook.createFont();
+        font.setFontHeightInPoints((short) 12);
+        font.setFontName("Times New Roman");
+        //font.setItalic(true);
+        cellStyle.setFont(font);
+
 
         String fromTitle = sheet.getRow(0).getCell(0).toString();
         String fromTitle2 = sheet.getRow(1).getCell(1).toString();
@@ -38,52 +46,81 @@ public class ProductController {
         fromTitle = fromTitle.replace("startDate", countryRequest.getStarDate().toString());
         fromTitle = fromTitle.replace("endDate", countryRequest.getEndDate().toString());
 
-        for (int i = 2; i <= 14; i++) {
+        for (int i = 2; i <= 17; i++) {
             String date2 = sheet.getRow(2).getCell(i).toString();
             date2 = date2.replace("startDate", countryRequest.getStarDate().toString());
             date2 = date2.replace("endDate", countryRequest.getEndDate().toString());
             sheet.getRow(2).getCell(i).setCellValue(date2);
         }
 
-        fromTitle = fromTitle.replace("startDate", countryRequest.getStarDate().toString());
-        fromTitle = fromTitle.replace("endDate", countryRequest.getEndDate().toString());
-
-        String namefile = "";
-
-        if (countryRequest.isImport()) {
-            fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
-            fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь ");
-            fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна направления");
-            namefile = "import";
-        } else {
-            fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
-            fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь ");
-            fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Наименование подкарантинной продукции");
-            namefile = "export";
-        }
-
-        sheet.getRow(1).getCell(1).setCellValue(fromTitle2);
-        sheet.getRow(0).getCell(0).setCellValue(fromTitle);
+        String nameFile = "";
 
         int rowLast = 0;
 
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
+
             rowLast = sheet.getLastRowNum();
             XSSFRow row = sheet.createRow(rowLast + 1);
             CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
-            XSSFCell numer = row.createCell(0);
-            numer.setCellValue(cellCount + 1);
-            numer.setCellStyle(cellStyle);
+            XSSFCell number = row.createCell(0);
+            number.setCellValue(cellCount + 1);
+            number.setCellStyle(cellStyle);
 
-            Import.createRowsImport(xssfWorkbook, row, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 3);
+            Import.createRowsImport(xssfWorkbook, row, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 5);
+
         }
 
         rowLast = sheet.getLastRowNum();
         XSSFRow rowTotal = sheet.createRow(rowLast + 1);
 
-        Import.createRowsImport(xssfWorkbook, rowTotal, cellStyle, totalMass.getRegions(), totalMass.getMassProduct(), "ИТОГО, тонн", 3);
+        Import.createRowsImport(xssfWorkbook, rowTotal, cellStyle, totalMass.getRegions(), totalMass.getMassProduct(), "ИТОГО, тонн", 5);
 
-        try (OutputStream fileOut = new FileOutputStream("src/main/resources/" + namefile + LocalDate.now() + ".xlsx")) {
+        if (countryRequest.isImport()) {
+            if (countryRequest.isProduct()) {
+                fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
+                fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь ");
+                fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна отправления");
+                nameFile = "ImportProduct";
+            } else {
+                fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
+                fromTitle = fromTitle.replace("importexport", "поступлении в Республику Беларусь из");
+                fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Наименование подкарантинной продукции");
+                nameFile = "ImportCountry";
+            }
+            sheet.getRow(1).getCell(1).setCellValue(fromTitle2);
+            sheet.getRow(0).getCell(0).setCellValue(fromTitle);
+            CountryRow countryRow = countryRequest.getCountryRows().get(0);
+
+
+        } else {
+
+            if (countryRequest.isProduct()) {
+                fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
+                fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь ");
+                fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Страна получатель");
+                nameFile = "ExportProduсt";
+            } else {
+                fromTitle = fromTitle.replace("reqCountryOrProduct", countryRequest.getReqCountryOrProduct());
+                fromTitle = fromTitle.replace("importexport", "вывозе из Республики Беларусь в ");
+                fromTitle2 = fromTitle2.replace("resCountryOrProduct", "Наименование подкарантинной продукции");
+                nameFile = "ExportCountry";
+            }
+        }
+        sheet.getRow(1).getCell(1).setCellValue(fromTitle2);
+        sheet.getRow(0).getCell(0).setCellValue(fromTitle);
+
+        CountryRow countryRow = countryRequest.getCountryRows().get(0);
+        if (countryRequest.isFlowers()) {
+            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+        }
+        Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+
+        Import.createRowsNameObl(xssfWorkbook, cellStyle);
+
+        Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, 2);
+
+        try (
+                OutputStream fileOut = new FileOutputStream("src/main/resources/" + nameFile + LocalDate.now() + ".xlsx")) {
             xssfWorkbook.write(fileOut);
         }
 
@@ -157,7 +194,6 @@ public class ProductController {
 
         //
         CountryRow countryRow = countryRequest.getCountryRows().get(0);//проверить дебагом
-        ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 
         ReExport.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 

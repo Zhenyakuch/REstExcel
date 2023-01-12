@@ -87,37 +87,37 @@ public class ReExport {
                     cellRegionsBrestDateWeight.setCellValue(elementRegion.dateWeightDouble());
                     cellRegionsBrestWeekWeight.setCellValue(elementRegion.weekWeightDouble());
                     cellBrest2021.setCellValue(regions.get(k).date2021Double());
-                    cellBrest2022.setCellValue(regions.get(k).date2021Double());
+                    cellBrest2022.setCellValue(regions.get(k).date2022Double());
                     break;
                 case 2:
                     cellRegionsVitebskDateWeight.setCellValue(elementRegion.dateWeightDouble());
                     cellRegionsVitebskWeekWeight.setCellValue(elementRegion.weekWeightDouble());
                     cellVitebsk2021.setCellValue(regions.get(k).date2021Double());
-                    cellVitebsk2022.setCellValue(regions.get(k).date2021Double());
+                    cellVitebsk2022.setCellValue(regions.get(k).date2022Double());
                     break;
                 case 3:
                     cellRegionsGomelDateWeight.setCellValue(elementRegion.dateWeightDouble());
                     cellRegionsGomelWeekWeight.setCellValue(elementRegion.weekWeightDouble());
                     cellGomel2021.setCellValue(regions.get(k).date2021Double());
-                    cellGomel2022.setCellValue(regions.get(k).date2021Double());
+                    cellGomel2022.setCellValue(regions.get(k).date2022Double());
                     break;
                 case 4:
                     cellRegionsGrodnoDateWeight.setCellValue(elementRegion.dateWeightDouble());
                     cellRegionsGrodnoWeekWeight.setCellValue(elementRegion.weekWeightDouble());
                     cellGrodno2021.setCellValue(regions.get(k).date2021Double());
-                    cellGrodno2022.setCellValue(regions.get(k).date2021Double());
+                    cellGrodno2022.setCellValue(regions.get(k).date2022Double());
                     break;
                 case 5:
                     cellRegionsMinskDateWeight.setCellValue(elementRegion.dateWeightDouble());
                     cellRegionsMinskWeekWeight.setCellValue(elementRegion.weekWeightDouble());
                     cellMinsk2021.setCellValue(regions.get(k).date2021Double());
-                    cellMinsk2022.setCellValue(regions.get(k).date2021Double());
+                    cellMinsk2022.setCellValue(regions.get(k).date2022Double());
                     break;
                 case 6:
                     cellRegionsMogilevDateWeight.setCellValue(elementRegion.dateWeightDouble());
                     cellRegionsMogilexWeekWeight.setCellValue(elementRegion.weekWeightDouble());
                     cellMogilev2021.setCellValue(regions.get(k).date2021Double());
-                    cellMogilev2022.setCellValue(regions.get(k).date2021Double());
+                    cellMogilev2022.setCellValue(regions.get(k).date2022Double());
                     break;
 
             }
@@ -195,7 +195,7 @@ public class ReExport {
         fss32021.setCellStyle(cellStyle);
         row.setHeight((short) 900);
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 0, 2));
-        fss2021.setCellValue("Выдано ФСС, оформленных на реэкспорт             (на всю продукцию), шт в 2021 г.");
+        fss2021.setCellValue("Выдано ФСС, оформленных на реэкспорт (на всю продукцию), шт в 2021 г.");
 
         XSSFCell fssPeriod2022 = row.createCell(i + 1);
         fssPeriod2022.setCellStyle(cellStyle);
@@ -234,23 +234,23 @@ public class ReExport {
         XSSFCell cellRegionsMogilev2021_7 = row.createCell(i + 15);
         cellRegionsMogilev2021_7.setCellStyle(cellStyle);
 
-        fssPeriod2021.setCellValue(countryRequest.getFssPeriod2021_21());
+//        fssPeriod2021.setCellValue(countryRequest.getFssPeriod2021_21());
 //        fssPeriod2021.setCellValue(countryRequest.getFssPeriod2022_21());
-        fssPeriod7.setCellValue(countryRequest.getFssPeriod7_21());
-
-        cellRegionsBrest2021.setCellValue(countryRequest.getFss2021Brest());
-        cellRegionsVitebsk2021.setCellValue(countryRequest.getFss2021Vitebsk());
-        cellRegionsGomel2021.setCellValue(countryRequest.getFss2021Gomel());
-        cellRegionsGrodno2021.setCellValue(countryRequest.getFss2021Grodno());
-        cellRegionsMinsk2021.setCellValue(countryRequest.getFss2021Minsk());
-        cellRegionsMogilev2021.setCellValue(countryRequest.getFss2021Mogilev());
-
-        cellRegionsBrest2021_7.setCellValue(countryRequest.getFss2021Brest_7());
-        cellRegionsVitebsk2021_7.setCellValue(countryRequest.getFss2021Vitebsk_7());
-        cellRegionsGomel2021_7.setCellValue(countryRequest.getFss2021Gomel_7());
-        cellRegionsGrodno2021_7.setCellValue(countryRequest.getFss2021Grodno_7());
-        cellRegionsMinsk2021_7.setCellValue(countryRequest.getFss2021Minsk_7());
-        cellRegionsMogilev2021_7.setCellValue(countryRequest.getFss2021Mogilev_7());
+//        fssPeriod7.setCellValue(countryRequest.getFssPeriod7_21());
+//
+//        cellRegionsBrest2021.setCellValue(countryRequest.getFss2021Brest());
+//        cellRegionsVitebsk2021.setCellValue(countryRequest.getFss2021Vitebsk());
+//        cellRegionsGomel2021.setCellValue(countryRequest.getFss2021Gomel());
+//        cellRegionsGrodno2021.setCellValue(countryRequest.getFss2021Grodno());
+//        cellRegionsMinsk2021.setCellValue(countryRequest.getFss2021Minsk());
+//        cellRegionsMogilev2021.setCellValue(countryRequest.getFss2021Mogilev());
+//
+//        cellRegionsBrest2021_7.setCellValue(countryRequest.getFss2021Brest_7());
+//        cellRegionsVitebsk2021_7.setCellValue(countryRequest.getFss2021Vitebsk_7());
+//        cellRegionsGomel2021_7.setCellValue(countryRequest.getFss2021Gomel_7());
+//        cellRegionsGrodno2021_7.setCellValue(countryRequest.getFss2021Grodno_7());
+//        cellRegionsMinsk2021_7.setCellValue(countryRequest.getFss2021Minsk_7());
+//        cellRegionsMogilev2021_7.setCellValue(countryRequest.getFss2021Mogilev_7());
         // }
 
 
@@ -311,22 +311,22 @@ public class ReExport {
         cellRegionsMogilev2022_7.setCellStyle(cellStyle);
 
 //        fssPeriod2022.setCellValue(countryRequest.getFssPeriod2021_22());
-        fssPeriod2022.setCellValue(countryRequest.getFssPeriod2022_22());
-        fssPeriod7.setCellValue(countryRequest.getFssPeriod7_22());
+//        fssPeriod2022.setCellValue(countryRequest.getFssPeriod2022_22());
+//        fssPeriod7.setCellValue(countryRequest.getFssPeriod7_22());
 
-        cellRegionsBrest2022.setCellValue(countryRequest.getFss2022Brest());
-        cellRegionsVitebsk2022.setCellValue(countryRequest.getFss2022Vitebsk());
-        cellRegionsGomel2022.setCellValue(countryRequest.getFss2022Gomel());
-        cellRegionsGrodno2022.setCellValue(countryRequest.getFss2022Grodno());
-        cellRegionsMinsk2022.setCellValue(countryRequest.getFss2022Minsk());
-        cellRegionsMogilev2022.setCellValue(countryRequest.getFss2022Mogilev());
-
-        cellRegionsBrest2022_7.setCellValue(countryRequest.getFss2022Brest_7());
-        cellRegionsVitebsk2022_7.setCellValue(countryRequest.getFss2022Vitebsk_7());
-        cellRegionsGomel2022_7.setCellValue(countryRequest.getFss2022Gomel_7());
-        cellRegionsGrodno2022_7.setCellValue(countryRequest.getFss2022Grodno_7());
-        cellRegionsMinsk2022_7.setCellValue(countryRequest.getFss2022Minsk_7());
-        cellRegionsMogilev2022_7.setCellValue(countryRequest.getFss2022Mogilev_7());
+//        cellRegionsBrest2022.setCellValue(countryRequest.getFss2022Brest());
+//        cellRegionsVitebsk2022.setCellValue(countryRequest.getFss2022Vitebsk());
+//        cellRegionsGomel2022.setCellValue(countryRequest.getFss2022Gomel());
+//        cellRegionsGrodno2022.setCellValue(countryRequest.getFss2022Grodno());
+//        cellRegionsMinsk2022.setCellValue(countryRequest.getFss2022Minsk());
+//        cellRegionsMogilev2022.setCellValue(countryRequest.getFss2022Mogilev());
+//
+//        cellRegionsBrest2022_7.setCellValue(countryRequest.getFss2022Brest_7());
+//        cellRegionsVitebsk2022_7.setCellValue(countryRequest.getFss2022Vitebsk_7());
+//        cellRegionsGomel2022_7.setCellValue(countryRequest.getFss2022Gomel_7());
+//        cellRegionsGrodno2022_7.setCellValue(countryRequest.getFss2022Grodno_7());
+//        cellRegionsMinsk2022_7.setCellValue(countryRequest.getFss2022Minsk_7());
+//        cellRegionsMogilev2022_7.setCellValue(countryRequest.getFss2022Mogilev_7());
         // }
 
 
@@ -453,12 +453,12 @@ public class ReExport {
         massa2.setCellValue("млн. шт.");
 
 
-        XSSFCell unit_material2022 = row.createCell(i + 1);
-        unit_material2022.setCellStyle(cellStyle);
-        XSSFCell unit_material2021 = row.createCell(i + 2);
-        unit_material2021.setCellStyle(cellStyle);
-        XSSFCell unit_material_7 = row.createCell(i + 3);
+        XSSFCell unit_materialFromTo = row.createCell(i + 1);
+        unit_materialFromTo.setCellStyle(cellStyle);
+        XSSFCell unit_material_7 = row.createCell(i + 2);
         unit_material_7.setCellStyle(cellStyle);
+        XSSFCell unit_material_2022 = row.createCell(i + 3);
+        unit_material_2022.setCellStyle(cellStyle);
 
         XSSFCell unit_materialBrest = row.createCell(i + 4);
         unit_materialBrest.setCellStyle(cellStyle);
@@ -490,9 +490,9 @@ public class ReExport {
         XSSFCell unit_material_7Mogilev = row.createCell(i + 15);
         unit_material_7Mogilev.setCellStyle(cellStyle);
 
-        unit_material2021.setCellValue(" *** ");
-        unit_material2022.setCellValue(countryRequest.getUnit_material());
+        unit_materialFromTo.setCellValue(countryRequest.getUnit_materialFromTo());
         unit_material_7.setCellValue(countryRequest.getUnit_material_7());
+        unit_material_2022.setCellValue(countryRequest.getUnit_material_2022());
 
         unit_materialBrest.setCellValue(countryRequest.getUnit_materialBrest());
         unit_material_7Brest.setCellValue(countryRequest.getUnit_material_7Brest());

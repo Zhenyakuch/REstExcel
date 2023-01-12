@@ -17,41 +17,14 @@ public class CountryReport {
     private LocalDate endDate;
     private String reqCountryOrProduct;
     private String resCountryOrProduct;
+    private boolean isProduct;
     private boolean isImport;
+    private boolean isFlowers;
     private List<CountryRow> countryRows;
 
-    private int fss2021Brest;
-    private int fss2021Vitebsk;
-    private int fss2021Gomel;
-    private int fss2021Grodno;
-    private int fss2021Minsk;
-    private int fss2021Mogilev;
-    private int fss2022Brest;
-    private int fss2022Vitebsk;
-    private int fss2022Gomel;
-    private int fss2022Grodno;
-    private int fss2022Minsk;
-    private int fss2022Mogilev;
-    private int fss2021Brest_7;
-    private int fss2021Vitebsk_7;
-    private int fss2021Gomel_7;
-    private int fss2021Grodno_7;
-    private int fss2021Minsk_7;
-    private int fss2021Mogilev_7;
-    private int fss2022Brest_7;
-    private int fss2022Vitebsk_7;
-    private int fss2022Gomel_7;
-    private int fss2022Grodno_7;
-    private int fss2022Minsk_7;
-    private int fss2022Mogilev_7;
+    private int allFss2022;
 
-    private int fssPeriod2022_21;
-    private int fssPeriod2021_21;
-    private int fssPeriod7_21;
 
-    private int fssPeriod2022_22;
-    private int fssPeriod2021_22;
-    private int fssPeriod7_22;
     private int allFss;
     private int allFss_7;
     private int allFssBrest;
@@ -67,8 +40,9 @@ public class CountryReport {
     private int allFssMogilev;
     private int allFss_7Mogilev;
 
-    private int unit_material;
+    private int unit_materialFromTo;
     private int unit_material_7;
+    private int unit_material_2022;
     private int unit_materialBrest;
     private int unit_material_7Brest;
     private int unit_materialVitebsk;
