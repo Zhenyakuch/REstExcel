@@ -19,6 +19,7 @@ public class CountryReport {
     private String resCountryOrProduct;
     private boolean isProduct;
     private boolean isImport;
+    private boolean isReexport;
     private boolean isFlowers;
     private List<CountryRow> countryRows;
 
