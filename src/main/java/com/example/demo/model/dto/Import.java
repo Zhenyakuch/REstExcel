@@ -88,7 +88,7 @@ public class Import {
         }
     }
 
-    public static void createRowsFss2022(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle,  int i) {
+    public static void createRowsFss2022(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();

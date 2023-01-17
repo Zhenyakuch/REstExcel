@@ -20,6 +20,7 @@ public class CountryReport {
     private boolean isProduct;
     private boolean isImport;
     private boolean isReexport;
+    private boolean isTranzitEAEU;
     private boolean isFlowers;
     private List<CountryRow> countryRows;
 

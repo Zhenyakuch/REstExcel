@@ -3,8 +3,6 @@ package com.example.demo.model.dto;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 
-import java.util.List;
-
 public class ReExport {
 
 //    public static void createRowsReExport(XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, List<ElementRegion> regions, ElementMass mass, String country, int i) {
@@ -420,7 +418,7 @@ public class ReExport {
 //
 //    }
 
-    public static void createRowsMaterial(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, List<ElementRegion> regions, ElementMass massProduct, String resCountryOrProduct, int i) {
+    public static void createRowsMaterial(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();

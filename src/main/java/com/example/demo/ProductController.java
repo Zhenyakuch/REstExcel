@@ -110,7 +110,7 @@ public class ProductController {
 
         CountryRow countryRow = countryRequest.getCountryRows().get(0);
         if (countryRequest.isFlowers()) {
-            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, 2);
         }
         Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 
@@ -198,7 +198,7 @@ public class ProductController {
 
         CountryRow countryRow = countryRequest.getCountryRows().get(0);
         if (countryRequest.isFlowers()) {
-            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, 2);
         }
         Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
 
@@ -218,36 +218,47 @@ public class ProductController {
     public String printTranData(@RequestBody CountryReport countryRequest) throws Exception {
 
         log.debug("CountryReport " + countryRequest);
+//        TotalMass totalMass = new TotalMass(countryRequest);
+//        log.debug("TotalMass " + totalMass);
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook("src/main/resources/BlancTranzit.xlsx");
-        XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
-
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+        cellStyle.setWrapText(true);
 
-        String namefile = "Tranzit";
+        XSSFFont font = xssfWorkbook.createFont();
+        font.setFontHeightInPoints((short) 12);
+        font.setFontName("Times New Roman");
+        //font.setItalic(true);
+        cellStyle.setFont(font);
+
+
+        String nameFile = "";
 
         int rowLast = 0;
 
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
-            rowLast = sheet.getLastRowNum();
-            XSSFRow row = sheet.createRow(rowLast + 1);
-            CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
 
-            Tranzit.createRows(xssfWorkbook, row, cellStyle, countryRow.getRegions());
+            CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
+            ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
+            Tranzit.createRows(xssfWorkbook, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
+
         }
 
-//        rowLast = sheet.getLastRowNum();
-//        XSSFRow rowTotal = sheet.createRow(rowLast + 1);
-//
-//        Import.createRowsImport(xssfWorkbook, rowTotal, cellStyle, totalMass.getRegions(), totalMass.getMassProduct(), "ИТОГО, тонн", 3);
+        if (countryRequest.isTranzitEAEU()) {
+            nameFile = "TranzitEAEUandCIS";
+        } else {
+            nameFile = "Tranzit";
+        }
 
-        try (OutputStream fileOut = new FileOutputStream("src/main/resources/" + namefile + LocalDate.now() + ".xlsx")) {
+        try (
+                OutputStream fileOut = new FileOutputStream("src/main/resources/" + nameFile + LocalDate.now() + ".xlsx")) {
             xssfWorkbook.write(fileOut);
         }
+
         return null;
     }
 

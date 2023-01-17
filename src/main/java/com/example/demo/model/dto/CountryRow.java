@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class CountryRow {
+public class CountryRow extends ElementRegion {
 
     //переменные json импорта экспорта и реэк
     private String resCountryOrProduct;

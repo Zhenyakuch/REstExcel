@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Tranzit {
 
-    public static void createRows(XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, List<ElementRegion> regions) {
+    public static void createRows(XSSFWorkbook xssfWorkbook, XSSFCellStyle cellStyle, List<ElementRegion> regions, List<NamePoints> namePoints) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
         int rowLast = sheet.getLastRowNum();
+        XSSFRow row = sheet.createRow(rowLast + 1);
 
-        sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 0, 11));
         XSSFCell cellName_obl = row.createCell(0);
         cellName_obl.setCellStyle(cellStyle);
         XSSFCell cellName_obl1 = row.createCell(1);
@@ -38,8 +38,10 @@ public class Tranzit {
         cellName_obl10.setCellStyle(cellStyle);
         XSSFCell cellName_obl11 = row.createCell(11);
         cellName_obl11.setCellStyle(cellStyle);
-
-
+        sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 0, 11));
+//
+//
+//
         XSSFRow row2 = sheet.createRow(rowLast + 2);
         XSSFCell cellName_points = row2.createCell(0);
         cellName_points.setCellStyle(cellStyle);
@@ -67,97 +69,11 @@ public class Tranzit {
         cellAirplane.setCellStyle(cellStyle);
 
         for (int k = 0; regions.size() > k; k++) {
-            ElementRegion elementRegion = regions.get(k);
-            switch (elementRegion.getRegion()) {
+
+            switch (regions.get(k).getRegion()) {
                 case 1:
                     cellName_obl.setCellValue("БРЕСТСКАЯ ОБЛАСТЬ");
-                    cellName_points.setCellValue(elementRegion.getName_points());
-                    cellThousand_t.setCellValue(elementRegion.getThousand_t());
-                    cellThousand_pos_ed.setCellValue(elementRegion.getThousand_pos_ed());
-                    cellThousand_sht.setCellValue(elementRegion.getThousand_sht());
-                    cellThousand_part.setCellValue(elementRegion.getThousand_part());
-                    cellThousand_m2.setCellValue(elementRegion.getThousand_m2());
-                    cellThousand_m3.setCellValue(elementRegion.getThousand_m3());
-                    cellRailway_wagons.setCellValue(elementRegion.getRailway_wagons());
-                    cellMotor_transport.setCellValue(elementRegion.getMotor_transport());
-                    cellContainer.setCellValue(elementRegion.getContainer());
-                    cellBaggage.setCellValue(elementRegion.getBaggage());
-                    cellAirplane.setCellValue(elementRegion.getAirplane());
-                    break;
-                case 2:
-                    cellName_obl.setCellValue("ВИТЕБСКАЯ ОБЛАСТЬ");
-                    cellName_points.setCellValue(elementRegion.getName_points());
-                    cellThousand_t.setCellValue(elementRegion.getThousand_t());
-                    cellThousand_pos_ed.setCellValue(elementRegion.getThousand_pos_ed());
-                    cellThousand_sht.setCellValue(elementRegion.getThousand_sht());
-                    cellThousand_part.setCellValue(elementRegion.getThousand_part());
-                    cellThousand_m2.setCellValue(elementRegion.getThousand_m2());
-                    cellThousand_m3.setCellValue(elementRegion.getThousand_m3());
-                    cellRailway_wagons.setCellValue(elementRegion.getRailway_wagons());
-                    cellMotor_transport.setCellValue(elementRegion.getMotor_transport());
-                    cellContainer.setCellValue(elementRegion.getContainer());
-                    cellBaggage.setCellValue(elementRegion.getBaggage());
-                    cellAirplane.setCellValue(elementRegion.getAirplane());
-                    break;
-                case 3:
-                    cellName_obl.setCellValue("ГОМЕЛЬСКАЯ ОБЛАСТЬ");
-                    cellName_points.setCellValue(elementRegion.getName_points());
-                    cellThousand_t.setCellValue(elementRegion.getThousand_t());
-                    cellThousand_pos_ed.setCellValue(elementRegion.getThousand_pos_ed());
-                    cellThousand_sht.setCellValue(elementRegion.getThousand_sht());
-                    cellThousand_part.setCellValue(elementRegion.getThousand_part());
-                    cellThousand_m2.setCellValue(elementRegion.getThousand_m2());
-                    cellThousand_m3.setCellValue(elementRegion.getThousand_m3());
-                    cellRailway_wagons.setCellValue(elementRegion.getRailway_wagons());
-                    cellMotor_transport.setCellValue(elementRegion.getMotor_transport());
-                    cellContainer.setCellValue(elementRegion.getContainer());
-                    cellBaggage.setCellValue(elementRegion.getBaggage());
-                    cellAirplane.setCellValue(elementRegion.getAirplane());
-                    break;
-                case 4:
-                    cellName_obl.setCellValue("ГРОДНЕНСКАЯ ОБЛАСТЬ");
-                    cellName_points.setCellValue(elementRegion.getName_points());
-                    cellThousand_t.setCellValue(elementRegion.getThousand_t());
-                    cellThousand_pos_ed.setCellValue(elementRegion.getThousand_pos_ed());
-                    cellThousand_sht.setCellValue(elementRegion.getThousand_sht());
-                    cellThousand_part.setCellValue(elementRegion.getThousand_part());
-                    cellThousand_m2.setCellValue(elementRegion.getThousand_m2());
-                    cellThousand_m3.setCellValue(elementRegion.getThousand_m3());
-                    cellRailway_wagons.setCellValue(elementRegion.getRailway_wagons());
-                    cellMotor_transport.setCellValue(elementRegion.getMotor_transport());
-                    cellContainer.setCellValue(elementRegion.getContainer());
-                    cellBaggage.setCellValue(elementRegion.getBaggage());
-                    cellAirplane.setCellValue(elementRegion.getAirplane());
-                    break;
-                case 5:
-                    cellName_obl.setCellValue("МИНСКАЯ ОБЛАСТЬ");
-                    cellName_points.setCellValue(elementRegion.getName_points());
-                    cellThousand_t.setCellValue(elementRegion.getThousand_t());
-                    cellThousand_pos_ed.setCellValue(elementRegion.getThousand_pos_ed());
-                    cellThousand_sht.setCellValue(elementRegion.getThousand_sht());
-                    cellThousand_part.setCellValue(elementRegion.getThousand_part());
-                    cellThousand_m2.setCellValue(elementRegion.getThousand_m2());
-                    cellThousand_m3.setCellValue(elementRegion.getThousand_m3());
-                    cellRailway_wagons.setCellValue(elementRegion.getRailway_wagons());
-                    cellMotor_transport.setCellValue(elementRegion.getMotor_transport());
-                    cellContainer.setCellValue(elementRegion.getContainer());
-                    cellBaggage.setCellValue(elementRegion.getBaggage());
-                    cellAirplane.setCellValue(elementRegion.getAirplane());
-                    break;
-                case 6:
-                    cellName_obl.setCellValue("МОГИЛЕВСКАЯ ОБЛАСТЬ");
-                    cellName_points.setCellValue(elementRegion.getName_points());
-                    cellThousand_t.setCellValue(elementRegion.getThousand_t());
-                    cellThousand_pos_ed.setCellValue(elementRegion.getThousand_pos_ed());
-                    cellThousand_sht.setCellValue(elementRegion.getThousand_sht());
-                    cellThousand_part.setCellValue(elementRegion.getThousand_part());
-                    cellThousand_m2.setCellValue(elementRegion.getThousand_m2());
-                    cellThousand_m3.setCellValue(elementRegion.getThousand_m3());
-                    cellRailway_wagons.setCellValue(elementRegion.getRailway_wagons());
-                    cellMotor_transport.setCellValue(elementRegion.getMotor_transport());
-                    cellContainer.setCellValue(elementRegion.getContainer());
-                    cellBaggage.setCellValue(elementRegion.getBaggage());
-                    cellAirplane.setCellValue(elementRegion.getAirplane());
+                    cellName_points.setCellValue(namePoints.get(k).getName());
                     break;
             }
         }
