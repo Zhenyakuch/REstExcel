@@ -197,23 +197,23 @@ public class Import {
         cellRegionsMogilev_7.setCellStyle(cellStyle);
 
 
-        fssPeriod2023.setCellValue(countryRequest.getAllFss());
-        fssPeriod7.setCellValue(countryRequest.getAllFss_7());
+        fssPeriod2023.setCellValue(countryRequest.getFss().get(0).getAllFss());
+        fssPeriod7.setCellValue(countryRequest.getFss().get(0).getAllFss_7());
         fssPeriod2022.setCellValue("***");
 
-        cellRegionsBrest.setCellValue(countryRequest.getAllFssBrest());
-        cellRegionsVitebsk.setCellValue(countryRequest.getAllFssVitebsk());
-        cellRegionsGomel.setCellValue(countryRequest.getAllFssGomel());
-        cellRegionsGrodno.setCellValue(countryRequest.getAllFssGrodno());
-        cellRegionsMinsk.setCellValue(countryRequest.getAllFssMinsk());
-        cellRegionsMogilev.setCellValue(countryRequest.getAllFssMogilev());
+        cellRegionsBrest.setCellValue(countryRequest.getFss().get(0).getAllFssBrest());
+        cellRegionsVitebsk.setCellValue(countryRequest.getFss().get(0).getAllFssVitebsk());
+        cellRegionsGomel.setCellValue(countryRequest.getFss().get(0).getAllFssGomel());
+        cellRegionsGrodno.setCellValue(countryRequest.getFss().get(0).getAllFssGrodno());
+        cellRegionsMinsk.setCellValue(countryRequest.getFss().get(0).getAllFssMinsk());
+        cellRegionsMogilev.setCellValue(countryRequest.getFss().get(0).getAllFssMogilev());
 
-        cellRegionsBrest_7.setCellValue(countryRequest.getAllFss_7Brest());
-        cellRegionsVitebsk_7.setCellValue(countryRequest.getAllFss_7Vitebsk());
-        cellRegionsGomel_7.setCellValue(countryRequest.getAllFss_7Gomel());
-        cellRegionsGrodno_7.setCellValue(countryRequest.getAllFss_7Grodno());
-        cellRegionsMinsk_7.setCellValue(countryRequest.getAllFss_7Minsk());
-        cellRegionsMogilev_7.setCellValue(countryRequest.getAllFss_7Mogilev());
+        cellRegionsBrest_7.setCellValue(countryRequest.getFss().get(0).getAllFss_7Brest());
+        cellRegionsVitebsk_7.setCellValue(countryRequest.getFss().get(0).getAllFss_7Vitebsk());
+        cellRegionsGomel_7.setCellValue(countryRequest.getFss().get(0).getAllFss_7Gomel());
+        cellRegionsGrodno_7.setCellValue(countryRequest.getFss().get(0).getAllFss_7Grodno());
+        cellRegionsMinsk_7.setCellValue(countryRequest.getFss().get(0).getAllFss_7Minsk());
+        cellRegionsMogilev_7.setCellValue(countryRequest.getFss().get(0).getAllFss_7Mogilev());
 
 
     }

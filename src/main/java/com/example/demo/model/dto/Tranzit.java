@@ -7,12 +7,11 @@ import java.util.List;
 
 public class Tranzit {
 
-    public static void createRows(XSSFWorkbook xssfWorkbook, XSSFCellStyle cellStyle, List<ElementRegion> regions, List<NamePoints> namePoints) {
+    public static void createRows(XSSFWorkbook xssfWorkbook,XSSFRow row, XSSFCellStyle cellStyle, List<ElementRegion> regions, List<NamePoints> namePoints) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
         int rowLast = sheet.getLastRowNum();
-        XSSFRow row = sheet.createRow(rowLast + 1);
 
         XSSFCell cellName_obl = row.createCell(0);
         cellName_obl.setCellStyle(cellStyle);
@@ -68,12 +67,39 @@ public class Tranzit {
         XSSFCell cellAirplane = row2.createCell(11);
         cellAirplane.setCellStyle(cellStyle);
 
-        for (int k = 0; regions.size() > k; k++) {
+//        for (int k = 0; regions.size() > k; k++) {
+            for (int k = 0; namePoints.size() > k; k++) {
 
             switch (regions.get(k).getRegion()) {
                 case 1:
                     cellName_obl.setCellValue("БРЕСТСКАЯ ОБЛАСТЬ");
                     cellName_points.setCellValue(namePoints.get(k).getName());
+                    cellThousand_t.setCellValue(namePoints.get(k).getTonn());
+                    cellThousand_pos_ed.setCellValue(namePoints.get(k).getUnits());
+                    cellThousand_sht.setCellValue(namePoints.get(k).getPieces());
+                    cellThousand_part.setCellValue(namePoints.get(k).getParties());
+                    cellThousand_m2.setCellValue(namePoints.get(k).getM2());
+                    cellThousand_m3.setCellValue(namePoints.get(k).getM3());
+                    cellRailway_wagons.setCellValue(namePoints.get(k).getWagons());
+                    cellMotor_transport.setCellValue(namePoints.get(k).getMotor_transport());
+                    cellContainer.setCellValue(namePoints.get(k).getContainers());
+                    cellBaggage.setCellValue(namePoints.get(k).getBaggage());
+                    cellAirplane.setCellValue(namePoints.get(k).getAirplane());
+                    break;
+                case 2:
+                    cellName_obl.setCellValue("ВИТЕБСКАЯ ОБЛАСТЬ");
+                    cellName_points.setCellValue(namePoints.get(k).getName());
+                    cellThousand_t.setCellValue(namePoints.get(k).getTonn());
+                    cellThousand_pos_ed.setCellValue(namePoints.get(k).getUnits());
+                    cellThousand_sht.setCellValue(namePoints.get(k).getPieces());
+                    cellThousand_part.setCellValue(namePoints.get(k).getParties());
+                    cellThousand_m2.setCellValue(namePoints.get(k).getM2());
+                    cellThousand_m3.setCellValue(namePoints.get(k).getM3());
+                    cellRailway_wagons.setCellValue(namePoints.get(k).getWagons());
+                    cellMotor_transport.setCellValue(namePoints.get(k).getMotor_transport());
+                    cellContainer.setCellValue(namePoints.get(k).getContainers());
+                    cellBaggage.setCellValue(namePoints.get(k).getBaggage());
+                    cellAirplane.setCellValue(namePoints.get(k).getAirplane());
                     break;
             }
         }

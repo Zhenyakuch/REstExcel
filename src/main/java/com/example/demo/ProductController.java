@@ -235,6 +235,8 @@ public class ProductController {
         //font.setItalic(true);
         cellStyle.setFont(font);
 
+        XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+
 
         String nameFile = "";
 
@@ -244,7 +246,12 @@ public class ProductController {
 
             CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
             ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
-            Tranzit.createRows(xssfWorkbook, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
+            rowLast = sheet.getLastRowNum();
+            XSSFRow row = sheet.createRow(rowLast + 1);
+
+            Tranzit.createRows(xssfWorkbook,row, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
+
+
 
         }
 
