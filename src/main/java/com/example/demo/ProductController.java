@@ -241,13 +241,24 @@ public class ProductController {
         String nameFile = "";
 
         int rowLast = 0;
+//        for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
+//
+//            rowLast = sheet.getLastRowNum();
+//            XSSFRow row = sheet.createRow(rowLast + 1);
+//            CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
+//
+//
+//        }
 
-        for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
 
-            CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
-            ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
+        for (int cellCount = 0; cellCount < countryRequest.getCountryRows().get(0).getRegions().size(); cellCount++) {
+
             rowLast = sheet.getLastRowNum();
             XSSFRow row = sheet.createRow(rowLast + 1);
+            CountryRow countryRow = countryRequest.getCountryRows().get(0);
+
+            ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
+
 
             Tranzit.createRows(xssfWorkbook,row, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
 
