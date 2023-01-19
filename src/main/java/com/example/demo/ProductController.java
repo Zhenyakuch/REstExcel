@@ -260,7 +260,7 @@ public class ProductController {
             ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
 
 
-            Tranzit.createRows(xssfWorkbook,row, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
+            Tranzit.createRows(cellCount,xssfWorkbook,row, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
 
 
 
