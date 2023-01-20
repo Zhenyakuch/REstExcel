@@ -46,9 +46,19 @@ public class ProductController {
         fromTitle = fromTitle.replace("endDate", countryRequest.getEndDate().toString());
 
         for (int i = 2; i <= 17; i++) {
+
             String date2 = sheet.getRow(2).getCell(i).toString();
             date2 = date2.replace("startDate", countryRequest.getStarDate().toString());
             date2 = date2.replace("endDate", countryRequest.getEndDate().toString());
+            // sheet.getRow(2).getCell(i).setCellValue(date2);
+
+            if (countryRequest.isImport()) {
+                date2 = date2.replace("importexport2", "поступило с");
+
+            } else {
+                date2 = date2.replace("importexport2", "вывезено с");
+
+            }
             sheet.getRow(2).getCell(i).setCellValue(date2);
         }
 
@@ -260,8 +270,7 @@ public class ProductController {
             ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
 
 
-            Tranzit.createRows(cellCount,xssfWorkbook,row, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
-
+            Tranzit.createRows(cellCount, xssfWorkbook, row, cellStyle, countryRow.getRegions(), elementRegion.getNamePoints());
 
 
         }
