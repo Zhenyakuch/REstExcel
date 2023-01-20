@@ -38,43 +38,43 @@ public class Tranzit {
         cellName_obl11.setCellStyle(cellStyle);
         sheet.addMergedRegion(new CellRangeAddress(rowLast2, rowLast2, 0, 11));
 
-        for (int k = cellCount; regions.size() > k; k++) {
+       // for (int k = cellCount; regions.size() > k; k++) {
 //            for (int k = 0; namePoints.size() > k; k++) {
-            ElementRegion elementRegion = regions.get(k);
+            ElementRegion elementRegion = regions.get(cellCount);
             switch (elementRegion.getRegion()) {
                 case 1:
                     cellName_obl.setCellValue("БРЕСТСКАЯ ОБЛАСТЬ");
-                    for (k = 0; namePoints.size() > k; k++) {
-                        cicle( sheet,namePoints,  k, cellStyle);
+                    for (cellCount = 0; namePoints.size() > cellCount; cellCount++) {
+                        cicle( sheet,namePoints,  cellCount, cellStyle);
                    }
                     break;
                 case 2:
                     cellName_obl.setCellValue("ВИТЕБСКАЯ ОБЛАСТЬ");
-                    for (k = 0; namePoints.size() > k; k++) {
-                        cicle( sheet,namePoints,  k, cellStyle);
+                    for (cellCount = 0; namePoints.size() > cellCount; cellCount++) {
+                        cicle( sheet,namePoints,  cellCount, cellStyle);
                     }
                     break;
                 case 3:
                     cellName_obl.setCellValue("ГОМЕЛЬСКАЯ ОБЛАСТЬ");
-                    for (k = 0; namePoints.size() > k; k++) {
-                        cicle( sheet,namePoints,  k, cellStyle);
+                    for (cellCount = 0; namePoints.size() > cellCount; cellCount++) {
+                        cicle( sheet,namePoints,  cellCount, cellStyle);
                     }
                     break;
 
                 case 4:
                     cellName_obl.setCellValue("ГРОДНЕНСКАЯ ОБЛАСТЬ");
-                    for (k = 0; namePoints.size() > k; k++) {
-                        cicle( sheet,namePoints,  k, cellStyle);
+                    for (cellCount = 0; namePoints.size() > cellCount; cellCount++) {
+                        cicle( sheet,namePoints,  cellCount, cellStyle);
                     }
                     break;
                 case 5:
                     cellName_obl.setCellValue("МИНСКАЯ ОБЛАСТЬ");
-                    for (k = 0; namePoints.size() > k; k++) {
-                        cicle( sheet,namePoints,  k, cellStyle);
+                    for (cellCount = 0; namePoints.size() > cellCount; cellCount++) {
+                        cicle( sheet,namePoints,  cellCount, cellStyle);
                     }
                     break;
 
-            }
+//            }
         }
     }
 
