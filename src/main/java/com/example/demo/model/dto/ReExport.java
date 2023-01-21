@@ -418,7 +418,7 @@ public class ReExport {
 //
 //    }
 
-    public static void createRowsMaterial(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, int i) {
+    public static void createRowsMaterial(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow, int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();
@@ -452,41 +452,41 @@ public class ReExport {
 
 
         XSSFCell unit_materialFromTo = row.createCell(i + 1);
-        unit_materialFromTo.setCellStyle(cellStyle);
+        unit_materialFromTo.setCellStyle(cellStyleRow);
         XSSFCell unit_material_7 = row.createCell(i + 2);
-        unit_material_7.setCellStyle(cellStyle);
+        unit_material_7.setCellStyle(cellStyleRow);
         XSSFCell unit_material_2022 = row.createCell(i + 3);
-        unit_material_2022.setCellStyle(cellStyle);
+        unit_material_2022.setCellStyle(cellStyleRow);
 
         XSSFCell unit_materialBrest = row.createCell(i + 4);
-        unit_materialBrest.setCellStyle(cellStyle);
+        unit_materialBrest.setCellStyle(cellStyleRow);
         XSSFCell unit_material_7Brest = row.createCell(i + 5);
-        unit_material_7Brest.setCellStyle(cellStyle);
+        unit_material_7Brest.setCellStyle(cellStyleRow);
 
         XSSFCell unit_materialVitebsk = row.createCell(i + 6);
-        unit_materialVitebsk.setCellStyle(cellStyle);
+        unit_materialVitebsk.setCellStyle(cellStyleRow);
         XSSFCell unit_material_7Vitebsk = row.createCell(i + 7);
-        unit_material_7Vitebsk.setCellStyle(cellStyle);
+        unit_material_7Vitebsk.setCellStyle(cellStyleRow);
 
         XSSFCell unit_materialGomel = row.createCell(i + 8);
-        unit_materialGomel.setCellStyle(cellStyle);
+        unit_materialGomel.setCellStyle(cellStyleRow);
         XSSFCell unit_material_7Gomel = row.createCell(i + 9);
-        unit_material_7Gomel.setCellStyle(cellStyle);
+        unit_material_7Gomel.setCellStyle(cellStyleRow);
 
         XSSFCell unit_materialGrodno = row.createCell(i + 10);
-        unit_materialGrodno.setCellStyle(cellStyle);
+        unit_materialGrodno.setCellStyle(cellStyleRow);
         XSSFCell unit_material_7Grodno = row.createCell(i + 11);
-        unit_material_7Grodno.setCellStyle(cellStyle);
+        unit_material_7Grodno.setCellStyle(cellStyleRow);
 
         XSSFCell unit_materialMinsk = row.createCell(i + 12);
-        unit_materialMinsk.setCellStyle(cellStyle);
+        unit_materialMinsk.setCellStyle(cellStyleRow);
         XSSFCell unit_materials_7Minsk = row.createCell(i + 13);
-        unit_materials_7Minsk.setCellStyle(cellStyle);
+        unit_materials_7Minsk.setCellStyle(cellStyleRow);
 
         XSSFCell unit_materialMogilev = row.createCell(i + 14);
-        unit_materialMogilev.setCellStyle(cellStyle);
+        unit_materialMogilev.setCellStyle(cellStyleRow);
         XSSFCell unit_material_7Mogilev = row.createCell(i + 15);
-        unit_material_7Mogilev.setCellStyle(cellStyle);
+        unit_material_7Mogilev.setCellStyle(cellStyleRow);
 
         unit_materialFromTo.setCellValue(countryRequest.getUnits().get(0).getUnit_materialFromTo());
         unit_material_7.setCellValue(countryRequest.getUnits().get(0).getUnit_material_7());
@@ -506,42 +506,42 @@ public class ReExport {
         unit_material_7Mogilev.setCellValue(countryRequest.getUnits().get(0).getUnit_material_7Mogilev());
 
         XSSFCell piece_material2022 = row2.createCell(i + 1);
-        piece_material2022.setCellStyle(cellStyle);
+        piece_material2022.setCellStyle(cellStyleRow);
         XSSFCell piece_material_7 = row2.createCell(i + 2);
-        piece_material_7.setCellStyle(cellStyle);
+        piece_material_7.setCellStyle(cellStyleRow);
         XSSFCell piece_material2021 = row2.createCell(i + 3);
-        piece_material2021.setCellStyle(cellStyle);
+        piece_material2021.setCellStyle(cellStyleRow);
 
 
         XSSFCell piece_materialBrest = row2.createCell(i + 4);
-        piece_materialBrest.setCellStyle(cellStyle);
+        piece_materialBrest.setCellStyle(cellStyleRow);
         XSSFCell piece_material_7Brest = row2.createCell(i + 5);
-        piece_material_7Brest.setCellStyle(cellStyle);
+        piece_material_7Brest.setCellStyle(cellStyleRow);
 
         XSSFCell piece_materialVitebsk = row2.createCell(i + 6);
-        piece_materialVitebsk.setCellStyle(cellStyle);
+        piece_materialVitebsk.setCellStyle(cellStyleRow);
         XSSFCell piece_material_7Vitebsk = row2.createCell(i + 7);
-        piece_material_7Vitebsk.setCellStyle(cellStyle);
+        piece_material_7Vitebsk.setCellStyle(cellStyleRow);
 
         XSSFCell piece_materialGomel = row2.createCell(i + 8);
-        piece_materialGomel.setCellStyle(cellStyle);
+        piece_materialGomel.setCellStyle(cellStyleRow);
         XSSFCell piece_material_7Gomel = row2.createCell(i + 9);
-        piece_material_7Gomel.setCellStyle(cellStyle);
+        piece_material_7Gomel.setCellStyle(cellStyleRow);
 
         XSSFCell piece_materialGrodno = row2.createCell(i + 10);
-        piece_materialGrodno.setCellStyle(cellStyle);
+        piece_materialGrodno.setCellStyle(cellStyleRow);
         XSSFCell piece_material_7Grodno = row2.createCell(i + 11);
-        piece_material_7Grodno.setCellStyle(cellStyle);
+        piece_material_7Grodno.setCellStyle(cellStyleRow);
 
         XSSFCell piece_materialMinsk = row2.createCell(i + 12);
-        piece_materialMinsk.setCellStyle(cellStyle);
+        piece_materialMinsk.setCellStyle(cellStyleRow);
         XSSFCell piece_materials_7Minsk = row2.createCell(i + 13);
-        piece_materials_7Minsk.setCellStyle(cellStyle);
+        piece_materials_7Minsk.setCellStyle(cellStyleRow);
 
         XSSFCell piece_materialMogilev = row2.createCell(i + 14);
-        piece_materialMogilev.setCellStyle(cellStyle);
+        piece_materialMogilev.setCellStyle(cellStyleRow);
         XSSFCell piece_material_7Mogilev = row2.createCell(i + 15);
-        piece_material_7Mogilev.setCellStyle(cellStyle);
+        piece_material_7Mogilev.setCellStyle(cellStyleRow);
 
         piece_material2021.setCellValue(" *** ");
         piece_material2022.setCellValue(countryRequest.getPiece().get(0).getPiece_material());

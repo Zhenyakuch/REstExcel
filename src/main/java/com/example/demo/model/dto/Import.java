@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Import {
 
-    public static void createRowsImport(XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, List<ElementRegion> regions, ElementMass mass, String country, int i) {
+    public static void createRowsImport(XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow, List<ElementRegion> regions, ElementMass mass, String country, int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast33 = sheet.getLastRowNum();
@@ -19,36 +19,36 @@ public class Import {
         cellCountry.setCellValue(country);
 
         XSSFCell cellMassProsuctDateFromTo = row.createCell(3); // дата с по
-        cellMassProsuctDateFromTo.setCellStyle(cellStyle);
+        cellMassProsuctDateFromTo.setCellStyle(cellStyleRow);
         XSSFCell cellMassProductWeekWeight = row.createCell(4);// данные за неделю
-        cellMassProductWeekWeight.setCellStyle(cellStyle);
+        cellMassProductWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellMassProductDateWeight = row.createCell(i);// дата с 01.01.2022
-        cellMassProductDateWeight.setCellStyle(cellStyle);
+        cellMassProductDateWeight.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsBrestDateWeight = row.createCell(i + 1);
-        cellRegionsBrestDateWeight.setCellStyle(cellStyle);
+        cellRegionsBrestDateWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsBrestWeekWeight = row.createCell(i + 2);
-        cellRegionsBrestWeekWeight.setCellStyle(cellStyle);
+        cellRegionsBrestWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsVitebskDateWeight = row.createCell(i + 3);
-        cellRegionsVitebskDateWeight.setCellStyle(cellStyle);
+        cellRegionsVitebskDateWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsVitebskWeekWeight = row.createCell(i + 4);
-        cellRegionsVitebskWeekWeight.setCellStyle(cellStyle);
+        cellRegionsVitebskWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsGomelDateWeight = row.createCell(i + 5);
-        cellRegionsGomelDateWeight.setCellStyle(cellStyle);
+        cellRegionsGomelDateWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsGomelWeekWeight = row.createCell(i + 6);
-        cellRegionsGomelWeekWeight.setCellStyle(cellStyle);
+        cellRegionsGomelWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsGrodnoDateWeight = row.createCell(i + 7);
-        cellRegionsGrodnoDateWeight.setCellStyle(cellStyle);
+        cellRegionsGrodnoDateWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsGrodnoWeekWeight = row.createCell(i + 8);
-        cellRegionsGrodnoWeekWeight.setCellStyle(cellStyle);
+        cellRegionsGrodnoWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsMinskDateWeight = row.createCell(i + 9);
-        cellRegionsMinskDateWeight.setCellStyle(cellStyle);
+        cellRegionsMinskDateWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsMinskWeekWeight = row.createCell(i + 10);
-        cellRegionsMinskWeekWeight.setCellStyle(cellStyle);
+        cellRegionsMinskWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsMogilevDateWeight = row.createCell(i + 11);
-        cellRegionsMogilevDateWeight.setCellStyle(cellStyle);
+        cellRegionsMogilevDateWeight.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsMogilexWeekWeight = row.createCell(i + 12);
-        cellRegionsMogilexWeekWeight.setCellStyle(cellStyle);
+        cellRegionsMogilexWeekWeight.setCellStyle(cellStyleRow);
 
         cellCountry.setCellValue(country);
         cellMassProductDateWeight.setCellValue(mass.dateWeightDouble());
@@ -88,7 +88,7 @@ public class Import {
         }
     }
 
-    public static void createRowsFss2022(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, int i) {
+    public static void createRowsFss2022(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow, int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();
@@ -120,21 +120,21 @@ public class Import {
         XSSFCell cellRegionsMogilev2022 = row.createCell(i + 14);
         XSSFCell cellRegionsMogilev2022_7 = row.createCell(i + 15);
 
-        fssPeriod2023.setCellStyle(cellStyle);
-        fssPeriod7.setCellStyle(cellStyle);
-        fssPeriod2022.setCellStyle(cellStyle);
-        cellRegionsBrest2022.setCellStyle(cellStyle);
-        cellRegionsBrest2022_7.setCellStyle(cellStyle);
-        cellRegionsVitebsk2022.setCellStyle(cellStyle);
-        cellRegionsVitebsk2022_7.setCellStyle(cellStyle);
-        cellRegionsGomel2022.setCellStyle(cellStyle);
-        cellRegionsGomel2022_7.setCellStyle(cellStyle);
-        cellRegionsGrodno2022.setCellStyle(cellStyle);
-        cellRegionsGrodno2022_7.setCellStyle(cellStyle);
-        cellRegionsMinsk2022.setCellStyle(cellStyle);
-        cellRegionsMinsk2022_7.setCellStyle(cellStyle);
-        cellRegionsMogilev2022.setCellStyle(cellStyle);
-        cellRegionsMogilev2022_7.setCellStyle(cellStyle);
+        fssPeriod2023.setCellStyle(cellStyleRow);
+        fssPeriod7.setCellStyle(cellStyleRow);
+        fssPeriod2022.setCellStyle(cellStyleRow);
+        cellRegionsBrest2022.setCellStyle(cellStyleRow);
+        cellRegionsBrest2022_7.setCellStyle(cellStyleRow);
+        cellRegionsVitebsk2022.setCellStyle(cellStyleRow);
+        cellRegionsVitebsk2022_7.setCellStyle(cellStyleRow);
+        cellRegionsGomel2022.setCellStyle(cellStyleRow);
+        cellRegionsGomel2022_7.setCellStyle(cellStyleRow);
+        cellRegionsGrodno2022.setCellStyle(cellStyleRow);
+        cellRegionsGrodno2022_7.setCellStyle(cellStyleRow);
+        cellRegionsMinsk2022.setCellStyle(cellStyleRow);
+        cellRegionsMinsk2022_7.setCellStyle(cellStyleRow);
+        cellRegionsMogilev2022.setCellStyle(cellStyleRow);
+        cellRegionsMogilev2022_7.setCellStyle(cellStyleRow);
 
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, i + 1, i + 15));
 
@@ -143,7 +143,7 @@ public class Import {
 
     }
 
-    public static void createRowsAllFss(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, List<ElementRegion> regions, ElementMass mass, String country, int i) {
+    public static void createRowsAllFss(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow, List<ElementRegion> regions, ElementMass mass, String country, int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();
@@ -160,41 +160,41 @@ public class Import {
         allfss.setCellValue("Выдано ФСС, (на всю продукцию), шт");
 
         XSSFCell fssPeriod2023 = row.createCell(i + 1);
-        fssPeriod2023.setCellStyle(cellStyle);
+        fssPeriod2023.setCellStyle(cellStyleRow);
         XSSFCell fssPeriod7 = row.createCell(i + 2);
-        fssPeriod7.setCellStyle(cellStyle);
+        fssPeriod7.setCellStyle(cellStyleRow);
         XSSFCell fssPeriod2022 = row.createCell(i + 3);
-        fssPeriod2022.setCellStyle(cellStyle);
+        fssPeriod2022.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsBrest = row.createCell(i + 4);
-        cellRegionsBrest.setCellStyle(cellStyle);
+        cellRegionsBrest.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsBrest_7 = row.createCell(i + 5);
-        cellRegionsBrest_7.setCellStyle(cellStyle);
+        cellRegionsBrest_7.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsVitebsk = row.createCell(i + 6);
-        cellRegionsVitebsk.setCellStyle(cellStyle);
+        cellRegionsVitebsk.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsVitebsk_7 = row.createCell(i + 7);
-        cellRegionsVitebsk_7.setCellStyle(cellStyle);
+        cellRegionsVitebsk_7.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsGomel = row.createCell(i + 8);
-        cellRegionsGomel.setCellStyle(cellStyle);
+        cellRegionsGomel.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsGomel_7 = row.createCell(i + 9);
-        cellRegionsGomel_7.setCellStyle(cellStyle);
+        cellRegionsGomel_7.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsGrodno = row.createCell(i + 10);
-        cellRegionsGrodno.setCellStyle(cellStyle);
+        cellRegionsGrodno.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsGrodno_7 = row.createCell(i + 11);
-        cellRegionsGrodno_7.setCellStyle(cellStyle);
+        cellRegionsGrodno_7.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsMinsk = row.createCell(i + 12);
-        cellRegionsMinsk.setCellStyle(cellStyle);
+        cellRegionsMinsk.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsMinsk_7 = row.createCell(i + 13);
-        cellRegionsMinsk_7.setCellStyle(cellStyle);
+        cellRegionsMinsk_7.setCellStyle(cellStyleRow);
 
         XSSFCell cellRegionsMogilev = row.createCell(i + 14);
-        cellRegionsMogilev.setCellStyle(cellStyle);
+        cellRegionsMogilev.setCellStyle(cellStyleRow);
         XSSFCell cellRegionsMogilev_7 = row.createCell(i + 15);
-        cellRegionsMogilev_7.setCellStyle(cellStyle);
+        cellRegionsMogilev_7.setCellStyle(cellStyleRow);
 
 
         fssPeriod2023.setCellValue(countryRequest.getFss().get(0).getAllFss());
@@ -261,6 +261,7 @@ public class Import {
         fssGrodno.setCellValue("Гродно");
         fssMinsk.setCellValue("Минск");
         fssMogilev.setCellValue("Могилев");
+
         fssBrest.setCellStyle(cellStyle);
         fssVitebsk.setCellStyle(cellStyle);
         fssGomel.setCellStyle(cellStyle);
