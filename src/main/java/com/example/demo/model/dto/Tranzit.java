@@ -8,6 +8,19 @@ import java.util.List;
 
 public class Tranzit {
 
+    public static int summa_tonn2 = 0;
+    public static int summa_pos_ed2 = 0;
+    public static int summa_sht2 = 0;
+    public static int summa_part2 = 0;
+    public static int summa_m22 = 0;
+    public static int summa_m32 = 0;
+    public static int summa_wagons2 = 0;
+    public static int summa_transport2 = 0;
+    public static int summa_container2 = 0;
+    public static int summa_baggage2 = 0;
+    public static int summa_airplane2 = 0;
+
+
     public static void createRows(int cellCount, XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow, List<ElementRegion> regions, List<NamePoints> namePoints) {
 
         XSSFCellStyle cellStylobl = xssfWorkbook.createCellStyle();
@@ -109,9 +122,11 @@ public class Tranzit {
 
 //            }
         }
+
     }
 
-    private static void plus(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<NamePoints> namePoints, int k, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow) {
+
+    public static void plus(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<NamePoints> namePoints, int k, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow) {
 
         XSSFCellStyle cellStylobl = xssfWorkbook.createCellStyle();
         cellStylobl.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -169,6 +184,7 @@ public class Tranzit {
         int summa_baggage = 0;
         int summa_airplane = 0;
 
+
         for (k = 0; namePoints.size() > k; k++) {
 
             int tonn = namePoints.get(k).getTonn();
@@ -195,6 +211,18 @@ public class Tranzit {
             summa_baggage = summa_baggage + baggage;
             summa_airplane = summa_airplane + airplane;
 
+//            summa_tonn2 = summa_tonn2+ summa_tonn;
+//            summa_pos_ed2 = summa_pos_ed2 + summa_pos_ed;
+//            summa_sht2 = summa_sht2 + summa_sht;
+//            summa_part2 = summa_part2 + summa_part;
+//            summa_m22 = summa_m22 + summa_m2;
+//            summa_m32 = summa_m32 + summa_m3;
+//            summa_wagons2 = summa_wagons2 + summa_wagons;
+//            summa_transport2 = summa_transport2 + summa_transport;
+//            summa_container2 = summa_container2 + summa_container;
+//            summa_baggage2 = summa_baggage2 + summa_baggage;
+//            summa_airplane2 = summa_airplane2 + summa_airplane;
+
             cellThousand_t.setCellValue(summa_tonn);
             cellThousand_pos_ed.setCellValue(summa_pos_ed);
             cellThousand_sht.setCellValue(summa_sht);
@@ -209,7 +237,17 @@ public class Tranzit {
 
 
         }
-
+        summa_tonn2 = summa_tonn2+ summa_tonn;
+        summa_pos_ed2 = summa_pos_ed2 + summa_pos_ed;
+        summa_sht2 = summa_sht2 + summa_sht;
+        summa_part2 = summa_part2 + summa_part;
+        summa_m22 = summa_m22 + summa_m2;
+        summa_m32 = summa_m32 + summa_m3;
+        summa_wagons2 = summa_wagons2 + summa_wagons;
+        summa_transport2 = summa_transport2 + summa_transport;
+        summa_container2 = summa_container2 + summa_container;
+        summa_baggage2 = summa_baggage2 + summa_baggage;
+        summa_airplane2 = summa_airplane2 + summa_airplane;
 
     }
 
@@ -258,4 +296,82 @@ public class Tranzit {
         cellAirplane.setCellValue(namePoints.get(k).getAirplane());
 
     }
+
+    public static void plusAll(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, XSSFCellStyle cellStyleRow, int summa_tonn,
+                               int summa_pos_ed, int summa_sht, int summa_part, int summa_m2, int summa_m3,
+                               int summa_wagons, int summa_transport, int summa_container, int summa_baggage,
+                               int summa_airplane) {
+
+        XSSFCellStyle cellStylobl = xssfWorkbook.createCellStyle();
+        cellStylobl.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+        cellStylobl.setBorderRight(XSSFCellStyle.BORDER_THIN);
+        cellStylobl.setBorderTop(XSSFCellStyle.BORDER_THIN);
+        cellStylobl.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+        cellStylobl.setWrapText(true);//перенос слов
+
+        XSSFFont font = xssfWorkbook.createFont();
+        font.setFontHeightInPoints((short) 12);
+        font.setFontName("Times New Roman");
+        font.setBold(true);
+//        font.
+        cellStylobl.setFont(font);
+
+        int rowLast = sheet.getLastRowNum();
+        XSSFRow row2 = sheet.createRow(rowLast + 1);
+        XSSFCell cellName = row2.createCell(0);
+        cellName.setCellStyle(cellStylobl);
+        cellName.setCellValue("ВСЕГО ПО РБ: ");
+
+        XSSFCell cellThousand_t = row2.createCell(1);
+        cellThousand_t.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_pos_ed = row2.createCell(2);
+        cellThousand_pos_ed.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_sht = row2.createCell(3);
+        cellThousand_sht.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_part = row2.createCell(4);
+        cellThousand_part.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_m2 = row2.createCell(5);
+        cellThousand_m2.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_m3 = row2.createCell(6);
+        cellThousand_m3.setCellStyle(cellStyleRow);
+        XSSFCell cellRailway_wagons = row2.createCell(7);
+        cellRailway_wagons.setCellStyle(cellStyleRow);
+        XSSFCell cellMotor_transport = row2.createCell(8);
+        cellMotor_transport.setCellStyle(cellStyleRow);
+        XSSFCell cellContainer = row2.createCell(9);
+        cellContainer.setCellStyle(cellStyleRow);
+        XSSFCell cellBaggage = row2.createCell(10);
+        cellBaggage.setCellStyle(cellStyleRow);
+        XSSFCell cellAirplane = row2.createCell(11);
+        cellAirplane.setCellStyle(cellStyleRow);
+
+
+//        summa_tonn = summa_tonn + summa_tonn2;
+//        summa_pos_ed = summa_pos_ed + summa_pos_ed2;
+//        summa_sht = summa_sht + summa_sht2;
+//        summa_part = summa_part + summa_part2;
+//        summa_m2 = summa_m2 + summa_m22;
+//        summa_m3 = summa_m3 + summa_m32;
+//        summa_wagons = summa_wagons + summa_wagons2;
+//        summa_transport = summa_transport + summa_transport2;
+//        summa_container = summa_container + summa_container2;
+//        summa_baggage = summa_baggage + summa_baggage2;
+//        summa_airplane = summa_airplane + summa_airplane2;
+
+        cellThousand_t.setCellValue(summa_tonn);
+        cellThousand_pos_ed.setCellValue(summa_pos_ed);
+        cellThousand_sht.setCellValue(summa_sht);
+        cellThousand_part.setCellValue(summa_part);
+        cellThousand_m2.setCellValue(summa_m2);
+        cellThousand_m3.setCellValue(summa_m3);
+        cellRailway_wagons.setCellValue(summa_wagons);
+        cellMotor_transport.setCellValue(summa_transport);
+        cellContainer.setCellValue(summa_container);
+        cellBaggage.setCellValue(summa_baggage);
+        cellAirplane.setCellValue(summa_airplane);
+
+
+//        }
+    }
 }
+

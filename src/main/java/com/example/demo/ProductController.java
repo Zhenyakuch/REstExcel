@@ -321,6 +321,12 @@ public class ProductController {
 
         }
 
+
+            Tranzit.plusAll(xssfWorkbook, sheet, cellStyleRow,
+                    Tranzit.summa_tonn2, Tranzit.summa_pos_ed2, Tranzit.summa_sht2, Tranzit.summa_part2, Tranzit.summa_m22,
+                    Tranzit.summa_m32, Tranzit.summa_wagons2, Tranzit.summa_transport2, Tranzit.summa_container2,
+                    Tranzit.summa_baggage2, Tranzit.summa_airplane2);
+
         if (countryRequest.isTranzitEAEU()) {
             nameFile = "TranzitEAEUandCIS";
         } else {
