@@ -35,18 +35,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <!--		<dependency>-->
-        <!--			<groupId>org.json</groupId>-->
-        <!--			<artifactId>json</artifactId>-->
-        <!--			<version>20220924</version>-->
-        <!--		</dependency>-->
-        <!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.google.code.gson/gson &ndash;&gt;-->
-        <!--		<dependency>-->
-        <!--			<groupId>com.google.code.gson</groupId>-->
-        <!--			<artifactId>gson</artifactId>-->
-        <!--			<version>2.10</version>-->
-        <!--		</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -118,11 +106,21 @@
             <artifactId>poi</artifactId>
             <version>3.9</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>3.9</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.iharder/base64 -->
+        <dependency>
+            <groupId>net.iharder</groupId>
+            <artifactId>base64</artifactId>
+            <version>2.3.9</version>
+        </dependency>
+
+
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 

@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PieceFlowers {
-
     private int piece_material;
     private int piece_material_7;
     private int piece_materialBrest;

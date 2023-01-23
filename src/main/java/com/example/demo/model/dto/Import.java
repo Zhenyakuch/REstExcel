@@ -18,8 +18,8 @@ public class Import {
         sheet.addMergedRegion(new CellRangeAddress(rowLast33, rowLast33, 1, 2));
         cellCountry.setCellValue(country);
 
-        XSSFCell cellMassProsuctDateFromTo = row.createCell(3); // дата с по
-        cellMassProsuctDateFromTo.setCellStyle(cellStyleRow);
+        XSSFCell cellMassProductDateFromTo = row.createCell(3); // дата с по
+        cellMassProductDateFromTo.setCellStyle(cellStyleRow);
         XSSFCell cellMassProductWeekWeight = row.createCell(4);// данные за неделю
         cellMassProductWeekWeight.setCellStyle(cellStyleRow);
         XSSFCell cellMassProductDateWeight = row.createCell(i);// дата с 01.01.2022
@@ -53,11 +53,10 @@ public class Import {
         cellCountry.setCellValue(country);
         cellMassProductDateWeight.setCellValue(mass.dateWeightDouble());
         cellMassProductWeekWeight.setCellValue(mass.weekWeightDouble());
-        cellMassProsuctDateFromTo.setCellValue(mass.dateFromToDouble());
+        cellMassProductDateFromTo.setCellValue(mass.dateFromToDouble());
 
 
-        for (int k = 0; regions.size() > k; k++) {
-            ElementRegion elementRegion = regions.get(k);
+        for (ElementRegion elementRegion : regions) {
             switch (elementRegion.getRegion()) {
                 case 1:
                     cellRegionsBrestDateWeight.setCellValue(elementRegion.dateWeightDouble());
@@ -143,21 +142,21 @@ public class Import {
 
     }
 
-    public static void createRowsAllFss(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow, List<ElementRegion> regions, ElementMass mass, String country, int i) {
+    public static void createRowsAllFss(XSSFWorkbook xssfWorkbook, CountryReport countryRequest, XSSFCellStyle cellStyle, XSSFCellStyle cellStyleRow,  int i) {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();
 
         XSSFRow row = sheet.createRow(rowLast + 1);
-        XSSFCell allfss = row.createCell(0);
-        XSSFCell allfss2 = row.createCell(1);
-        XSSFCell allfss3 = row.createCell(2);
-        allfss.setCellStyle(cellStyle);
-        allfss2.setCellStyle(cellStyle);
-        allfss3.setCellStyle(cellStyle);
+        XSSFCell all_fss = row.createCell(0);
+        XSSFCell all_fss2 = row.createCell(1);
+        XSSFCell all_fss3 = row.createCell(2);
+        all_fss.setCellStyle(cellStyle);
+        all_fss2.setCellStyle(cellStyle);
+        all_fss3.setCellStyle(cellStyle);
         row.setHeight((short) 900);
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 0, 2));
-        allfss.setCellValue("Выдано ФСС, (на всю продукцию), шт");
+        all_fss.setCellValue("Выдано ФСС, (на всю продукцию), шт");
 
         XSSFCell fssPeriod2023 = row.createCell(i + 1);
         fssPeriod2023.setCellStyle(cellStyleRow);
@@ -222,33 +221,33 @@ public class Import {
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast = sheet.getLastRowNum();
 
-        XSSFRow fssobl = sheet.createRow(rowLast + 1);
-        XSSFCell fssobl0 = fssobl.createCell(0);
-        XSSFCell fssobl1 = fssobl.createCell(1);
-        XSSFCell fssobl2 = fssobl.createCell(2);
-        XSSFCell fssobl3 = fssobl.createCell(3);
-        XSSFCell fssobl4 = fssobl.createCell(4);
-        XSSFCell fssobl5 = fssobl.createCell(5);
-        fssobl0.setCellStyle(cellStyle);
-        fssobl1.setCellStyle(cellStyle);
-        fssobl2.setCellStyle(cellStyle);
-        fssobl3.setCellStyle(cellStyle);
-        fssobl4.setCellStyle(cellStyle);
-        fssobl5.setCellStyle(cellStyle);
+        XSSFRow fss_obl = sheet.createRow(rowLast + 1);
+        XSSFCell fss_obl0 = fss_obl.createCell(0);
+        XSSFCell fss_obl1 = fss_obl.createCell(1);
+        XSSFCell fss_obl2 = fss_obl.createCell(2);
+        XSSFCell fss_obl3 = fss_obl.createCell(3);
+        XSSFCell fss_obl4 = fss_obl.createCell(4);
+        XSSFCell fss_obl5 = fss_obl.createCell(5);
+        fss_obl0.setCellStyle(cellStyle);
+        fss_obl1.setCellStyle(cellStyle);
+        fss_obl2.setCellStyle(cellStyle);
+        fss_obl3.setCellStyle(cellStyle);
+        fss_obl4.setCellStyle(cellStyle);
+        fss_obl5.setCellStyle(cellStyle);
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 0, 5));
 
-        XSSFCell fssBrest = fssobl.createCell(6);
-        XSSFCell fssBrest2 = fssobl.createCell(7);
-        XSSFCell fssVitebsk = fssobl.createCell(8);
-        XSSFCell fssVitebsk2 = fssobl.createCell(9);
-        XSSFCell fssGomel = fssobl.createCell(10);
-        XSSFCell fssGomel2 = fssobl.createCell(11);
-        XSSFCell fssGrodno = fssobl.createCell(12);
-        XSSFCell fssGrodno2 = fssobl.createCell(13);
-        XSSFCell fssMinsk = fssobl.createCell(14);
-        XSSFCell fssMinsk2 = fssobl.createCell(15);
-        XSSFCell fssMogilev = fssobl.createCell(16);
-        XSSFCell fssMogilev2 = fssobl.createCell(17);
+        XSSFCell fssBrest = fss_obl.createCell(6);
+        XSSFCell fssBrest2 = fss_obl.createCell(7);
+        XSSFCell fssVitebsk = fss_obl.createCell(8);
+        XSSFCell fssVitebsk2 = fss_obl.createCell(9);
+        XSSFCell fssGomel = fss_obl.createCell(10);
+        XSSFCell fssGomel2 = fss_obl.createCell(11);
+        XSSFCell fssGrodno = fss_obl.createCell(12);
+        XSSFCell fssGrodno2 = fss_obl.createCell(13);
+        XSSFCell fssMinsk = fss_obl.createCell(14);
+        XSSFCell fssMinsk2 = fss_obl.createCell(15);
+        XSSFCell fssMogilev = fss_obl.createCell(16);
+        XSSFCell fssMogilev2 = fss_obl.createCell(17);
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 6, 7));
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 8, 9));
         sheet.addMergedRegion(new CellRangeAddress(rowLast + 1, rowLast + 1, 10, 11));

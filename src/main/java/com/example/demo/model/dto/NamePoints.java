@@ -7,9 +7,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString(callSuper = true)
+
 public class NamePoints {
-
-
     private String name;
     private int tonn;
     private int units;

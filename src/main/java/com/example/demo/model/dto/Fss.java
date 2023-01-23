@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Fss {
-
     private int allFss;
     private int allFss_7;
     private int allFssBrest;

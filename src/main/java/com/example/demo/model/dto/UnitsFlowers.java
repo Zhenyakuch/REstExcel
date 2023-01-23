@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UnitsFlowers {
-
     private int unit_materialFromTo;
     private int unit_material_7;
     private int unit_material_2022;

@@ -3,19 +3,23 @@ package com.example.demo;
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 @RestController
 @Slf4j
 public class ProductController {
+    String nameFile = "";
+    int rowLast = 0;
 
     @PostMapping("/import-export")
     public String printData(@RequestBody CountryReport countryRequest) throws Exception {
@@ -24,7 +28,9 @@ public class ProductController {
         TotalMass totalMass = new TotalMass(countryRequest);
         log.debug("TotalMass " + totalMass);
 
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook("src/main/resources/Blanc.xlsx");
+        OPCPackage pkg = OPCPackage.open("src/main/resources/Blanc.xlsx");
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(pkg);
+
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -36,7 +42,6 @@ public class ProductController {
         XSSFFont font = xssfWorkbook.createFont();
         font.setFontHeightInPoints((short) 12);
         font.setFontName("Times New Roman");
-        //font.setItalic(true);
         cellStyle.setFont(font);
 
         XSSFCellStyle cellStyleRow = xssfWorkbook.createCellStyle();
@@ -47,13 +52,10 @@ public class ProductController {
         cellStyleRow.setWrapText(true);
         cellStyleRow.setAlignment(CellStyle.ALIGN_CENTER);
 
-
         XSSFFont fontRow = xssfWorkbook.createFont();
         fontRow.setFontHeightInPoints((short) 12);
         fontRow.setFontName("Times New Roman");
-        //font.setItalic(true);
         cellStyleRow.setFont(font);
-
 
         String fromTitle = sheet.getRow(0).getCell(0).toString();
         String fromTitle2 = sheet.getRow(1).getCell(1).toString();
@@ -66,7 +68,6 @@ public class ProductController {
             String date2 = sheet.getRow(2).getCell(i).toString();
             date2 = date2.replace("startDate", countryRequest.getStarDate().toString());
             date2 = date2.replace("endDate", countryRequest.getEndDate().toString());
-            // sheet.getRow(2).getCell(i).setCellValue(date2);
 
             if (countryRequest.isImport()) {
                 date2 = date2.replace("importexport2", "поступило с");
@@ -78,10 +79,6 @@ public class ProductController {
             sheet.getRow(2).getCell(i).setCellValue(date2);
         }
 
-        String nameFile = "";
-
-        int rowLast = 0;
-
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
 
             rowLast = sheet.getLastRowNum();
@@ -91,7 +88,7 @@ public class ProductController {
             number.setCellValue(cellCount + 1);
             number.setCellStyle(cellStyleRow);
 
-            Import.createRowsImport(xssfWorkbook, row, cellStyle, cellStyleRow,countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 5);
+            Import.createRowsImport(xssfWorkbook, row, cellStyle, cellStyleRow, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 5);
 
         }
 
@@ -114,7 +111,6 @@ public class ProductController {
             }
             sheet.getRow(1).getCell(1).setCellValue(fromTitle2);
             sheet.getRow(0).getCell(0).setCellValue(fromTitle);
-            CountryRow countryRow = countryRequest.getCountryRows().get(0);
 
 
         } else {
@@ -134,22 +130,23 @@ public class ProductController {
         sheet.getRow(1).getCell(1).setCellValue(fromTitle2);
         sheet.getRow(0).getCell(0).setCellValue(fromTitle);
 
-        CountryRow countryRow = countryRequest.getCountryRows().get(0);
         if (countryRequest.isFlowers()) {
-            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, cellStyleRow,2);
+            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
         }
-        Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle,cellStyleRow, countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+        Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
 
         Import.createRowsNameObl(xssfWorkbook, cellStyleRow);
 
-        Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow,2);
+        Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
+
+        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
 
         try (
-                OutputStream fileOut = new FileOutputStream("src/main/resources/" + nameFile + LocalDate.now() + ".xlsx")) {
+                OutputStream fileOut = Files.newOutputStream(Paths.get(nameFileResponse))) {
             xssfWorkbook.write(fileOut);
         }
 
-        return "";
+        return ConBase64.convert(nameFileResponse);
     }
 
     @PostMapping("/re-export")
@@ -159,7 +156,9 @@ public class ProductController {
         TotalMass totalMass = new TotalMass(countryRequest);
         log.debug("TotalMass " + totalMass);
 
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook("src/main/resources/BlancRe.xlsx");
+        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancRe.xlsx");
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(pkg);
+
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -171,7 +170,6 @@ public class ProductController {
         XSSFFont font = xssfWorkbook.createFont();
         font.setFontHeightInPoints((short) 12);
         font.setFontName("Times New Roman");
-        //font.setItalic(true);
         cellStyle.setFont(font);
 
         XSSFCellStyle cellStyleRow = xssfWorkbook.createCellStyle();
@@ -182,16 +180,12 @@ public class ProductController {
         cellStyleRow.setWrapText(true);
         cellStyleRow.setAlignment(CellStyle.ALIGN_CENTER);
 
-
         XSSFFont fontRow = xssfWorkbook.createFont();
         fontRow.setFontHeightInPoints((short) 12);
         fontRow.setFontName("Times New Roman");
-        //font.setItalic(true);
         cellStyleRow.setFont(font);
 
-
         String fromTitle = sheet.getRow(0).getCell(0).toString();
-        String fromTitle2 = sheet.getRow(1).getCell(1).toString();
 
         fromTitle = fromTitle.replace("startDate", countryRequest.getStarDate().toString());
         fromTitle = fromTitle.replace("endDate", countryRequest.getEndDate().toString());
@@ -202,9 +196,6 @@ public class ProductController {
             date2 = date2.replace("endDate", countryRequest.getEndDate().toString());
             sheet.getRow(2).getCell(i).setCellValue(date2);
         }
-        String nameFile = "";
-
-        int rowLast = 0;
 
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
 
@@ -237,32 +228,34 @@ public class ProductController {
         }
         sheet.getRow(0).getCell(0).setCellValue(fromTitle);
 
-        CountryRow countryRow = countryRequest.getCountryRows().get(0);
         if (countryRequest.isFlowers()) {
-            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, cellStyleRow,2);
+            ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
         }
-        Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow,countryRow.getRegions(), countryRow.getMassProduct(), countryRow.getResCountryOrProduct(), 2);
+        Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
 
         Import.createRowsNameObl(xssfWorkbook, cellStyle);
 
-        Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow,2);
+        Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
+
+        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
+
 
         try (
-                OutputStream fileOut = new FileOutputStream("src/main/resources/" + nameFile + LocalDate.now() + ".xlsx")) {
+                OutputStream fileOut = Files.newOutputStream(Paths.get(nameFileResponse))) {
             xssfWorkbook.write(fileOut);
         }
 
-        return "";
+        return ConBase64.convert(nameFileResponse);
     }
 
     @PostMapping("/tranzit")
     public String printTranData(@RequestBody CountryReport countryRequest) throws Exception {
 
         log.debug("CountryReport " + countryRequest);
-//        TotalMass totalMass = new TotalMass(countryRequest);
-//        log.debug("TotalMass " + totalMass);
 
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook("src/main/resources/BlancTranzit.xlsx");
+        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancTranzit.xlsx");
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(pkg);
+
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
         cellStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);
@@ -273,7 +266,6 @@ public class ProductController {
         XSSFFont font = xssfWorkbook.createFont();
         font.setFontHeightInPoints((short) 12);
         font.setFontName("Times New Roman");
-        //font.setItalic(true);
         cellStyle.setFont(font);
 
         XSSFCellStyle cellStyleRow = xssfWorkbook.createCellStyle();
@@ -284,28 +276,12 @@ public class ProductController {
         cellStyleRow.setWrapText(true);
         cellStyleRow.setAlignment(CellStyle.ALIGN_CENTER);
 
-
         XSSFFont fontRow = xssfWorkbook.createFont();
         fontRow.setFontHeightInPoints((short) 12);
         fontRow.setFontName("Times New Roman");
-        //font.setItalic(true);
         cellStyleRow.setFont(font);
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
-
-
-        String nameFile = "";
-
-        int rowLast = 0;
-//        for (int cellCount = 0; cellCount < countryRequest.getCountryRows().size(); cellCount++) {
-//
-//            rowLast = sheet.getLastRowNum();
-//            XSSFRow row = sheet.createRow(rowLast + 1);
-//            CountryRow countryRow = countryRequest.getCountryRows().get(cellCount);
-//
-//
-//        }
-
 
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().get(0).getRegions().size(); cellCount++) {
 
@@ -315,17 +291,14 @@ public class ProductController {
 
             ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
 
-
-            Tranzit.createRows(cellCount, xssfWorkbook, row, cellStyle, cellStyleRow,countryRow.getRegions(), elementRegion.getNamePoints());
-
+            Tranzit.createRows(cellCount, xssfWorkbook, row, cellStyle, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
 
         }
 
-
-            Tranzit.plusAll(xssfWorkbook, sheet, cellStyleRow,
-                    Tranzit.summa_tonn2, Tranzit.summa_pos_ed2, Tranzit.summa_sht2, Tranzit.summa_part2, Tranzit.summa_m22,
-                    Tranzit.summa_m32, Tranzit.summa_wagons2, Tranzit.summa_transport2, Tranzit.summa_container2,
-                    Tranzit.summa_baggage2, Tranzit.summa_airplane2);
+        Tranzit.plusAll(xssfWorkbook, sheet, cellStyleRow,
+                Tranzit.summa_tonn2, Tranzit.summa_pos_ed2, Tranzit.summa_sht2, Tranzit.summa_part2, Tranzit.summa_m22,
+                Tranzit.summa_m32, Tranzit.summa_wagons2, Tranzit.summa_transport2, Tranzit.summa_container2,
+                Tranzit.summa_baggage2, Tranzit.summa_airplane2);
 
         if (countryRequest.isTranzitEAEU()) {
             nameFile = "TranzitEAEUandCIS";
@@ -333,12 +306,14 @@ public class ProductController {
             nameFile = "Tranzit";
         }
 
+        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
+
         try (
-                OutputStream fileOut = new FileOutputStream("src/main/resources/" + nameFile + LocalDate.now() + ".xlsx")) {
+                OutputStream fileOut = Files.newOutputStream(Paths.get(nameFileResponse))) {
             xssfWorkbook.write(fileOut);
         }
 
-        return null;
+        return ConBase64.convert(nameFileResponse);
     }
 
 
