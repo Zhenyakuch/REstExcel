@@ -283,28 +283,72 @@ public class ProductController {
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
+        String fromTitle = sheet.getRow(0).getCell(0).toString();
+
+        for (int i = 1; i <= 11; i++) {
+
+            String date2 = sheet.getRow(2).getCell(i).toString();
+            String date1 = sheet.getRow(1).getCell(0).toString();
+
+            if (countryRequest.isTranzitEAEU()) {
+                fromTitle = fromTitle.replace("contents", "ТРАНЗИТ В АДРЕС СТРАН ЕВРАЗИЙСКОГО ЭКОНОМИЧЕСКОГО СОЮЗА И ГОСУДАРСТВ - УЧАСТНИЦ СНГ");
+                date1 = date1.replace("name", "Наименование страны-получателя подкарантинной продукции");
+                date2 = date2.replace("amount1", "тыс. т");
+                date2 = date2.replace("amount2", "тыс. пос. ед.");
+                date2 = date2.replace("amount3", "тыс. шт.");
+                date2 = date2.replace("amount4", "тыс. парт.");
+                date2 = date2.replace("amount5", "тыс. пак.");
+                date2 = date2.replace("amount6", "м3");
+            } else {
+                fromTitle = fromTitle.replace("contents", "ТРАНЗИТ ПОДКАРАНТИННОЙ ПРОДУКЦИИ");
+                date1 = date1.replace("name", "Наименование пограничных пунктов");
+                date2 = date2.replace("amount1", "тыс. т");
+                date2 = date2.replace("amount2", "тыс. пос. ед.");
+                date2 = date2.replace("amount3", "тыс. шт.");
+                date2 = date2.replace("amount4", "тыс. парт.");
+                date2 = date2.replace("amount5", "тыс. м2");
+                date2 = date2.replace("amount6", "тыс. м3");
+
+            }
+
+            sheet.getRow(2).getCell(i).setCellValue(date2);
+            sheet.getRow(1).getCell(0).setCellValue(date1);
+            sheet.getRow(0).getCell(0).setCellValue(fromTitle);
+        }
+
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().get(0).getRegions().size(); cellCount++) {
 
-            rowLast = sheet.getLastRowNum();
-            XSSFRow row = sheet.createRow(rowLast + 1);
-            CountryRow countryRow = countryRequest.getCountryRows().get(0);
+            if (countryRequest.isTranzitEAEU()) {
 
-            ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
+                nameFile = "TranzitEAEUandCIS";
+                rowLast = sheet.getLastRowNum();
+                XSSFRow row = sheet.createRow(rowLast + 1);
+                CountryRow countryRow = countryRequest.getCountryRows().get(0);
+                ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
+                Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
+                //В том числе в страны ЕАЭС
+                Tranzit.plus_eaeu(countryRequest,countryRow,xssfWorkbook, sheet, cellStyleRow);
 
-            Tranzit.createRows(cellCount, xssfWorkbook, row, cellStyle, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
+            } else {
+
+                nameFile = "Tranzit";
+                rowLast = sheet.getLastRowNum();
+                XSSFRow row = sheet.createRow(rowLast + 1);
+                CountryRow countryRow = countryRequest.getCountryRows().get(0);
+                ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
+                Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
+
+            }
 
         }
 
-        Tranzit.plusAll(xssfWorkbook, sheet, cellStyleRow,
-                Tranzit.summa_tonn2, Tranzit.summa_pos_ed2, Tranzit.summa_sht2, Tranzit.summa_part2, Tranzit.summa_m22,
-                Tranzit.summa_m32, Tranzit.summa_wagons2, Tranzit.summa_transport2, Tranzit.summa_container2,
-                Tranzit.summa_baggage2, Tranzit.summa_airplane2);
-
-        if (countryRequest.isTranzitEAEU()) {
-            nameFile = "TranzitEAEUandCIS";
-        } else {
-            nameFile = "Tranzit";
+        if (countryRequest.isTranzitEAEU() == false) {
+            Tranzit.plusAll(xssfWorkbook, sheet, cellStyleRow,
+                    Tranzit.summa_tonn2, Tranzit.summa_pos_ed2, Tranzit.summa_sht2, Tranzit.summa_part2, Tranzit.summa_m22,
+                    Tranzit.summa_m32, Tranzit.summa_wagons2, Tranzit.summa_transport2, Tranzit.summa_container2,
+                    Tranzit.summa_baggage2, Tranzit.summa_airplane2);
         }
+
 
         String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
 
