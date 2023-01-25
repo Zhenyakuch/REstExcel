@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
@@ -133,11 +134,13 @@ public class ProductController {
         if (countryRequest.isFlowers()) {
             ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
         }
-        Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
+        if(countryRequest.getFss()!=null) {
+            Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
 
-        Import.createRowsNameObl(xssfWorkbook, cellStyleRow);
+            Import.createRowsNameObl(xssfWorkbook, cellStyleRow);
 
-        Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
+            Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
+        }
 
         String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
 

@@ -22,6 +22,7 @@ public class ConBase64 {
             e.printStackTrace();
         }
 
-        return encodedBase64;
+        return "{\"b64\":\"" + encodedBase64 + "\"}";
     }
+
 }
