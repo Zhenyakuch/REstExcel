@@ -10,11 +10,11 @@ import lombok.ToString;
 
 public class NamePoints {
     private String name;
-    private int tonn;
-    private int units;
-    private int pieces;
-    private int parties;
-    private int m2;
+    private int tonn; //тонны
+    private int units;//пос.ед.
+    private int pieces;//штуки
+    private int parties;//партии
+    private int m2_packages;
     private int m3;
     private int wagons;
     private int motor_transport;
