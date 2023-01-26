@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,8 +31,9 @@ public class ProductController {
         TotalMass totalMass = new TotalMass(countryRequest);
         log.debug("TotalMass " + totalMass);
 
-        OPCPackage pkg = OPCPackage.open("src/main/resources/Blanc.xlsx");
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(pkg);
+//        OPCPackage pkg = OPCPackage.open("src/main/resources/Blanc.xlsx");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("Blanc.xlsx");
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
 
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
@@ -134,7 +137,7 @@ public class ProductController {
         if (countryRequest.isFlowers()) {
             ReExport.createRowsMaterial(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
         }
-        if(countryRequest.getFss()!=null) {
+        if (countryRequest.getFss() != null) {
             Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
 
             Import.createRowsNameObl(xssfWorkbook, cellStyleRow);
@@ -142,14 +145,13 @@ public class ProductController {
             Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
         }
 
-        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
-
-        try (
-                OutputStream fileOut = Files.newOutputStream(Paths.get(nameFileResponse))) {
+//        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
+        File tempFile = File.createTempFile(nameFile, null);
+        try (OutputStream fileOut = Files.newOutputStream(tempFile.toPath())) {
             xssfWorkbook.write(fileOut);
         }
 
-        return ConBase64.convert(nameFileResponse);
+        return ConBase64.convert(tempFile);
     }
 
     @PostMapping("/re-export")
@@ -159,8 +161,9 @@ public class ProductController {
         TotalMass totalMass = new TotalMass(countryRequest);
         log.debug("TotalMass " + totalMass);
 
-        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancRe.xlsx");
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(pkg);
+//        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancRe.xlsx");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("BlancRe.xlsx");
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
 
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
@@ -240,15 +243,13 @@ public class ProductController {
 
         Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
 
-        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
-
-
-        try (
-                OutputStream fileOut = Files.newOutputStream(Paths.get(nameFileResponse))) {
+       //        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
+        File tempFile = File.createTempFile(nameFile, null);
+        try (OutputStream fileOut = Files.newOutputStream(tempFile.toPath())) {
             xssfWorkbook.write(fileOut);
         }
 
-        return ConBase64.convert(nameFileResponse);
+        return ConBase64.convert(tempFile);
     }
 
     @PostMapping("/tranzit")
@@ -256,8 +257,9 @@ public class ProductController {
 
         log.debug("CountryReport " + countryRequest);
 
-        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancTranzit.xlsx");
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(pkg);
+//        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancTranzit.xlsx");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("BlancTranzit.xlsx");
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
 
         XSSFCellStyle cellStyle = xssfWorkbook.createCellStyle();
         cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -330,7 +332,7 @@ public class ProductController {
                 ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
                 Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
                 //В том числе в страны ЕАЭС
-                Tranzit.plus_eaeu(countryRequest,countryRow,xssfWorkbook, sheet, cellStyleRow);
+                Tranzit.plus_eaeu(countryRequest, countryRow, xssfWorkbook, sheet, cellStyleRow);
 
             } else {
 
@@ -353,14 +355,13 @@ public class ProductController {
         }
 
 
-        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
-
-        try (
-                OutputStream fileOut = Files.newOutputStream(Paths.get(nameFileResponse))) {
+//        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
+        File tempFile = File.createTempFile(nameFile, null);
+        try (OutputStream fileOut = Files.newOutputStream(tempFile.toPath())) {
             xssfWorkbook.write(fileOut);
         }
 
-        return ConBase64.convert(nameFileResponse);
+        return ConBase64.convert(tempFile);
     }
 
 
