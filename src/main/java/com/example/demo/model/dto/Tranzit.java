@@ -429,5 +429,19 @@ public class Tranzit {
         cellAirplane.setCellValue(summa_airplane);
 
     }
+
+    public static void nullable() {
+        summa_tonn2=0;
+        summa_pos_ed2=0;
+        summa_sht2=0;
+        summa_part2=0;
+        summa_m22=0;
+        summa_m32=0;
+        summa_wagons2=0;
+        summa_transport2=0;
+        summa_container2=0;
+        summa_baggage2=0;
+        summa_airplane2=0;
+    }
 }
 
