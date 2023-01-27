@@ -7,7 +7,6 @@ import org.apache.poi.xssf.usermodel.*;
 import java.util.List;
 
 public class Tranzit {
-
     public static int summa_tonn2;
     public static int summa_pos_ed2;
     public static int summa_sht2;
@@ -21,51 +20,26 @@ public class Tranzit {
     public static int summa_airplane2;
 
 
-    public static void create_obl(int cellCount, XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle,
+    public static void create_obl(int cellCount, XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, XSSFCellStyle cell_styl_obl,
                                   XSSFCellStyle cellStyleRow, List<ElementRegion> regions, List<NamePoints> namePoints) {
 
-        XSSFCellStyle cell_styl_obl = xssfWorkbook.createCellStyle();
-        cell_styl_obl.setBorderLeft(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setBorderRight(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setBorderTop(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setBorderBottom(XSSFCellStyle.BORDER_THIN);
         cell_styl_obl.setAlignment(CellStyle.ALIGN_CENTER);
-        cell_styl_obl.setWrapText(true);//перенос слов
-
-        XSSFFont font = xssfWorkbook.createFont();
-        font.setFontHeightInPoints((short) 12);
-        font.setFontName("Times New Roman");
-        font.setBold(true);
-        cell_styl_obl.setFont(font);
 
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
         int rowLast2 = sheet.getLastRowNum();
 
-        XSSFCell cellName_obl = row.createCell(0);
-        cellName_obl.setCellStyle(cell_styl_obl);
-
-        XSSFCell cellName_obl1 = row.createCell(1);
-        cellName_obl1.setCellStyle(cellStyle);
-        XSSFCell cellName_obl2 = row.createCell(2);
-        cellName_obl2.setCellStyle(cellStyle);
-        XSSFCell cellName_obl3 = row.createCell(3);
-        cellName_obl3.setCellStyle(cellStyle);
-        XSSFCell cellName_obl4 = row.createCell(4);
-        cellName_obl4.setCellStyle(cellStyle);
-        XSSFCell cellName_obl5 = row.createCell(5);
-        cellName_obl5.setCellStyle(cellStyle);
-        XSSFCell cellName_obl6 = row.createCell(6);
-        cellName_obl6.setCellStyle(cellStyle);
-        XSSFCell cellName_obl7 = row.createCell(7);
-        cellName_obl7.setCellStyle(cellStyle);
-        XSSFCell cellName_obl8 = row.createCell(8);
-        cellName_obl8.setCellStyle(cellStyle);
-        XSSFCell cellName_obl9 = row.createCell(9);
-        cellName_obl9.setCellStyle(cellStyle);
-        XSSFCell cellName_obl10 = row.createCell(10);
-        cellName_obl10.setCellStyle(cellStyle);
-        XSSFCell cellName_obl11 = row.createCell(11);
-        cellName_obl11.setCellStyle(cellStyle);
+        XSSFCell cellName_obl = getXssfCell(row, 0, cell_styl_obl);
+        XSSFCell cellName_obl1 = getXssfCell(row, 1, cellStyle);
+        XSSFCell cellName_obl2 =getXssfCell(row, 2, cellStyle);
+        XSSFCell cellName_obl3 = getXssfCell(row, 3, cellStyle);
+        XSSFCell cellName_obl4 = getXssfCell(row, 4, cellStyle);
+        XSSFCell cellName_obl5 = getXssfCell(row, 5, cellStyle);
+        XSSFCell cellName_obl6 = getXssfCell(row, 6, cellStyle);
+        XSSFCell cellName_obl7 = getXssfCell(row, 7, cellStyle);
+        XSSFCell cellName_obl8 = getXssfCell(row, 8, cellStyle);
+        XSSFCell cellName_obl9 = getXssfCell(row, 9, cellStyle);
+        XSSFCell cellName_obl10 = getXssfCell(row, 10, cellStyle);
+        XSSFCell cellName_obl11 = getXssfCell(row, 11, cellStyle);
         sheet.addMergedRegion(new CellRangeAddress(rowLast2, rowLast2, 0, 11));
 
         ElementRegion elementRegion = regions.get(cellCount);
@@ -120,7 +94,12 @@ public class Tranzit {
     }
 
 
+
+
     public static void plus(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<NamePoints> namePoints, XSSFCellStyle cellStyleRow) {
+
+        int rowLast = sheet.getLastRowNum();
+        XSSFRow row2 = sheet.createRow(rowLast + 1);
 
         XSSFCellStyle cell_styl_obl = xssfWorkbook.createCellStyle();
         cell_styl_obl.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -129,40 +108,26 @@ public class Tranzit {
         cell_styl_obl.setBorderBottom(XSSFCellStyle.BORDER_THIN);
         cell_styl_obl.setWrapText(true);//перенос слов
 
-        XSSFFont font = xssfWorkbook.createFont();
-        font.setFontHeightInPoints((short) 12);
-        font.setFontName("Times New Roman");
-        font.setBold(true);
-        cell_styl_obl.setFont(font);
+        XSSFFont font2 = xssfWorkbook.createFont();
+        font2.setFontHeightInPoints((short) 12);
+        font2.setFontName("Times New Roman");
+        font2.setBold(true);
+        cell_styl_obl.setFont(font2);
 
-        int rowLast = sheet.getLastRowNum();
-        XSSFRow row2 = sheet.createRow(rowLast + 1);
-        XSSFCell cellName = row2.createCell(0);
-        cellName.setCellStyle(cell_styl_obl);
+        XSSFCell cellName = getXssfCell(row2, 0, cell_styl_obl);
         cellName.setCellValue("ИТОГО: ");
 
-        XSSFCell cellThousand_t = row2.createCell(1);
-        cellThousand_t.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_pos_ed = row2.createCell(2);
-        cellThousand_pos_ed.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_sht = row2.createCell(3);
-        cellThousand_sht.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_part = row2.createCell(4);
-        cellThousand_part.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_m2 = row2.createCell(5);
-        cellThousand_m2.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_m3 = row2.createCell(6);
-        cellThousand_m3.setCellStyle(cellStyleRow);
-        XSSFCell cellRailway_wagons = row2.createCell(7);
-        cellRailway_wagons.setCellStyle(cellStyleRow);
-        XSSFCell cellMotor_transport = row2.createCell(8);
-        cellMotor_transport.setCellStyle(cellStyleRow);
-        XSSFCell cellContainer = row2.createCell(9);
-        cellContainer.setCellStyle(cellStyleRow);
-        XSSFCell cellBaggage = row2.createCell(10);
-        cellBaggage.setCellStyle(cellStyleRow);
-        XSSFCell cellAirplane = row2.createCell(11);
-        cellAirplane.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_t = getXssfCell(row2, 1, cellStyleRow);
+        XSSFCell cellThousand_pos_ed = getXssfCell(row2, 2, cellStyleRow);
+        XSSFCell cellThousand_sht = getXssfCell(row2, 3, cellStyleRow);
+        XSSFCell cellThousand_part = getXssfCell(row2, 4, cellStyleRow);
+        XSSFCell cellThousand_m2 = getXssfCell(row2, 5, cellStyleRow);
+        XSSFCell cellThousand_m3 = getXssfCell(row2, 6, cellStyleRow);
+        XSSFCell cellRailway_wagons = getXssfCell(row2, 7, cellStyleRow);
+        XSSFCell cellMotor_transport = getXssfCell(row2, 8, cellStyleRow);
+        XSSFCell cellContainer = getXssfCell(row2, 9, cellStyleRow);
+        XSSFCell cellBaggage = getXssfCell(row2, 10, cellStyleRow);
+        XSSFCell cellAirplane = getXssfCell(row2, 11, cellStyleRow);
 
         int summa_tonn = 0;
         int summa_pos_ed = 0;
@@ -234,31 +199,19 @@ public class Tranzit {
 
         int rowLast = sheet.getLastRowNum();
         XSSFRow row2 = sheet.createRow(rowLast + 1);
-        XSSFCell cellName_points = row2.createCell(0);
-        cellName_points.setCellStyle(cellStyle);
+        XSSFCell cellName_points = getXssfCell(row2, 0, cellStyle);
 
-        XSSFCell cellThousand_t = row2.createCell(1);
-        cellThousand_t.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_pos_ed = row2.createCell(2);
-        cellThousand_pos_ed.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_sht = row2.createCell(3);
-        cellThousand_sht.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_part = row2.createCell(4);
-        cellThousand_part.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_m2 = row2.createCell(5);
-        cellThousand_m2.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_m3 = row2.createCell(6);
-        cellThousand_m3.setCellStyle(cellStyleRow);
-        XSSFCell cellRailway_wagons = row2.createCell(7);
-        cellRailway_wagons.setCellStyle(cellStyleRow);
-        XSSFCell cellMotor_transport = row2.createCell(8);
-        cellMotor_transport.setCellStyle(cellStyleRow);
-        XSSFCell cellContainer = row2.createCell(9);
-        cellContainer.setCellStyle(cellStyleRow);
-        XSSFCell cellBaggage = row2.createCell(10);
-        cellBaggage.setCellStyle(cellStyleRow);
-        XSSFCell cellAirplane = row2.createCell(11);
-        cellAirplane.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_t = getXssfCell(row2, 1, cellStyleRow);
+        XSSFCell cellThousand_pos_ed = getXssfCell(row2, 2, cellStyleRow);
+        XSSFCell cellThousand_sht = getXssfCell(row2, 3, cellStyleRow);
+        XSSFCell cellThousand_part = getXssfCell(row2, 4, cellStyleRow);
+        XSSFCell cellThousand_m2 = getXssfCell(row2, 5, cellStyleRow);
+        XSSFCell cellThousand_m3 = getXssfCell(row2, 6, cellStyleRow);
+        XSSFCell cellRailway_wagons = getXssfCell(row2, 7, cellStyleRow);
+        XSSFCell cellMotor_transport = getXssfCell(row2, 8, cellStyleRow);
+        XSSFCell cellContainer = getXssfCell(row2, 9, cellStyleRow);
+        XSSFCell cellBaggage = getXssfCell(row2, 10, cellStyleRow);
+        XSSFCell cellAirplane = getXssfCell(row2, 11, cellStyleRow);
 
         cellName_points.setCellValue(namePoints.get(k).getName());
         cellThousand_t.setCellValue(namePoints.get(k).getTonn());
@@ -337,49 +290,24 @@ public class Tranzit {
     }
 
     public static void plus_eaeu(CountryReport countryRequest, CountryRow countryRow, XSSFWorkbook xssfWorkbook,
-                                 XSSFSheet sheet, XSSFCellStyle cellStyleRow) {
-
-        XSSFCellStyle cell_styl_obl = xssfWorkbook.createCellStyle();
-        cell_styl_obl.setBorderLeft(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setBorderRight(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setBorderTop(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setBorderBottom(XSSFCellStyle.BORDER_THIN);
-        cell_styl_obl.setWrapText(true);//перенос слов
-
-        XSSFFont font = xssfWorkbook.createFont();
-        font.setFontHeightInPoints((short) 12);
-        font.setFontName("Times New Roman");
-        font.setBold(true);
-        cell_styl_obl.setFont(font);
+                                 XSSFSheet sheet, XSSFCellStyle cellStyleRow, XSSFCellStyle cell_styl_obl) {
 
         int rowLast = sheet.getLastRowNum();
         XSSFRow row2 = sheet.createRow(rowLast + 1);
-        XSSFCell cellName = row2.createCell(0);
-        cellName.setCellStyle(cell_styl_obl);
+        XSSFCell cellName = getXssfCell(row2, 0, cell_styl_obl);
         cellName.setCellValue("В том числе в страны ЕАЭС: ");
 
-        XSSFCell cellThousand_t = row2.createCell(1);
-        cellThousand_t.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_pos_ed = row2.createCell(2);
-        cellThousand_pos_ed.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_sht = row2.createCell(3);
-        cellThousand_sht.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_part = row2.createCell(4);
-        cellThousand_part.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_m2 = row2.createCell(5);
-        cellThousand_m2.setCellStyle(cellStyleRow);
-        XSSFCell cellThousand_m3 = row2.createCell(6);
-        cellThousand_m3.setCellStyle(cellStyleRow);
-        XSSFCell cellRailway_wagons = row2.createCell(7);
-        cellRailway_wagons.setCellStyle(cellStyleRow);
-        XSSFCell cellMotor_transport = row2.createCell(8);
-        cellMotor_transport.setCellStyle(cellStyleRow);
-        XSSFCell cellContainer = row2.createCell(9);
-        cellContainer.setCellStyle(cellStyleRow);
-        XSSFCell cellBaggage = row2.createCell(10);
-        cellBaggage.setCellStyle(cellStyleRow);
-        XSSFCell cellAirplane = row2.createCell(11);
-        cellAirplane.setCellStyle(cellStyleRow);
+        XSSFCell cellThousand_t = getXssfCell(row2, 1, cellStyleRow);
+        XSSFCell cellThousand_pos_ed = getXssfCell(row2, 2, cellStyleRow);
+        XSSFCell cellThousand_sht = getXssfCell(row2, 3, cellStyleRow);
+        XSSFCell cellThousand_part = getXssfCell(row2, 4, cellStyleRow);
+        XSSFCell cellThousand_m2 = getXssfCell(row2, 5, cellStyleRow);
+        XSSFCell cellThousand_m3 = getXssfCell(row2, 6, cellStyleRow);
+        XSSFCell cellRailway_wagons = getXssfCell(row2, 7, cellStyleRow);
+        XSSFCell cellMotor_transport = getXssfCell(row2, 8, cellStyleRow);
+        XSSFCell cellContainer = getXssfCell(row2, 9, cellStyleRow);
+        XSSFCell cellBaggage = getXssfCell(row2, 10, cellStyleRow);
+        XSSFCell cellAirplane = getXssfCell(row2, 11, cellStyleRow);
 
         int summa_tonn = 0;
         int summa_pos_ed = 0;
@@ -442,6 +370,11 @@ public class Tranzit {
         summa_container2=0;
         summa_baggage2=0;
         summa_airplane2=0;
+    }
+    private static XSSFCell getXssfCell(XSSFRow row, int columnIndex, XSSFCellStyle cell_styl_obl) {
+        XSSFCell cellName_obl = row.createCell(columnIndex);
+        cellName_obl.setCellStyle(cell_styl_obl);
+        return cellName_obl;
     }
 }
 

@@ -15,7 +15,6 @@ public class ElementMass {
     private BigDecimal dateWeight = new BigDecimal(0);
     private BigDecimal weekWeight = new BigDecimal(0);
     private BigDecimal dateFromTo = new BigDecimal(0);
-
     private BigDecimal date2021 = new BigDecimal(0);
     private BigDecimal date2022 = new BigDecimal(0);
 

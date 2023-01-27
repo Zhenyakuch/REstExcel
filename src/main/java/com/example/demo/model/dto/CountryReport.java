@@ -23,10 +23,8 @@ public class CountryReport {
     private boolean isTranzitEAEU;
     private boolean isFlowers;
     private List<CountryRow> countryRows;
-
     private List<UnitsFlowers> units;
     private List<PieceFlowers> piece;
     private Fss fss;
-
     private int allFss2022;
 }

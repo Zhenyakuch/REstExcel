@@ -13,7 +13,6 @@ public class ElementRegion extends ElementMass {
 
     //переменные json импорта экспорта и реэк
     private int region;
-    //private int number;
     private List<NamePoints> namePoints;
 
 

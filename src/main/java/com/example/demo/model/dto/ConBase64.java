@@ -11,7 +11,6 @@ public class ConBase64 {
 
     public static String convert(File originalFile) {
 
-//        File originalFile = new File(nameFileResponse);
         String encodedBase64 = null;
         try (FileInputStream fileInputStreamReader = new FileInputStream(originalFile)) {
             byte[] bytes = new byte[(int) originalFile.length()];
