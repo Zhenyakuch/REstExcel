@@ -3,7 +3,6 @@ package com.example.demo;
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +13,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 
 @RestController
 @Slf4j
@@ -256,7 +252,6 @@ public class ProductController {
     public String printTranData(@RequestBody CountryReport countryRequest) throws Exception {
 
         log.debug("CountryReport " + countryRequest);
-
 //        OPCPackage pkg = OPCPackage.open("src/main/resources/BlancTranzit.xlsx");
         InputStream is = getClass().getClassLoader().getResourceAsStream("BlancTranzit.xlsx");
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
@@ -356,6 +351,8 @@ public class ProductController {
 
 
 //        String nameFileResponse = "src/main/resources/" + nameFile + LocalDate.now() + ".xlsx";
+
+        Tranzit.nullable();
         File tempFile = File.createTempFile(nameFile, null);
         try (OutputStream fileOut = Files.newOutputStream(tempFile.toPath())) {
             xssfWorkbook.write(fileOut);

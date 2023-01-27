@@ -26,15 +26,7 @@ public class CountryReport {
 
     private List<UnitsFlowers> units;
     private List<PieceFlowers> piece;
-    private List<Fss> fss;
+    private Fss fss;
 
     private int allFss2022;
-
-
-
-
-
-
-
-
 }
