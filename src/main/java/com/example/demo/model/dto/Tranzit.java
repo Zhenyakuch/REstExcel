@@ -7,17 +7,17 @@ import org.apache.poi.xssf.usermodel.*;
 import java.util.List;
 
 public class Tranzit {
-    public static int summa_tonn2;
-    public static int summa_pos_ed2;
-    public static int summa_sht2;
-    public static int summa_part2;
-    public static int summa_m22;
-    public static int summa_m32;
-    public static int summa_wagons2;
-    public static int summa_transport2;
-    public static int summa_container2;
-    public static int summa_baggage2;
-    public static int summa_airplane2;
+    public static double summa_tonn2;
+    public static double summa_pos_ed2;
+    public static double summa_sht2;
+    public static double summa_part2;
+    public static double summa_m22;
+    public static double summa_m32;
+    public static double summa_wagons2;
+    public static double summa_transport2;
+    public static double summa_container2;
+    public static double summa_baggage2;
+    public static double summa_airplane2;
 
 
     public static void create_obl(int cellCount, XSSFWorkbook xssfWorkbook, XSSFRow row, XSSFCellStyle cellStyle, XSSFCellStyle cell_styl_obl,
@@ -129,31 +129,31 @@ public class Tranzit {
         XSSFCell cellBaggage = getXssfCell(row2, 10, cellStyleRow);
         XSSFCell cellAirplane = getXssfCell(row2, 11, cellStyleRow);
 
-        int summa_tonn = 0;
-        int summa_pos_ed = 0;
-        int summa_sht = 0;
-        int summa_part = 0;
-        int summa_m2 = 0;
-        int summa_m3 = 0;
-        int summa_wagons = 0;
-        int summa_transport = 0;
-        int summa_container = 0;
-        int summa_baggage = 0;
-        int summa_airplane = 0;
+        double summa_tonn = 0;
+        double summa_pos_ed = 0;
+        double summa_sht = 0;
+        double summa_part = 0;
+        double summa_m2 = 0;
+        double summa_m3 = 0;
+        double summa_wagons = 0;
+        double summa_transport = 0;
+        double summa_container = 0;
+        double summa_baggage = 0;
+        double summa_airplane = 0;
 
 
         for (NamePoints namePoint : namePoints) {
-            int tonn = namePoint.getTonn();
-            int pos_ed = namePoint.getUnits();
-            int sht = namePoint.getPieces();
-            int part = namePoint.getParties();
-            int m2 = namePoint.getM2_packages();
-            int m3 = namePoint.getM3();
-            int wagons = namePoint.getWagons();
-            int transport = namePoint.getMotor_transport();
-            int container = namePoint.getContainers();
-            int baggage = namePoint.getBaggage();
-            int airplane = namePoint.getAirplane();
+            double tonn = namePoint.getTonn();
+            double pos_ed = namePoint.getUnits();
+            double sht = namePoint.getPieces();
+            double part = namePoint.getParties();
+            double m2 = namePoint.getM2_packages();
+            double m3 = namePoint.getM3();
+            double wagons = namePoint.getWagons();
+            double transport = namePoint.getMotor_transport();
+            double container = namePoint.getContainers();
+            double baggage = namePoint.getBaggage();
+            double airplane = namePoint.getAirplane();
 
             summa_tonn = summa_tonn + tonn;
             summa_pos_ed = summa_pos_ed + pos_ed;
@@ -228,10 +228,10 @@ public class Tranzit {
 
     }
 
-    public static void plusAll(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, XSSFCellStyle cellStyleRow, int summa_tonn,
-                               int summa_pos_ed, int summa_sht, int summa_part, int summa_m2, int summa_m3,
-                               int summa_wagons, int summa_transport, int summa_container, int summa_baggage,
-                               int summa_airplane) {
+    public static void plusAll(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, XSSFCellStyle cellStyleRow, double summa_tonn,
+                               double summa_pos_ed, double summa_sht, double summa_part, double summa_m2, double summa_m3,
+                               double summa_wagons, double summa_transport, double summa_container, double summa_baggage,
+                               double summa_airplane) {
 
         XSSFCellStyle cell_styl_obl = xssfWorkbook.createCellStyle();
         cell_styl_obl.setBorderLeft(XSSFCellStyle.BORDER_THIN);
@@ -309,17 +309,17 @@ public class Tranzit {
         XSSFCell cellBaggage = getXssfCell(row2, 10, cellStyleRow);
         XSSFCell cellAirplane = getXssfCell(row2, 11, cellStyleRow);
 
-        int summa_tonn = 0;
-        int summa_pos_ed = 0;
-        int summa_sht = 0;
-        int summa_part = 0;
-        int summa_m2 = 0;
-        int summa_m3 = 0;
-        int summa_wagons = 0;
-        int summa_transport = 0;
-        int summa_container = 0;
-        int summa_baggage = 0;
-        int summa_airplane = 0;
+        double summa_tonn = 0;
+        double summa_pos_ed = 0;
+        double summa_sht = 0;
+        double summa_part = 0;
+        double summa_m2 = 0;
+        double summa_m3 = 0;
+        double summa_wagons = 0;
+        double summa_transport = 0;
+        double summa_container = 0;
+        double summa_baggage = 0;
+        double summa_airplane = 0;
 
         for (int cellCount = 0; cellCount < countryRequest.getCountryRows().get(0).getRegions().size(); cellCount++) {
 
