@@ -1,20 +1,31 @@
 package com.example.demo;
 
+//import com.example.demo.model.TotalMass;
+//import com.example.demo.model.TotalMass;
+//import com.example.demo.model.dto.*;
+
+//import com.aspose.words.Document;
+
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.docx4j.Docx4J;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Files;
 
 @RestController
@@ -316,16 +327,16 @@ public class ProductController {
                 XSSFRow row = sheet.createRow(rowLast + 1);
                 CountryRow countryRow = countryRequest.getCountryRows().get(0);
                 ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
-                Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cell_styl_obl,cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
+                Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cell_styl_obl, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
                 //В том числе в страны ЕАЭС
-                Tranzit.plus_eaeu(countryRequest, countryRow, xssfWorkbook, sheet, cellStyleRow,cell_styl_obl);
+                Tranzit.plus_eaeu(countryRequest, countryRow, xssfWorkbook, sheet, cellStyleRow, cell_styl_obl);
             } else {
                 nameFile = "Tranzit";
                 rowLast = sheet.getLastRowNum();
                 XSSFRow row = sheet.createRow(rowLast + 1);
                 CountryRow countryRow = countryRequest.getCountryRows().get(0);
                 ElementRegion elementRegion = countryRow.getRegions().get(cellCount);
-                Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cell_styl_obl,cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
+                Tranzit.create_obl(cellCount, xssfWorkbook, row, cellStyle, cell_styl_obl, cellStyleRow, countryRow.getRegions(), elementRegion.getNamePoints());
             }
         }
 
@@ -349,18 +360,109 @@ public class ProductController {
     @PostMapping("/pdf-label")
     public String createPdfLabel() throws Exception {
 
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("iTextHelloWorld.pdf"));
 
-        document.open();
-        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-        Chunk chunk = new Chunk("Hello World", font);
+        InputStream is = getClass().getClassLoader().getResourceAsStream("ЭТИКЕТКА.docx");
+        XWPFDocument doc = new XWPFDocument(is);
+        for (XWPFParagraph paragraph : doc.getParagraphs()) {
+            for (XWPFRun run : paragraph.getRuns()) {
+                String text = run.getText(0);
+                // if (text != null && text.contains("ЭТИКЕТКА")) {
+                text = text.replace("number", "1");//your content
+                text = text.replace("name", "2");
+                text = text.replace("weight", "3");
+                text = text.replace("origin", "4");
+                text = text.replace("place", "5");
+                text = text.replace("net", "6");
+                text = text.replace("recepient", "7");
+                text = text.replace("appointment", "8");
+                text = text.replace("area", "9");
+                text = text.replace("sings", "10");
+                text = text.replace("definition", "11");
+                text = text.replace("information", "12");
+                text = text.replace("seal", "13");
+                text = text.replace("sample", "14");
+                text = text.replace("data", "15");
+                text = text.replace("FIO1", "16");
+                text = text.replace("FIO2", "17");
 
-        document.add(chunk);
-        document.close();
+                run.setText(text, 0);
+                System.out.println(text);
+            }
+        }
+        doc.write(new FileOutputStream("ЭТИКЕТКА2.docx"));
+
+        return null;
+    }
+
+    @PostMapping("/convert")
+    public String convert() throws Exception {
+//        InputStream is = getClass().getClassLoader().getResourceAsStream("ЭТИКЕТКА.docx");
+//        Document doc = new Document(is);
+// Save as PDF
+//        doc.save("output.pdf");
+//        doc.saveToFile("ToPdf.pdf", FileFormat.PDF);
+//        Converter converter = new Converter("input.docx");
+//
+//        ConvertOptions convertOptions = new FileType().fromExtension("pdf").getConvertOptions();
+//
+//        converter.convert("output.pdf", convertOptions);
+//        File file1 = new File("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ЭТИКЕТКА.docx");
+//        FileInputStream fileInpStr1 = new FileInputStream(file1.getAbsolutePath());
+//
+//        XWPFDocument doc = new XWPFDocument(fileInpStr1);
+//        OutputStream outFile = new FileOutputStream("myPDFout.pdf");
+//
+//        PdfOptions options = PdfOptions.create();;
+//        PdfConverter.getInstance().convert(doc,outFile,options);
+//
+//        outFile.close();
+//        doc.close();
+
+//        String docPath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ЭТИКЕТКА.docx";
+//        String pdfPath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\WordDocument.pdf";
+//
+//        InputStream in = new FileInputStream(new File(docPath));
+//        XWPFDocument document = new XWPFDocument(in);
+//        PdfOptions options = PdfOptions.create();
+//        OutputStream out = new FileOutputStream(new File(pdfPath));
+//        PdfConverter.getInstance().convert(document, out, options);
+
+//        document.close();
+//        out.close();
+
+//        try (InputStream is = new FileInputStream(new File("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ЭТИКЕТКА.docx"));
+//             OutputStream out = new FileOutputStream(new File("rdtschools-Docx2PdfConverted_PDF_File.pdf"));) {
+//            long start = System.currentTimeMillis();
+//            // 1) Load DOCX into XWPFDocument
+//            XWPFDocument document = new XWPFDocument(is);
+//            // 2) Prepare Pdf options
+//            PdfOptions options = PdfOptions.create();
+//            // 3) Convert XWPFDocument to Pdf
+//            PdfConverter.getInstance().convert(document, out, options);
+//            System.out.println("rdtschools-Docx2PdfConversion-word-sample.docx was converted to a PDF file in :: "
+//                    + (System.currentTimeMillis() - start) + " milli seconds");
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
+        //Загрузить образец документа Word
+        try {
+            InputStream templateInputStream = new FileInputStream("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ЭТИКЕТКА.docx");
+            WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
+            MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
+
+            String outputfilepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ЭТИКЕТКА.pdf";
+            FileOutputStream os = new FileOutputStream(outputfilepath);
+            Docx4J.toPDF(wordMLPackage,os);
+            os.flush();
+            os.close();
+        } catch (Throwable e) {
+
+            e.printStackTrace();
+        }
+
+
         return null;
     }
 
 
 }
-
