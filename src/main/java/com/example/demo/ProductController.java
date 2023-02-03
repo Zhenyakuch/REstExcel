@@ -384,7 +384,7 @@ public class ProductController {
 
             //Save the result document
             document.saveToFile(nameFile, FileFormat.Docx);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -394,7 +394,7 @@ public class ProductController {
 //        for (XWPFParagraph paragraph : doc.getParagraphs()) {
 //            for (XWPFRun run : paragraph.getRuns()) {
 //                String text = run.getText(0);
-                // if (text != null && text.contains("ЭТИКЕТКА")) {
+        // if (text != null && text.contains("ЭТИКЕТКА")) {
 //                text = text.replace("number", "1");//your content
 //                text = text.replace("name", "2");
 //                text = text.replace("weight", "3");
@@ -422,7 +422,44 @@ public class ProductController {
         return null;
     }
 
-    @PostMapping("/convert")
+    @PostMapping("/conclusion")
+    public String createPdfConclusion() throws Exception {
+
+        String nameFile = "ЗАКЛЮЧЕНИЕ.docx";
+        try {
+            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\Conclusion.docx");
+            // Replace a specific text
+            document.replace("name_legal", "оченб длинное название аааааааааааааааааа", true, true);
+            document.replace("data1", "03.02.2023", true, true);
+            document.replace("data2", "03.02.2023", true, true);
+            document.replace("data3", "03.02.2023", true, true);
+            document.replace("data4", "03.02.2023", true, true);
+            document.replace("number1", "11111", true, true);
+            document.replace("number2", "222222", true, true);
+            document.replace("number3", "33333", true, true);
+            document.replace("issued", "наименование тут будет", true, true);
+            document.replace("name_and_weight", "помидоры красные", true, true);
+            document.replace("origin", "Китай", true, true);
+            document.replace("place", "сянь хунь", true, true);
+            document.replace("from_whos", "3564523/2352", true, true);
+            document.replace("recepient", "\"апролджлорпавпрол\"", true, true);
+            document.replace("result", "все нори", true, true);
+            document.replace("events", "никаких", true, true);
+            document.replace("FIO", "Гек О.К.", true, true);
+
+            //Save the result document
+            document.saveToFile(nameFile, FileFormat.Docx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        convert(nameFile);
+
+
+        return null;
+    }
+
+    //    @PostMapping("/convert")
     public String convert(String nameFile) throws Exception {
 
         try {
@@ -430,7 +467,7 @@ public class ProductController {
             WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
             MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
 
-            String outputfilepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ЭТИКЕТКА.pdf";
+            String outputfilepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\"+nameFile+".pdf";
             FileOutputStream os = new FileOutputStream(outputfilepath);
             Docx4J.toPDF(wordMLPackage, os);
             os.flush();
