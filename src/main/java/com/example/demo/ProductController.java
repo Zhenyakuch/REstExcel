@@ -422,6 +422,7 @@ public class ProductController {
         return null;
     }
 
+
     @PostMapping("/conclusion")
     public String createPdfConclusion() throws Exception {
 
@@ -458,6 +459,44 @@ public class ProductController {
 
         return null;
     }
+
+    @PostMapping("/act-decontamination")
+    public String createPdfActDecontamination() throws Exception {
+
+        String nameFile = "Акт обеззараживания.docx";
+        try {
+            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDecontamination.docx");
+            // Replace a specific text
+            document.replace("data1", "04.02.2023", true, true);
+            document.replace("data2", "05.02.2023", true, true);
+            document.replace("number", "33333", true, true);
+            document.replace("name1", "имя первое", true, true);
+            document.replace("name2", "имя второе", true, true);
+            document.replace("quantity", "вес", true, true);
+            document.replace("conclusion1", "заключение1", true, true);
+            document.replace("conclusion2", "заключение2", true, true);
+            document.replace("conclusion3", "заключение3", true, true);
+            document.replace("organization", "сянь хунь", true, true);
+            document.replace("method_disinfection", "химия", true, true);
+            document.replace("FIO1", "Гек О.К.", true, true);
+            document.replace("FIO2", "Чук О.К.", true, true);
+            document.replace("FIO3", "Перец О.К.", true, true);
+
+            //Save the result document
+            document.saveToFile(nameFile, FileFormat.Docx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        convert(nameFile);
+
+
+        return null;
+    }
+
+
+
+
 
     //    @PostMapping("/convert")
     public String convert(String nameFile) throws Exception {
