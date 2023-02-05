@@ -528,6 +528,40 @@ public class ProductController {
         return null;
     }
 
+    @PostMapping("/act-return")
+    public String createPdfActReturn() throws Exception {
+
+        String nameFile = "Акт возврата";
+        try {
+            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActReturn.docx");
+
+            document.replace("number", "33333", true, true);
+            document.replace("data1", "04.02.2023", true, true);
+            document.replace("place", "гаражи", true, true);
+            document.replace("FIO1", "Гек О.К.", true, true);
+            document.replace("FIO2", "Чук О.К.", true, true);
+            document.replace("FIO3", "Перец О.К.", true, true);
+            document.replace("name", "яблочки", true, true);
+            document.replace("quantity", "1000000", true, true);
+            document.replace("recipient", "ОАО арарара", true, true);
+            document.replace("place_sender", "порт", true, true);
+            document.replace("number_TS", "4567АГ-7", true, true);
+            document.replace("numberFSS", "34635636", true, true);
+            document.replace("data2", "05.02.2023", true, true);
+            document.replace("return_reasons", "зараженный товар", true, true);
+            document.replace("organizationFSS", "БЕЛФИТО", true, true);
+
+            //Save the result document
+            document.saveToFile(nameFile, FileFormat.Docx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        convert(nameFile);
+
+
+        return null;
+    }
 
 
 
