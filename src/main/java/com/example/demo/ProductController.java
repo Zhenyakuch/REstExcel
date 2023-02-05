@@ -356,7 +356,7 @@ public class ProductController {
     @PostMapping("/label")
     public String createPdfLabel() throws Exception {
 
-        String nameFile = "ЭТИКЕТКА.docx";
+        String nameFile = "ЭТИКЕТКА";
         try {
 
             // InputStream is = getClass().getClassLoader().getResourceAsStream("Label.docx");
@@ -426,7 +426,7 @@ public class ProductController {
     @PostMapping("/conclusion")
     public String createPdfConclusion() throws Exception {
 
-        String nameFile = "ЗАКЛЮЧЕНИЕ.docx";
+        String nameFile = "ЗАКЛЮЧЕНИЕ";
         try {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\Conclusion.docx");
             // Replace a specific text
@@ -463,9 +463,9 @@ public class ProductController {
     @PostMapping("/act-decontamination")
     public String createPdfActDecontamination() throws Exception {
 
-        String nameFile = "Акт обеззараживания.docx";
+        String nameFile = "Акт обеззараживания";
         try {
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDecontamination.docx");
+            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDisinfection.docx");
             // Replace a specific text
             document.replace("data1", "04.02.2023", true, true);
             document.replace("data2", "05.02.2023", true, true);
@@ -478,6 +478,40 @@ public class ProductController {
             document.replace("conclusion3", "заключение3", true, true);
             document.replace("organization", "сянь хунь", true, true);
             document.replace("method_disinfection", "химия", true, true);
+            document.replace("FIO1", "Гек О.К.", true, true);
+            document.replace("FIO2", "Чук О.К.", true, true);
+            document.replace("FIO3", "Перец О.К.", true, true);
+
+            //Save the result document
+            document.saveToFile(nameFile, FileFormat.Docx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        convert(nameFile);
+
+
+        return null;
+    }
+
+    @PostMapping("/act-destruction")
+    public String createPdfActDestruction() throws Exception {
+
+        String nameFile = "Акт об уничтожении";
+        try {
+            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDestruction.docx");
+
+            document.replace("number", "33333", true, true);
+            document.replace("data1", "04.02.2023", true, true);
+            document.replace("data2", "05.02.2023", true, true);
+            document.replace("method_destruction", "химия", true, true);
+            document.replace("name", "яблочки", true, true);
+            document.replace("quantity", "1000000", true, true);
+            document.replace("weight", "150кг", true, true);
+            document.replace("place", "сарай", true, true);
+            document.replace("position1", "дирик1", true, true);
+            document.replace("position2", "дирик2", true, true);
+            document.replace("position3", "дирик3", true, true);
             document.replace("FIO1", "Гек О.К.", true, true);
             document.replace("FIO2", "Чук О.К.", true, true);
             document.replace("FIO3", "Перец О.К.", true, true);
