@@ -377,7 +377,6 @@ public class ProductController {
             document.replace("FIO2", sticker.getFio2(), true, true);
 
             //Save the result document
-            //Save the result document
             document.saveToFile(nameFile, FileFormat.Docx);
         } catch (Exception e) {
             e.printStackTrace();
@@ -387,29 +386,30 @@ public class ProductController {
     }
 
     @PostMapping("/conclusion")
-    public String createPdfConclusion() throws Exception {
+    public String createPdfConclusion(@RequestBody Conclusion conclusion) throws Exception {
 
         String nameFile = "ЗАКЛЮЧЕНИЕ";
         try {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\Conclusion.docx");
             // Replace a specific text
-            document.replace("name_legal", "оченб длинное название аааааааааааааааааа", true, true);
-            document.replace("data1", "03.02.2023", true, true);
-            document.replace("data2", "03.02.2023", true, true);
-            document.replace("data3", "03.02.2023", true, true);
-            document.replace("data4", "03.02.2023", true, true);
-            document.replace("number1", "11111", true, true);
-            document.replace("number2", "222222", true, true);
-            document.replace("number3", "33333", true, true);
-            document.replace("issued", "наименование тут будет", true, true);
-            document.replace("name_and_weight", "помидоры красные", true, true);
-            document.replace("origin", "Китай", true, true);
-            document.replace("place", "сянь хунь", true, true);
-            document.replace("from_whos", "3564523/2352", true, true);
-            document.replace("recepient", "\"апролджлорпавпрол\"", true, true);
-            document.replace("result", "все нори", true, true);
-            document.replace("events", "никаких", true, true);
-            document.replace("FIO", "Гек О.К.", true, true);
+            document.replace("name_legal", conclusion.getName_legal(), true, true);
+            document.replace("data1", String.valueOf(conclusion.getData1()), true, true);
+            document.replace("data2", String.valueOf(conclusion.getData2()), true, true);
+            document.replace("data3", String.valueOf(conclusion.getData3()), true, true);
+            document.replace("data4", String.valueOf(conclusion.getData4()), true, true);
+            document.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
+            document.replace("number2", String.valueOf(conclusion.getNumber2()), true, true);
+            document.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
+            document.replace("issued", conclusion.getIssued(), true, true);
+            document.replace("name", conclusion.getName(), true, true);
+            document.replace("weight", String.valueOf(conclusion.getWeight()), true, true);
+            document.replace("origin", conclusion.getOrigin(), true, true);
+            document.replace("place", conclusion.getPlace(), true, true);
+            document.replace("from_whos", conclusion.getFrom_whos(), true, true);
+            document.replace("recipient", conclusion.getRecipient(), true, true);
+            document.replace("result", conclusion.getResult(), true, true);
+            document.replace("events", conclusion.getEvents(), true, true);
+            document.replace("FIO", conclusion.getFio(), true, true);
 
             //Save the result document
             document.saveToFile(nameFile, FileFormat.Docx);
