@@ -4,6 +4,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 
@@ -23,5 +24,6 @@ public class ConBase64 {
 
         return "{\"b64\":\"" + encodedBase64 + "\"}";
     }
+
 
 }
