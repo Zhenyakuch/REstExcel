@@ -452,26 +452,26 @@ public class ProductController {
     }
 
     @PostMapping("/act-destruction")
-    public String createPdfActDestruction() throws Exception {
+    public String createPdfActDestruction(@RequestBody Destruction destruction) throws Exception {
 
         String nameFile = "Акт об уничтожении";
         try {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDestruction.docx");
 
-            document.replace("number", "33333", true, true);
-            document.replace("data1", "04.02.2023", true, true);
-            document.replace("data2", "05.02.2023", true, true);
-            document.replace("method_destruction", "химия", true, true);
-            document.replace("name", "яблочки", true, true);
-            document.replace("quantity", "1000000", true, true);
-            document.replace("weight", "150кг", true, true);
-            document.replace("place", "сарай", true, true);
-            document.replace("position1", "дирик1", true, true);
-            document.replace("position2", "дирик2", true, true);
-            document.replace("position3", "дирик3", true, true);
-            document.replace("FIO1", "Гек О.К.", true, true);
-            document.replace("FIO2", "Чук О.К.", true, true);
-            document.replace("FIO3", "Перец О.К.", true, true);
+            document.replace("number", destruction.getName(), true, true);
+            document.replace("data1", String.valueOf(destruction.getData1()), true, true);
+            document.replace("data2", String.valueOf(destruction.getData2()), true, true);
+            document.replace("method_destruction", destruction.getMethod_destruction(), true, true);
+            document.replace("name", destruction.getName(), true, true);
+            document.replace("quantity", String.valueOf(destruction.getQuantity()), true, true);
+            document.replace("weight", String.valueOf(destruction.getWeight()), true, true);
+            document.replace("place", destruction.getPlace(), true, true);
+            document.replace("position1", destruction.getPosition1(), true, true);
+            document.replace("position2", destruction.getPosition2(), true, true);
+            document.replace("position3", destruction.getPosition3(), true, true);
+            document.replace("FIO1", destruction.getFio1(), true, true);
+            document.replace("FIO2", destruction.getFio2(), true, true);
+            document.replace("FIO3", destruction.getFio3(), true, true);
 
             //Save the result document
             document.saveToFile(nameFile, FileFormat.Docx);
