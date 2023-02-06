@@ -372,7 +372,7 @@ public class ProductController {
             document.replace("additional_info", sticker.getAdditional_info(), true, true);
             document.replace("seal_number", sticker.getSeal_number(), true, true);
             document.replace("position", sticker.getPosition(), true, true);
-            document.replace("data", String.valueOf(sticker.getData()), true, true);
+            document.replace("date", String.valueOf(sticker.getDate()), true, true);
             document.replace("FIO1", sticker.getFio1(), true, true);
             document.replace("FIO2", sticker.getFio2(), true, true);
 
@@ -393,10 +393,10 @@ public class ProductController {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\Conclusion.docx");
             // Replace a specific text
             document.replace("name_legal", conclusion.getName_legal(), true, true);
-            document.replace("data1", String.valueOf(conclusion.getData1()), true, true);
-            document.replace("data2", String.valueOf(conclusion.getData2()), true, true);
-            document.replace("data3", String.valueOf(conclusion.getData3()), true, true);
-            document.replace("data4", String.valueOf(conclusion.getData4()), true, true);
+            document.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
+            document.replace("date2", String.valueOf(conclusion.getDate2()), true, true);
+            document.replace("date3", String.valueOf(conclusion.getDate3()), true, true);
+            document.replace("date4", String.valueOf(conclusion.getDate4()), true, true);
             document.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
             document.replace("number2", String.valueOf(conclusion.getNumber2()), true, true);
             document.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
@@ -459,8 +459,8 @@ public class ProductController {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDestruction.docx");
 
             document.replace("number", destruction.getName(), true, true);
-            document.replace("data1", String.valueOf(destruction.getData1()), true, true);
-            document.replace("data2", String.valueOf(destruction.getData2()), true, true);
+            document.replace("date1", String.valueOf(destruction.getDate1()), true, true);
+            document.replace("date2", String.valueOf(destruction.getDate2()), true, true);
             document.replace("method_destruction", destruction.getMethod_destruction(), true, true);
             document.replace("name", destruction.getName(), true, true);
             document.replace("quantity", String.valueOf(destruction.getQuantity()), true, true);

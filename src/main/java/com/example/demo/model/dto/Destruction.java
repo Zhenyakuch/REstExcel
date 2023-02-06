@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public class Destruction {
 
     private int number;
-    private LocalDate data1;
-    private LocalDate data2;
+    private LocalDate date1;
+    private LocalDate date2;
     private String method_destruction;
     private String name;
     private double quantity;

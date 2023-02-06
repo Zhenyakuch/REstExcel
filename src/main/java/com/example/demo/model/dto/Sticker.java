@@ -25,7 +25,7 @@ public class Sticker {
     private String additional_info;
     private String seal_number;
     private String position;
-    private LocalDate data;
+    private LocalDate date;
     private String fio1;
     private String fio2;
 

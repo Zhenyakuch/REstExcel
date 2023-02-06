@@ -24,9 +24,9 @@ public class Conclusion {
     private String recipient;
     private String result;
     private String events;
-    private LocalDate data1;
-    private LocalDate data2;
-    private LocalDate data3;
-    private LocalDate data4;
+    private LocalDate date1;
+    private LocalDate date2;
+    private LocalDate date3;
+    private LocalDate date4;
     private String fio;
 }
