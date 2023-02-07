@@ -482,28 +482,28 @@ public class ProductController {
         return convert(nameFile);
     }
 
-    @PostMapping("/act-return")
-    public String createPdfActReturn() {
+    @PostMapping("/act-refund")
+    public String createPdfActReturn(@RequestBody Refund refund) {
 
         String nameFile = "Акт возврата";
         try {
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActReturn.docx");
+            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActRefund.docx");
 
-            document.replace("number", "33333", true, true);
-            document.replace("data1", "04.02.2023", true, true);
-            document.replace("place", "гаражи", true, true);
-            document.replace("FIO1", "Гек О.К.", true, true);
-            document.replace("FIO2", "Чук О.К.", true, true);
-            document.replace("FIO3", "Перец О.К.", true, true);
-            document.replace("name", "яблочки", true, true);
-            document.replace("quantity", "1000000", true, true);
-            document.replace("recipient", "ОАО арарара", true, true);
-            document.replace("place_sender", "порт", true, true);
-            document.replace("number_TS", "4567АГ-7", true, true);
-            document.replace("numberFSS", "34635636", true, true);
-            document.replace("data2", "05.02.2023", true, true);
-            document.replace("return_reasons", "зараженный товар", true, true);
-            document.replace("organizationFSS", "БЕЛФИТО", true, true);
+            document.replace("number", String.valueOf(refund.getNumber()), true, true);
+            document.replace("date1", String.valueOf(refund.getDate1()), true, true);
+            document.replace("date2", String.valueOf(refund.getDate2()), true, true);
+            document.replace("place", refund.getPlace(), true, true);
+            document.replace("name", refund.getName(), true, true);
+            document.replace("quantity", String.valueOf(refund.getQuantity()), true, true);
+            document.replace("recipient", refund.getRecipient(), true, true);
+            document.replace("place_sender", refund.getPlace_sender(), true, true);
+            document.replace("number_TS", refund.getNumber_TS(), true, true);
+            document.replace("numberFSS", refund.getNumberFSS(), true, true);
+            document.replace("return_reasons", refund.getReturn_reasons(), true, true);
+            document.replace("organizationFSS", refund.getOrganizationFSS(), true, true);
+            document.replace("FIO1", refund.getFio1(), true, true);
+            document.replace("FIO2", refund.getFio2(), true, true);
+            document.replace("FIO3", refund.getFio3(), true, true);
 
             //Save the result document
             document.saveToFile(nameFile, FileFormat.Docx);
