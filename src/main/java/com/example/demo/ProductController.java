@@ -330,7 +330,7 @@ public class ProductController {
             }
         }
 
-        if (countryRequest.isTranzitEAEU() == false) {
+        if (!countryRequest.isTranzitEAEU()) {
             Tranzit.plusAll(xssfWorkbook, sheet, cellStyleRow,
                     Tranzit.summa_tonn2, Tranzit.summa_pos_ed2, Tranzit.summa_sht2, Tranzit.summa_part2, Tranzit.summa_m22,
                     Tranzit.summa_m32, Tranzit.summa_wagons2, Tranzit.summa_transport2, Tranzit.summa_container2,
@@ -348,7 +348,7 @@ public class ProductController {
     }
 
     @PostMapping("/sticker")
-    public String createPdfSticker(@RequestBody Sticker sticker) throws Exception {
+    public String createPdfSticker(@RequestBody Sticker sticker) {
 
         String nameFile = "ЭТИКЕТКА";
         try {
@@ -386,7 +386,7 @@ public class ProductController {
     }
 
     @PostMapping("/conclusion")
-    public String createPdfConclusion(@RequestBody Conclusion conclusion) throws Exception {
+    public String createPdfConclusion(@RequestBody Conclusion conclusion) {
 
         String nameFile = "ЗАКЛЮЧЕНИЕ";
         try {
@@ -420,27 +420,27 @@ public class ProductController {
         return convert(nameFile);
     }
 
-    @PostMapping("/act-decontamination")
-    public String createPdfActDecontamination() throws Exception {
+    @PostMapping("/act-disinfection")
+    public String createPdfActDecontamination(@RequestBody Disinfection disinfection) {
 
         String nameFile = "Акт обеззараживания";
         try {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDisinfection.docx");
             // Replace a specific text
-            document.replace("data1", "04.02.2023", true, true);
-            document.replace("data2", "05.02.2023", true, true);
-            document.replace("number", "33333", true, true);
-            document.replace("name1", "имя первое", true, true);
-            document.replace("name2", "имя второе", true, true);
-            document.replace("quantity", "вес", true, true);
-            document.replace("conclusion1", "заключение1", true, true);
-            document.replace("conclusion2", "заключение2", true, true);
-            document.replace("conclusion3", "заключение3", true, true);
-            document.replace("organization", "сянь хунь", true, true);
-            document.replace("method_disinfection", "химия", true, true);
-            document.replace("FIO1", "Гек О.К.", true, true);
-            document.replace("FIO2", "Чук О.К.", true, true);
-            document.replace("FIO3", "Перец О.К.", true, true);
+            document.replace("date1", String.valueOf(disinfection.getDate1()), true, true);
+            document.replace("date2", String.valueOf(disinfection.getDate2()), true, true);
+            document.replace("number", String.valueOf(disinfection.getNumber()), true, true);
+            document.replace("name1", disinfection.getName1(), true, true);
+            document.replace("name2", disinfection.getName2(), true, true);
+            document.replace("quantity", String.valueOf(disinfection.getQuantity()), true, true);
+            document.replace("conclusion1", disinfection.getConclusion1(), true, true);
+            document.replace("conclusion2", disinfection.getConclusion2(), true, true);
+            document.replace("conclusion3", disinfection.getConclusion3(), true, true);
+            document.replace("organization", disinfection.getOrganization(), true, true);
+            document.replace("method_disinfection", disinfection.getMethod_disinfection(), true, true);
+            document.replace("FIO1", disinfection.getFio1(), true, true);
+            document.replace("FIO2", disinfection.getFio2(), true, true);
+            document.replace("FIO3", disinfection.getFio3(), true, true);
 
             //Save the result document
             document.saveToFile(nameFile, FileFormat.Docx);
@@ -452,7 +452,7 @@ public class ProductController {
     }
 
     @PostMapping("/act-destruction")
-    public String createPdfActDestruction(@RequestBody Destruction destruction) throws Exception {
+    public String createPdfActDestruction(@RequestBody Destruction destruction) {
 
         String nameFile = "Акт об уничтожении";
         try {
@@ -483,7 +483,7 @@ public class ProductController {
     }
 
     @PostMapping("/act-return")
-    public String createPdfActReturn() throws Exception {
+    public String createPdfActReturn() {
 
         String nameFile = "Акт возврата";
         try {
@@ -514,13 +514,13 @@ public class ProductController {
         return convert(nameFile);
     }
 
-    public String convert(String nameFile) throws Exception {
+    public String convert(String nameFile) {
         try {
             InputStream templateInputStream = new FileInputStream(nameFile);
             WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
             MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
 
-           String outputfilepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\" + nameFile + ".pdf";
+            String outputfilepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\" + nameFile + ".pdf";
             FileOutputStream filePdf = new FileOutputStream(outputfilepath);
             Docx4J.toPDF(wordMLPackage, filePdf);
             filePdf.flush();
