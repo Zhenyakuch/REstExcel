@@ -515,13 +515,14 @@ public class ProductController {
     }
 
     public String convert(String nameFile) {
+        String filepath = null;
         try {
             InputStream templateInputStream = new FileInputStream(nameFile);
             WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
             MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
 
-            String outputfilepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\" + nameFile + ".pdf";
-            FileOutputStream filePdf = new FileOutputStream(outputfilepath);
+            filepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\" + nameFile + ".pdf";
+            FileOutputStream filePdf = new FileOutputStream(filepath);
             Docx4J.toPDF(wordMLPackage, filePdf);
             filePdf.flush();
             filePdf.close();
@@ -529,8 +530,7 @@ public class ProductController {
         } catch (Throwable e) {
             e.printStackTrace();
         }
-
-        return nameFile;
+        return ConBase64.convert(new File(filepath));
     }
 
 
