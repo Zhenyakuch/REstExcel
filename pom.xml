@@ -24,11 +24,6 @@
             <name>Aspose Java API</name>
             <url>https://releases.aspose.com/java/repo/</url>
         </repository>
-        <repository>
-            <id>com.e-iceblue</id>
-            <name>e-iceblue</name>
-            <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -37,46 +32,10 @@
             <version>22.12</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>e-iceblue</groupId>
-            <artifactId>spire.doc.free</artifactId>
-            <version>5.2.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sf.cssbox/pdf2dom -->
-        <!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/fr.opensagres.poi.xwpf.converter.pdf -->
-        <dependency>
-            <groupId>fr.opensagres.xdocreport</groupId>
-            <artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.docx4j</groupId>
-            <artifactId>docx4j-JAXB-Internal</artifactId>
-            <version>8.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.docx4j</groupId>
-            <artifactId>docx4j-JAXB-ReferenceImpl</artifactId>
-            <version>8.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.docx4j</groupId>
-            <artifactId>docx4j-JAXB-MOXy</artifactId>
-            <version>8.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.docx4j</groupId>
-            <artifactId>docx4j-export-fo</artifactId>
-            <version>8.0.0</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,43 +50,36 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <!--		<dependency>-->
-        <!--			<groupId>org.json</groupId>-->
-        <!--			<artifactId>json</artifactId>-->
-        <!--			<version>20220924</version>-->
-        <!--		</dependency>-->
-        <!--		<dependency>-->
-        <!--			<groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--			<artifactId>jackson-databind</artifactId>-->
-        <!--			<version>2.14.1</version>-->
-        <!--		</dependency>-->
-        <!--		<dependency>-->
-        <!--			<groupId>org.apache.poi</groupId>-->
-        <!--			<artifactId>poi</artifactId>-->
-        <!--			<version>5.2.3</version>-->
-        <!--		</dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi-ooxml</artifactId>-->
-<!--            <version>5.2.2</version>-->
-<!--        </dependency>-->
-        <!--		<dependency>-->
-        <!--			<groupId>javax.servlet</groupId>-->
-        <!--			<artifactId>servlet-api</artifactId>-->
-        <!--			<version>2.5</version>-->
-        <!--		</dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi</artifactId>-->
-<!--            <version>3.9</version>-->
-<!--        </dependency>-->
-        <!--		<dependency>-->
-        <!--			<groupId>org.mongodb</groupId>-->
-        <!--			<artifactId>mongo-java-driver</artifactId>-->
-        <!--			<version>3.7.0-rc0</version>-->
-        <!--		</dependency>-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>e-iceblue</groupId>
+            <artifactId>spire.doc.free</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.docx4j</groupId>
+            <artifactId>docx4j-JAXB-MOXy</artifactId>
+            <version>8.3.8</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-export-fo -->
+        <dependency>
+            <groupId>org.docx4j</groupId>
+            <artifactId>docx4j-export-fo</artifactId>
+            <version>8.3.8</version>
+        </dependency>
 
 
         <dependency>
