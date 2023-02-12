@@ -24,12 +24,24 @@
             <name>Aspose Java API</name>
             <url>https://releases.aspose.com/java/repo/</url>
         </repository>
+        <repository>
+            <id>com.e-iceblue</id>
+            <name>e-iceblue</name>
+            <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-cells</artifactId>
             <version>22.12</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/e-iceblue/spire.doc.free -->
+        <dependency>
+            <groupId>e-iceblue</groupId>
+            <artifactId>spire.doc.free</artifactId>
+            <version>5.2.0</version>
         </dependency>
 
         <dependency>
@@ -61,11 +73,8 @@
             <version>3.9</version>
         </dependency>
 
-        <dependency>
-            <groupId>e-iceblue</groupId>
-            <artifactId>spire.doc.free</artifactId>
-            <version>5.2.0</version>
-        </dependency>
+
+
 
 
         <dependency>

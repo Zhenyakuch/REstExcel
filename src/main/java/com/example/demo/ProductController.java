@@ -458,7 +458,7 @@ public class ProductController {
         try {
             Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDestruction.docx");
 
-            document.replace("number", destruction.getName(), true, true);
+            document.replace("number", String.valueOf(destruction.getNumber()), true, true);
             document.replace("date1", String.valueOf(destruction.getDate1()), true, true);
             document.replace("date2", String.valueOf(destruction.getDate2()), true, true);
             document.replace("method_destruction", destruction.getMethod_destruction(), true, true);
