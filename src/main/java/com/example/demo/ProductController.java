@@ -7,14 +7,13 @@ import com.spire.doc.FileFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.*;
-import org.docx4j.Docx4J;
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 
 
@@ -353,9 +352,8 @@ public class ProductController {
         String nameFile = "ЭТИКЕТКА";
         try {
 
-            // InputStream is = getClass().getClassLoader().getResourceAsStream("Sticker.docx");
-
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\Sticker.docx");
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("Sticker.docx");
+            Document document = new Document(doc);
 
             // Replace a specific text
             document.replace("number", String.valueOf(sticker.getNumber()), true, true);
@@ -390,7 +388,10 @@ public class ProductController {
 
         String nameFile = "ЗАКЛЮЧЕНИЕ";
         try {
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\Conclusion.docx");
+
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("Conclusion.docx");
+            Document document = new Document(doc);
+
             // Replace a specific text
             document.replace("name_legal", conclusion.getName_legal(), true, true);
             document.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
@@ -425,7 +426,10 @@ public class ProductController {
 
         String nameFile = "Акт обеззараживания";
         try {
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDisinfection.docx");
+
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("ActDisinfection.docx");
+            Document document = new Document(doc);
+
             // Replace a specific text
             document.replace("date1", String.valueOf(disinfection.getDate1()), true, true);
             document.replace("date2", String.valueOf(disinfection.getDate2()), true, true);
@@ -456,7 +460,9 @@ public class ProductController {
 
         String nameFile = "Акт об уничтожении";
         try {
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActDestruction.docx");
+
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("ActDestruction.docx");
+            Document document = new Document(doc);
 
             document.replace("number", String.valueOf(destruction.getNumber()), true, true);
             document.replace("date1", String.valueOf(destruction.getDate1()), true, true);
@@ -487,7 +493,9 @@ public class ProductController {
 
         String nameFile = "Акт возврата";
         try {
-            Document document = new Document("C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\ActRefund.docx");
+
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("ActRefund.docx");
+            Document document = new Document(doc);
 
             document.replace("number", String.valueOf(refund.getNumber()), true, true);
             document.replace("date1", String.valueOf(refund.getDate1()), true, true);
@@ -513,8 +521,6 @@ public class ProductController {
 
         return ConvertToPdf.convert(nameFile);
     }
-
-
 
 
 }
