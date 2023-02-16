@@ -29,6 +29,7 @@
             <name>e-iceblue</name>
             <url>https://repo.e-iceblue.com/nexus/content/groups/public/</url>
         </repository>
+
     </repositories>
     <dependencies>
         <dependency>

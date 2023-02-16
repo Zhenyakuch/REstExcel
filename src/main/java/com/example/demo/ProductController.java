@@ -382,7 +382,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return convert(nameFile);
+        return ConvertToPdf.convert(nameFile);
     }
 
     @PostMapping("/conclusion")
@@ -417,7 +417,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return convert(nameFile);
+        return ConvertToPdf.convert(nameFile);
     }
 
     @PostMapping("/act-disinfection")
@@ -448,7 +448,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return convert(nameFile);
+        return ConvertToPdf.convert(nameFile);
     }
 
     @PostMapping("/act-destruction")
@@ -479,7 +479,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return convert(nameFile);
+        return ConvertToPdf.convert(nameFile);
     }
 
     @PostMapping("/act-refund")
@@ -511,27 +511,10 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return convert(nameFile);
+        return ConvertToPdf.convert(nameFile);
     }
 
-    public String convert(String nameFile) {
-        String filepath = null;
-        try {
-            InputStream templateInputStream = new FileInputStream(nameFile);
-            WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(templateInputStream);
-            MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
 
-            filepath = "C:\\Users\\Evgeniya.Kychinskaya\\Desktop\\Belfito Project\\src\\main\\resources\\" + nameFile + ".pdf";
-            FileOutputStream filePdf = new FileOutputStream(filepath);
-            Docx4J.toPDF(wordMLPackage, filePdf);
-            filePdf.flush();
-            filePdf.close();
-
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return ConBase64.convert(new File(filepath));
-    }
 
 
 }
