@@ -5,15 +5,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 public class Refund {
 
-    private int number;
-    private LocalDate date1;
-    private LocalDate date2;
+    private String number;
+    private Date date1;
+    private Date date2;
     private String  place;
     private String name;
     private double quantity;
