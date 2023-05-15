@@ -5,18 +5,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 public class Refund {
 
-    private int number;
-    private LocalDate date1;
-    private LocalDate date2;
+    private String number;
+    private String date1;
+    private String date2;
     private String  place;
     private String name;
     private double quantity;
+    private String units;
     private String recipient;
     private String place_sender;
     private String number_TS;

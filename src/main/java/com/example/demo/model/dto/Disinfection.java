@@ -10,9 +10,9 @@ import java.time.LocalDate;
 @ToString
 public class Disinfection {
 
-    private int number;
-    private LocalDate date1;
-    private LocalDate date2;
+    private String number;
+    private String date1;
+    private String date2;
     private String name1;
     private String name2;
     private double quantity;
