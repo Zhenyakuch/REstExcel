@@ -11,13 +11,14 @@ import java.time.LocalDate;
 @ToString
 public class Destruction {
 
-    private int number;
-    private LocalDate date1;
-    private LocalDate date2;
+    private String number;
+    private String date1;
+    private String date2;
     private String method_destruction;
     private String name;
     private double quantity;
-    private double weight;
+    private String units;
+
     private String place;
     private String position1;
     private String position2;

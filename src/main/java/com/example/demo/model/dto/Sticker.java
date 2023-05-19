@@ -5,13 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 public class Sticker {
 
-    private int number;
+    private String number;
     private String name;
     private double weight;
     private String origin;
@@ -25,7 +26,7 @@ public class Sticker {
     private String additional_info;
     private String seal_number;
     private String position;
-    private LocalDate date;
+    private Date date;
     private String fio1;
     private String fio2;
 
