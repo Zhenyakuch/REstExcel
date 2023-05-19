@@ -14,10 +14,10 @@ public class Sticker {
 
     private String number;
     private String name;
-    private double weight;
+    private String weight;
     private String origin;
     private String place;
-    private double net_weight;
+    private String net_weight;
     private String recipient;
     private String appointment;
     private double area;
@@ -26,7 +26,7 @@ public class Sticker {
     private String additional_info;
     private String seal_number;
     private String position;
-    private Date date;
+    private String date;
     private String fio1;
     private String fio2;
 
