@@ -503,14 +503,14 @@ public class ProductController {
             document.replace("number", String.valueOf(refund.getNumber()), true, true);
             document.replace("date1", String.valueOf(refund.getDate1()), true, true);
             document.replace("date2", String.valueOf(refund.getDate2()), true, true);
-//            document.replace("place", refund.getPlace(), true, true);
+            document.replace("place", refund.getPlace(), true, true);
             document.replace("name", refund.getName(), true, true);
             document.replace("quantity", String.valueOf(refund.getQuantity()), true, true);
             document.replace("units", String.valueOf(refund.getUnits()), true, true);
 
             document.replace("recipient", refund.getRecipient(), true, true);
             document.replace("place_sender", refund.getPlace_sender(), true, true);
-          //  document.replace("number_TS", refund.getNumber_TS(), true, true);
+            document.replace("number_TS", refund.getNumber_TS(), true, true);
             document.replace("numberFSS", refund.getNumberFSS(), true, true);
             document.replace("return_reasons", refund.getReturn_reasons(), true, true);
             document.replace("organizationFSS", refund.getOrganizationFSS(), true, true);
