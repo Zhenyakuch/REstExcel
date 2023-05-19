@@ -12,6 +12,7 @@ import java.util.Date;
 @ToString
 public class Refund {
 
+    private String inspection;
     private String number;
     private String date1;
     private String date2;

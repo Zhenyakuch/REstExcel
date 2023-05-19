@@ -499,6 +499,7 @@ public class ProductController {
             InputStream doc = getClass().getClassLoader().getResourceAsStream("ActRefund.docx");
             Document document = new Document(doc);
 
+            document.replace("INSPECTION", String.valueOf(refund.getInspection()), true, true);
             document.replace("number", String.valueOf(refund.getNumber()), true, true);
             document.replace("date1", String.valueOf(refund.getDate1()), true, true);
             document.replace("date2", String.valueOf(refund.getDate2()), true, true);
