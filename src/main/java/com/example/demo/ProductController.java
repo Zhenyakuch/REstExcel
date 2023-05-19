@@ -431,6 +431,8 @@ public class ProductController {
             Document document = new Document(doc);
 
             // Replace a specific text
+
+            document.replace("INSPECTION", String.valueOf(disinfection.getInspection()), true, true);
             document.replace("date1", String.valueOf(disinfection.getDate1()), true, true);
             document.replace("date2", String.valueOf(disinfection.getDate2()), true, true);
             document.replace("number", String.valueOf(disinfection.getNumber()), true, true);

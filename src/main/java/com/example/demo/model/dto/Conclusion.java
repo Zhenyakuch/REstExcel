@@ -17,7 +17,7 @@ public class Conclusion {
     private String name_legal;
     private String issued;
     private String name;
-    private double weight;
+    private String weight;
     private String origin;
     private String place;
     private String from_whos;

@@ -10,12 +10,13 @@ import java.time.LocalDate;
 @ToString
 public class Disinfection {
 
+    private String inspection;
     private String number;
     private String date1;
     private String date2;
     private String name1;
     private String name2;
-    private double quantity;
+    private String quantity;
     private String conclusion1;
     private String conclusion2;
     private String conclusion3;
