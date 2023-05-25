@@ -205,11 +205,11 @@ public class ProductController {
 
         Import.createRowsImport(xssfWorkbook, rowTotal, cellStyle, cellStyleRow, totalMass.getRegions(), totalMass.getMassProduct(), "ИТОГО, тонн", 5);
 
-        if (countryRequest.isReexport()) {
-            fromTitle = fromTitle.replace("countryExport", "в Российскую Федерацию");
+        if (countryRequest.isProduct()) {
+            fromTitle = fromTitle.replace("countryExport", countryRequest.getReqCountryOrProduct());
             nameFile = "ReExportInRF";
         } else {
-            fromTitle = fromTitle.replace("countryExport", "");
+            fromTitle = fromTitle.replace("countryExport", "в "+countryRequest.getReqCountryOrProduct()+ "  подкарантинной продукции");
             nameFile = "ReExportAllCountry";
         }
 
@@ -222,6 +222,12 @@ public class ProductController {
         Import.createRowsAllFss(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
         Import.createRowsNameObl(xssfWorkbook, cellStyle);
         Import.createRowsFss2022(xssfWorkbook, countryRequest, cellStyle, cellStyleRow, 2);
+
+        if (countryRequest.isProduct()) {
+            sheet.getRow(1).getCell(1).setCellValue("Страна получатель");
+        } else {
+            sheet.getRow(1).getCell(1).setCellValue("Наименование подкарантинной продукции");
+        }
 
         File tempFile = File.createTempFile(nameFile, null);
 
@@ -350,8 +356,9 @@ public class ProductController {
     public String createPdfSticker(@RequestBody Sticker sticker) {
 
         String nameFile = "ЭТИКЕТКА";
+        File tempFile = null;
         try {
-
+            tempFile = File.createTempFile(nameFile, null);
             InputStream doc = getClass().getClassLoader().getResourceAsStream("Sticker.docx");
             Document document = new Document(doc);
 
@@ -375,20 +382,22 @@ public class ProductController {
             document.replace("FIO2", sticker.getFio2(), true, true);
 
             //Save the result document
-            document.saveToFile(nameFile, FileFormat.Docx);
+            document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return ConvertToPdf.convert(nameFile);
+        return ConBase64.convert(tempFile);
     }
 
     @PostMapping("/conclusion")
     public String createPdfConclusion(@RequestBody Conclusion conclusion) {
 
         String nameFile = "ЗАКЛЮЧЕНИЕ";
+        File tempFile = null;
         try {
-
+            tempFile = File.createTempFile(nameFile, null);
             InputStream doc = getClass().getClassLoader().getResourceAsStream("Conclusion.docx");
             Document document = new Document(doc);
 
@@ -413,20 +422,22 @@ public class ProductController {
             document.replace("FIO", conclusion.getFio(), true, true);
 
             //Save the result document
-            document.saveToFile(nameFile, FileFormat.Docx);
+            document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return ConvertToPdf.convert(nameFile);
+        return ConBase64.convert(tempFile);
     }
 
     @PostMapping("/act-disinfection")
     public String createPdfActDecontamination(@RequestBody Disinfection disinfection) {
 
         String nameFile = "Акт обеззараживания";
+        File tempFile = null;
         try {
-
+            tempFile = File.createTempFile(nameFile, null);
             InputStream doc = getClass().getClassLoader().getResourceAsStream("ActDisinfection.docx");
             Document document = new Document(doc);
 
@@ -448,21 +459,22 @@ public class ProductController {
             document.replace("FIO2", disinfection.getFio2(), true, true);
             document.replace("FIO3", disinfection.getFio3(), true, true);
 
-            //Save the result document
-            document.saveToFile(nameFile, FileFormat.Docx);
+            document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return ConvertToPdf.convert(nameFile);
+        return ConBase64.convert(tempFile);
     }
 
     @PostMapping("/act-destruction")
     public String createPdfActDestruction(@RequestBody Destruction destruction) {
 
         String nameFile = "Акт об уничтожении";
+        File tempFile = null;
         try {
-
+            tempFile = File.createTempFile(nameFile, null);
             InputStream doc = getClass().getClassLoader().getResourceAsStream("ActDestruction.docx");
             Document document = new Document(doc);
 
@@ -482,20 +494,22 @@ public class ProductController {
             document.replace("FIO3", destruction.getFio3(), true, true);
 
             //Save the result document
-            document.saveToFile(nameFile, FileFormat.Docx);
+            document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return ConvertToPdf.convert(nameFile);
+        return ConBase64.convert(tempFile);
     }
 
     @PostMapping("/act-refund")
     public String createPdfActReturn(@RequestBody Refund refund) {
 
         String nameFile = "Акт возврата";
+        File tempFile = null;
         try {
-
+            tempFile = File.createTempFile(nameFile, null);
             InputStream doc = getClass().getClassLoader().getResourceAsStream("ActRefund.docx");
             Document document = new Document(doc);
 
@@ -519,12 +533,13 @@ public class ProductController {
             document.replace("FIO3", refund.getFio3(), true, true);
 
             //Save the result document
-            document.saveToFile(nameFile, FileFormat.Docx);
+            document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return ConvertToPdf.convert(nameFile);
+        return ConBase64.convert(tempFile);
     }
 
 
