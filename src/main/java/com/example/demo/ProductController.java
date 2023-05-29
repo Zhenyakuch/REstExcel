@@ -483,7 +483,8 @@ public class ProductController {
             document.replace("date2", String.valueOf(destruction.getDate2()), true, true);
             document.replace("method_destruction", destruction.getMethod_destruction(), true, true);
             document.replace("name", destruction.getName(), true, true);
-            document.replace("quantity", String.valueOf(destruction.getQuantity()), true, true);
+            document.replace("quantity", "", true, true);
+//            document.replace("quantity", String.valueOf(destruction.getQuantity()), true, true);
             document.replace("units", String.valueOf(destruction.getUnits()), true, true);
             document.replace("place", destruction.getPlace(), true, true);
             document.replace("position1", destruction.getPosition1(), true, true);
@@ -519,7 +520,8 @@ public class ProductController {
             document.replace("date2", String.valueOf(refund.getDate2()), true, true);
             document.replace("place", refund.getPlace(), true, true);
             document.replace("name", refund.getName(), true, true);
-            document.replace("quantity", String.valueOf(refund.getQuantity()), true, true);
+//            document.replace("quantity", String.valueOf(refund.getQuantity()), true, true);
+            document.replace("quantity", "", true, true);
             document.replace("units", String.valueOf(refund.getUnits()), true, true);
 
             document.replace("recipient", refund.getRecipient(), true, true);
