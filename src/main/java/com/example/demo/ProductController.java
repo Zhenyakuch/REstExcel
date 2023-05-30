@@ -449,7 +449,7 @@ public class ProductController {
             document.replace("number", String.valueOf(disinfection.getNumber()), true, true);
             document.replace("name1", disinfection.getName1(), true, true);
             document.replace("name2", disinfection.getName2(), true, true);
-            document.replace("quantity", String.valueOf(disinfection.getQuantity()), true, true);
+//            document.replace("quantity", String.valueOf(disinfection.getQuantity()), true, true);
             document.replace("conclusion1", disinfection.getConclusion1(), true, true);
             document.replace("conclusion2", disinfection.getConclusion2(), true, true);
             document.replace("conclusion3", disinfection.getConclusion3(), true, true);
@@ -460,6 +460,7 @@ public class ProductController {
             document.replace("FIO3", disinfection.getFio3(), true, true);
 
             document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
 
         } catch (Exception e) {
             e.printStackTrace();
