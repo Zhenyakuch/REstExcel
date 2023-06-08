@@ -3,10 +3,7 @@ package com.example.demo;
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.*;
 import com.spire.doc.*;
-import com.spire.doc.documents.HorizontalAlignment;
-import com.spire.doc.documents.Paragraph;
-import com.spire.doc.documents.TableRowHeightType;
-import com.spire.doc.documents.VerticalAlignment;
+import com.spire.doc.documents.*;
 import com.spire.doc.fields.TextRange;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -368,14 +365,21 @@ public class ProductController {
 
         String nameFile = "ЭТИКЕТКА";
         File tempFile = null;
+        String nameFile2 = "ПОДПИСЬ";
+        File tempFile2 = null;
         try {
             tempFile = File.createTempFile(nameFile, null);
+            tempFile2 = File.createTempFile(nameFile2, null);
+
             InputStream doc = getClass().getClassLoader().getResourceAsStream("Sticker.docx");
             Document document = new Document(doc);
+            InputStream doc2 = getClass().getClassLoader().getResourceAsStream("Sticker2.docx");
+            Document document2 = new Document(doc2);
+
+            document.replace("number", String.valueOf(sticker.getNumber()), true, true);
 
             if (sticker.getStickerProducts().size() > 1) {
                 // Replace a specific text
-                document.replace("number", String.valueOf(sticker.getNumber()), true, true);
                 document.replace("name", "согласно приложению", true, true);
                 document.replace("weight", "согласно приложению", true, true);
                 document.replace("origin", sticker.getOrigin(), true, true);
@@ -393,6 +397,11 @@ public class ProductController {
                 document.replace("FIO1", sticker.getFio1(), true, true);
                 document.replace("FIO2", sticker.getFio2(), true, true);
 
+                document2.replace("position", sticker.getPosition(), true, true);
+                document2.replace("date", String.valueOf(sticker.getDate()), true, true);
+                document2.replace("FIO1", sticker.getFio1(), true, true);
+                document2.replace("FIO2", sticker.getFio2(), true, true);
+
 
                 Section section = document.addSection();
                 String[] header = {"№\nп/п",
@@ -406,8 +415,6 @@ public class ProductController {
                     table.resetCells(sticker.getStickerProducts().size() + 1, header.length);
 
                     TableRow row = table.getRows().get(0);
-//                    row.isHeader(true);
-//                    row.setHeight(40);
                     row.setHeightType(TableRowHeightType.Auto);
                     row.getRowFormat().setBackColor(Color.white);
                     for (int i = 0; i < header.length; i++) {
@@ -422,15 +429,9 @@ public class ProductController {
 
                     for (int r = 0; r < sticker.getStickerProducts().size(); r++) {
                         TableRow dataRow = table.getRows().get(r + 1);
-//                        dataRow.setHeight(25);
                         dataRow.setHeightType(TableRowHeightType.Auto);
                         dataRow.getRowFormat().setBackColor(Color.white);
 
-//
-
-
-
-                        dataRow.getCells().get(r).getCellFormat().setVerticalAlignment(VerticalAlignment.Middle);
                         dataRow.getCells().get(0).addParagraph().appendText(String.valueOf(r+1));
                         dataRow.getCells().get(1).addParagraph().appendText(sticker.getStickerProducts().get(r).getName());
                         dataRow.getCells().get(2).addParagraph().appendText(sticker.getStickerProducts().get(r).getWeight());
@@ -438,20 +439,30 @@ public class ProductController {
                         dataRow.getCells().get(4).addParagraph().appendText(sticker.getStickerProducts().get(r).getAdditional_info());
                         dataRow.getCells().get(5).addParagraph().appendText(sticker.getStickerProducts().get(r).getSeal_number());
 
-
                     }
-                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
 
-//                Document document = new Document("C:/Samples/Sample1.docx");
-                //Insert another Word document entirely to the document
-                document.insertTextFromFile("Sticker2.docx", FileFormat.Docx_2013);
-//                document.insertTextFromFile("Sticker2.docx", FileFormat.Docx_2013);
-                //Save the result document
-                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
+                document2.saveToFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
+
+                document.insertTextFromFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
+                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);//
+
+                Document doc3 = new Document(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
+                Section sec = doc3.getSections().get(0);
+                int sections = doc3.getSections().getCount() - 1;
+                for (int i = 0 ; i <sections ; i++)
+                {
+                    Section section2 = doc3.getSections().get(1);
+                    for (int j = 0; j < section2.getBody().getChildObjects().getCount(); j++)
+                    {
+                        sec.getBody().getChildObjects().add(section2.getBody().getChildObjects().get(j).deepClone());
+                    }
+                    doc3.getSections().remove(section2);
+                }
+                doc3.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
 
             } else {
 
-                document.replace("number", String.valueOf(sticker.getNumber()), true, true);
                 document.replace("name", sticker.getStickerProducts().get(0).getName(), true, true);
                 document.replace("weight", sticker.getStickerProducts().get(0).getWeight(), true, true);
                 document.replace("origin", sticker.getOrigin(), true, true);
@@ -470,7 +481,9 @@ public class ProductController {
                 document.replace("FIO2", sticker.getFio2(), true, true);
 
                 document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
