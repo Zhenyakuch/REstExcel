@@ -10,7 +10,8 @@ import lombok.ToString;
 public class StickerProduct {
     private String name;
     private String weight;
-    private String net_weight;
+    private String quantity;
+    private String unit;
     private String additional_info;
     private String seal_number;
 }

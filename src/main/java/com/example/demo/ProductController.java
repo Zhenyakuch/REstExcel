@@ -3,23 +3,18 @@ package com.example.demo;
 import com.example.demo.model.TotalMass;
 import com.example.demo.model.dto.*;
 import com.spire.doc.*;
-import com.spire.doc.documents.*;
+import com.spire.doc.documents.HorizontalAlignment;
+import com.spire.doc.documents.Paragraph;
+import com.spire.doc.documents.VerticalAlignment;
 import com.spire.doc.fields.TextRange;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -371,90 +366,129 @@ public class ProductController {
             tempFile = File.createTempFile(nameFile, null);
             tempFile2 = File.createTempFile(nameFile2, null);
 
-            InputStream doc = getClass().getClassLoader().getResourceAsStream("Sticker.docx");
-            Document document = new Document(doc);
-            InputStream doc2 = getClass().getClassLoader().getResourceAsStream("Sticker2.docx");
-            Document document2 = new Document(doc2);
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("StickerAll.docx");
+            Document documentAll = new Document(doc);
+            InputStream doc2 = getClass().getClassLoader().getResourceAsStream("StickerSignature.docx");
+            Document documentSign = new Document(doc2);
+            InputStream doc4 = getClass().getClassLoader().getResourceAsStream("StickerOne.docx");
+            Document documentOne = new Document(doc4);
 
-            document.replace("number", String.valueOf(sticker.getNumber()), true, true);
+            documentAll.replace("number", String.valueOf(sticker.getNumber()), true, true);
 
             if (sticker.getStickerProducts().size() > 1) {
                 // Replace a specific text
-                document.replace("name", "согласно приложению", true, true);
-                document.replace("weight", "согласно приложению", true, true);
-                document.replace("origin", sticker.getOrigin(), true, true);
-                document.replace("place", sticker.getPlace(), true, true);
-                document.replace("net_weight", "согласно приложению", true, true);
-                document.replace("recipient", sticker.getRecipient(), true, true);
-                document.replace("appointment", sticker.getAppointment(), true, true);
-                document.replace("area", String.valueOf(sticker.getArea()), true, true);
-                document.replace("external_sings", sticker.getExternal_sings(), true, true);
-                document.replace("provisional_definition", sticker.getProvisional_definition(), true, true);
-                document.replace("additional_info", "согласно приложению", true, true);
-                document.replace("seal_number", "согласно приложению", true, true);
-                document.replace("position", sticker.getPosition(), true, true);
-                document.replace("date", String.valueOf(sticker.getDate()), true, true);
-                document.replace("FIO1", sticker.getFio1(), true, true);
-                document.replace("FIO2", sticker.getFio2(), true, true);
+                documentAll.replace("name", "согласно приложению", true, true);
+                documentAll.replace("weight", "согласно приложению", true, true);
+                documentAll.replace("origin", sticker.getOrigin(), true, true);
+                documentAll.replace("place", sticker.getPlace(), true, true);
+                documentAll.replace("quantity", "согласно приложению", true, true);
+                documentAll.replace("unit", "", true, true);
+                documentAll.replace("recipient", sticker.getRecipient(), true, true);
+                documentAll.replace("appointment", sticker.getAppointment(), true, true);
+                documentAll.replace("area", String.valueOf(sticker.getArea()), true, true);
+                documentAll.replace("external_sings", sticker.getExternal_sings(), true, true);
+                documentAll.replace("provisional_definition", sticker.getProvisional_definition(), true, true);
+                documentAll.replace("additional_info", "согласно приложению", true, true);
+                documentAll.replace("seal_number", "согласно приложению", true, true);
+                documentAll.replace("position", sticker.getPosition(), true, true);
+                documentAll.replace("date", String.valueOf(sticker.getDate()), true, true);
+                documentAll.replace("FIO1", sticker.getFio1(), true, true);
+                documentAll.replace("FIO2", sticker.getFio2(), true, true);
 
-                document2.replace("position", sticker.getPosition(), true, true);
-                document2.replace("date", String.valueOf(sticker.getDate()), true, true);
-                document2.replace("FIO1", sticker.getFio1(), true, true);
-                document2.replace("FIO2", sticker.getFio2(), true, true);
+                documentSign.replace("position", sticker.getPosition(), true, true);
+                documentSign.replace("date", String.valueOf(sticker.getDate()), true, true);
+                documentSign.replace("FIO1", sticker.getFio1(), true, true);
+                documentSign.replace("FIO2", sticker.getFio2(), true, true);
 
 
-                Section section = document.addSection();
+                Section section = documentAll.addSection();
                 String[] header = {"№\nп/п",
                         "Наименование подкарантинной продукции",
                         "Вес партии или площадь",
                         "Фитосанитарный сертификат",
                         "Чистый вес образца",
-                        "Номер пломбы (сейф-пакета)"};
+                        "Номер пломбы (сейф-пакета)",
+                };
 
-                    Table table = section.addTable(true);
-                    table.resetCells(sticker.getStickerProducts().size() + 1, header.length);
+                String[] header2 = {"кол-во", "ед.изм"};
 
-                    TableRow row = table.getRows().get(0);
-                    row.setHeightType(TableRowHeightType.Auto);
-                    row.getRowFormat().setBackColor(Color.white);
-                    for (int i = 0; i < header.length; i++) {
-                        row.getCells().get(i).getCellFormat().setVerticalAlignment(VerticalAlignment.Middle);
-                        Paragraph p = row.getCells().get(i).addParagraph();
-                        p.getFormat().setHorizontalAlignment(HorizontalAlignment.Center);
-                        TextRange txtRange = p.appendText(header[i]);
-                        txtRange.getCharacterFormat().setBold(true);
-                        txtRange.getCharacterFormat().setFontSize(11);
-                        txtRange.getCharacterFormat().setFontName("Times New Roman");
+                Table table = section.addTable(true);
+                table.resetCells(sticker.getStickerProducts().size() + 2, header.length);
+                table.applyVerticalMerge(0, 0, 1);
+                table.applyVerticalMerge(1, 0, 1);
+                table.applyVerticalMerge(2, 0, 1);
+                table.applyVerticalMerge(3, 0, 1);
+                table.applyVerticalMerge(5, 0, 1);
+                table.getRows().get(1).getCells().get(4).splitCell(2, 1);
+                table.autoFit(AutoFitBehaviorType.Auto_Fit_To_Window);
+
+                TableRow row = table.getRows().get(0);
+                for (int i = 0; i < header.length; i++) {
+                    row.getCells().get(i).getCellFormat().setVerticalAlignment(VerticalAlignment.Middle);
+                    Paragraph p = row.getCells().get(i).addParagraph();
+                    p.getFormat().setHorizontalAlignment(HorizontalAlignment.Center);
+                    TextRange txtRange = p.appendText(header[i]);
+                    txtRange.getCharacterFormat().setFontSize(11);
+                    txtRange.getCharacterFormat().setFontName("Times New Roman");
+                }
+
+                row = table.getRows().get(1);
+                Paragraph p = row.getCells().get(4).addParagraph();
+                p.getFormat().setHorizontalAlignment(HorizontalAlignment.Center);
+                TextRange txtRange = p.appendText(header2[0]);
+                p = row.getCells().get(5).addParagraph();
+                p.appendText(header2[1]);
+
+                txtRange.getCharacterFormat().setFontSize(11);
+                txtRange.getCharacterFormat().setFontName("Times New Roman");
+
+                for (int r = 0; r < sticker.getStickerProducts().size(); r++) {
+                    TableRow dataRow = table.getRows().get(r + 2);
+                    dataRow.getCells().get(0).addParagraph().appendText(String.valueOf(r + 1));
+                    dataRow.getCells().get(1).addParagraph().appendText(sticker.getStickerProducts().get(r).getName()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(2).addParagraph().appendText(sticker.getStickerProducts().get(r).getWeight()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(3).addParagraph().appendText(sticker.getStickerProducts().get(r).getAdditional_info()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(4).splitCell(2, 1);
+                    dataRow.getCells().get(4).addParagraph().appendText(sticker.getStickerProducts().get(r).getQuantity()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(5).addParagraph().appendText(sticker.getStickerProducts().get(r).getUnit()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(6).addParagraph().appendText(sticker.getStickerProducts().get(r).getSeal_number()).getCharacterFormat().setFontSize(11);
+
+                }
+
+                documentAll.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
+                documentSign.saveToFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
+
+                //нумерация страниц
+                //get footer object of the first section
+                HeaderFooter footer = documentAll.getSections().get(0).getHeadersFooters().getFooter();
+                //add a paragraph to footer
+                Paragraph footerParagraph = footer.addParagraph();
+                footerParagraph.appendText("страница ");
+                footerParagraph.appendField("page number", FieldType.Field_Page);
+                footerParagraph.appendText(" из ");
+                footerParagraph.appendField("number of pages", FieldType.Field_Num_Pages);
+                footerParagraph.getFormat().setHorizontalAlignment(HorizontalAlignment.Right);
+
+                if (documentAll.getSections().getCount() > 1) {
+                    //loop through the sections except the first one
+                    for (int i = 1; i < documentAll.getSections().getCount(); i++) {
+                        //restart page numbering of the current section
+                        documentAll.getSections().get(i).getPageSetup().setRestartPageNumbering(true);
+                        //set the starting number to 1
+                        documentAll.getSections().get(i).getPageSetup().setPageStartingNumber(1);
                     }
+                }
 
-                    for (int r = 0; r < sticker.getStickerProducts().size(); r++) {
-                        TableRow dataRow = table.getRows().get(r + 1);
-                        dataRow.setHeightType(TableRowHeightType.Auto);
-                        dataRow.getRowFormat().setBackColor(Color.white);
-
-                        dataRow.getCells().get(0).addParagraph().appendText(String.valueOf(r+1));
-                        dataRow.getCells().get(1).addParagraph().appendText(sticker.getStickerProducts().get(r).getName());
-                        dataRow.getCells().get(2).addParagraph().appendText(sticker.getStickerProducts().get(r).getWeight());
-                        dataRow.getCells().get(3).addParagraph().appendText(sticker.getStickerProducts().get(r).getNet_weight());
-                        dataRow.getCells().get(4).addParagraph().appendText(sticker.getStickerProducts().get(r).getAdditional_info());
-                        dataRow.getCells().get(5).addParagraph().appendText(sticker.getStickerProducts().get(r).getSeal_number());
-
-                    }
-
-                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
-                document2.saveToFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
-
-                document.insertTextFromFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
-                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);//
+                //save to file
+                documentAll.insertTextFromFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
+                documentAll.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);//
 
                 Document doc3 = new Document(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
                 Section sec = doc3.getSections().get(0);
                 int sections = doc3.getSections().getCount() - 1;
-                for (int i = 0 ; i <sections ; i++)
-                {
+                for (int i = 0; i < sections; i++) {
                     Section section2 = doc3.getSections().get(1);
-                    for (int j = 0; j < section2.getBody().getChildObjects().getCount(); j++)
-                    {
+                    for (int j = 0; j < section2.getBody().getChildObjects().getCount(); j++) {
                         sec.getBody().getChildObjects().add(section2.getBody().getChildObjects().get(j).deepClone());
                     }
                     doc3.getSections().remove(section2);
@@ -463,27 +497,27 @@ public class ProductController {
 
             } else {
 
-                document.replace("name", sticker.getStickerProducts().get(0).getName(), true, true);
-                document.replace("weight", sticker.getStickerProducts().get(0).getWeight(), true, true);
-                document.replace("origin", sticker.getOrigin(), true, true);
-                document.replace("place", sticker.getPlace(), true, true);
-                document.replace("net_weight", sticker.getStickerProducts().get(0).getNet_weight(), true, true);
-                document.replace("recipient", sticker.getRecipient(), true, true);
-                document.replace("appointment", sticker.getAppointment(), true, true);
-                document.replace("area", String.valueOf(sticker.getArea()), true, true);
-                document.replace("external_sings", sticker.getExternal_sings(), true, true);
-                document.replace("provisional_definition", sticker.getProvisional_definition(), true, true);
-                document.replace("additional_info", sticker.getStickerProducts().get(0).getAdditional_info(), true, true);
-                document.replace("seal_number", sticker.getStickerProducts().get(0).getSeal_number(), true, true);
-                document.replace("position", sticker.getPosition(), true, true);
-                document.replace("date", String.valueOf(sticker.getDate()), true, true);
-                document.replace("FIO1", sticker.getFio1(), true, true);
-                document.replace("FIO2", sticker.getFio2(), true, true);
+                documentOne.replace("name", sticker.getStickerProducts().get(0).getName(), true, true);
+                documentOne.replace("weight", sticker.getStickerProducts().get(0).getWeight(), true, true);
+                documentOne.replace("origin", sticker.getOrigin(), true, true);
+                documentOne.replace("place", sticker.getPlace(), true, true);
+                documentOne.replace("quantity", sticker.getStickerProducts().get(0).getQuantity(), true, true);
+                documentOne.replace("unit", sticker.getStickerProducts().get(0).getUnit(), true, true);
+                documentOne.replace("recipient", sticker.getRecipient(), true, true);
+                documentOne.replace("appointment", sticker.getAppointment(), true, true);
+                documentOne.replace("area", String.valueOf(sticker.getArea()), true, true);
+                documentOne.replace("external_sings", sticker.getExternal_sings(), true, true);
+                documentOne.replace("provisional_definition", sticker.getProvisional_definition(), true, true);
+                documentOne.replace("additional_info", sticker.getStickerProducts().get(0).getAdditional_info(), true, true);
+                documentOne.replace("seal_number", sticker.getStickerProducts().get(0).getSeal_number(), true, true);
+                documentOne.replace("position", sticker.getPosition(), true, true);
+                documentOne.replace("date", String.valueOf(sticker.getDate()), true, true);
+                documentOne.replace("FIO1", sticker.getFio1(), true, true);
+                documentOne.replace("FIO2", sticker.getFio2(), true, true);
 
-                document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+                documentOne.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
 
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
