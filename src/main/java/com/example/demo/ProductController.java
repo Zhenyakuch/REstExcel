@@ -373,10 +373,10 @@ public class ProductController {
             InputStream doc4 = getClass().getClassLoader().getResourceAsStream("StickerOne.docx");
             Document documentOne = new Document(doc4);
 
-            documentAll.replace("number", String.valueOf(sticker.getNumber()), true, true);
 
             if (sticker.getStickerProducts().size() > 1) {
                 // Replace a specific text
+                documentAll.replace("number", String.valueOf(sticker.getNumber()), true, true);
                 documentAll.replace("name", "согласно приложению", true, true);
                 documentAll.replace("weight", "согласно приложению", true, true);
                 documentAll.replace("origin", sticker.getOrigin(), true, true);
@@ -420,7 +420,6 @@ public class ProductController {
                 table.applyVerticalMerge(3, 0, 1);
                 table.applyVerticalMerge(5, 0, 1);
                 table.getRows().get(1).getCells().get(4).splitCell(2, 1);
-                table.autoFit(AutoFitBehaviorType.Auto_Fit_To_Window);
 
                 TableRow row = table.getRows().get(0);
                 for (int i = 0; i < header.length; i++) {
@@ -442,16 +441,26 @@ public class ProductController {
                 txtRange.getCharacterFormat().setFontSize(11);
                 txtRange.getCharacterFormat().setFontName("Times New Roman");
 
+                String text = "/происхождением из страны: ";
                 for (int r = 0; r < sticker.getStickerProducts().size(); r++) {
                     TableRow dataRow = table.getRows().get(r + 2);
                     dataRow.getCells().get(0).addParagraph().appendText(String.valueOf(r + 1));
+
                     dataRow.getCells().get(1).addParagraph().appendText(sticker.getStickerProducts().get(r).getName()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(1).addParagraph().appendText(text);
+                    dataRow.getCells().get(1).addParagraph().appendText(sticker.getOrigin()).getCharacterFormat().setFontSize(11);
+
                     dataRow.getCells().get(2).addParagraph().appendText(sticker.getStickerProducts().get(r).getWeight()).getCharacterFormat().setFontSize(11);
+
                     dataRow.getCells().get(3).addParagraph().appendText(sticker.getStickerProducts().get(r).getAdditional_info()).getCharacterFormat().setFontSize(11);
+
                     dataRow.getCells().get(4).splitCell(2, 1);
                     dataRow.getCells().get(4).addParagraph().appendText(sticker.getStickerProducts().get(r).getQuantity()).getCharacterFormat().setFontSize(11);
                     dataRow.getCells().get(5).addParagraph().appendText(sticker.getStickerProducts().get(r).getUnit()).getCharacterFormat().setFontSize(11);
+
                     dataRow.getCells().get(6).addParagraph().appendText(sticker.getStickerProducts().get(r).getSeal_number()).getCharacterFormat().setFontSize(11);
+
+                    table.autoFit(AutoFitBehaviorType.Auto_Fit_To_Contents);
 
                 }
 
@@ -497,6 +506,7 @@ public class ProductController {
 
             } else {
 
+                documentOne.replace("number", String.valueOf(sticker.getNumber()), true, true);
                 documentOne.replace("name", sticker.getStickerProducts().get(0).getName(), true, true);
                 documentOne.replace("weight", sticker.getStickerProducts().get(0).getWeight(), true, true);
                 documentOne.replace("origin", sticker.getOrigin(), true, true);
@@ -545,16 +555,16 @@ public class ProductController {
             InputStream doc4 = getClass().getClassLoader().getResourceAsStream("ConclusionOne.docx");
             Document documentOne = new Document(doc4);
 
-            documentAll.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
 
             if (conclusion.getConclusionProducts().size() > 1) {
                 // Replace a specific text
+                documentAll.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
                 documentAll.replace("name_legal", conclusion.getName_legal(), true, true);
                 documentAll.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
                 documentAll.replace("date2", "согласно приложению", true, true);
                 documentAll.replace("date3", String.valueOf(conclusion.getDate3()), true, true);
                 documentAll.replace("date4", String.valueOf(conclusion.getDate4()), true, true);
-                documentAll.replace("number2", "согласно приложению", true, true);
+                documentAll.replace("number2", "", true, true);
                 documentAll.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
                 documentAll.replace("issued", conclusion.getIssued(), true, true);
                 documentAll.replace("name", "согласно приложению", true, true);
@@ -578,10 +588,8 @@ public class ProductController {
                         "Результаты экспертизы",
                 };
 
-
                 Table table = section.addTable(true);
                 table.resetCells(conclusion.getConclusionProducts().size() + 1, header.length);
-                table.autoFit(AutoFitBehaviorType.Auto_Fit_To_Window);
 
                 TableRow row = table.getRows().get(0);
                 for (int i = 0; i < header.length; i++) {
@@ -614,6 +622,8 @@ public class ProductController {
 
                     dataRow.getCells().get(3).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getWeight()).getCharacterFormat().setFontSize(11);
                     dataRow.getCells().get(4).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getResult()).getCharacterFormat().setFontSize(11);
+
+                    table.autoFit(AutoFitBehaviorType.Auto_Fit_To_Contents);
 
                 }
 
@@ -660,13 +670,14 @@ public class ProductController {
             } else {
 
                 // Replace a specific text
+                documentOne.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
                 documentOne.replace("name_legal", conclusion.getName_legal(), true, true);
                 documentOne.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
-                documentOne.replace("date2", String.valueOf(conclusion.getConclusionProducts().get(0).getDate2()), true, true);
+                documentOne.replace("date2", "от " + String.valueOf(conclusion.getConclusionProducts().get(0).getDate2())+ "г.", true, true) ;
                 documentOne.replace("date3", String.valueOf(conclusion.getDate3()), true, true);
                 documentOne.replace("date4", String.valueOf(conclusion.getDate4()), true, true);
                 documentOne.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
-                documentOne.replace("number2", String.valueOf(conclusion.getConclusionProducts().get(0).getNumber2()), true, true);
+                documentOne.replace("number2", "№ " + String.valueOf(conclusion.getConclusionProducts().get(0).getNumber2()), true, true);
                 documentOne.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
                 documentOne.replace("issued", conclusion.getIssued(), true, true);
                 documentOne.replace("name", conclusion.getConclusionProducts().get(0).getName(), true, true);
@@ -681,6 +692,7 @@ public class ProductController {
 
                 //Save the result document
                 documentOne.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+                documentOne.saveToFile("tempFile.pdf", FileFormat.PDF);
             }
 
         } catch (Exception e) {
