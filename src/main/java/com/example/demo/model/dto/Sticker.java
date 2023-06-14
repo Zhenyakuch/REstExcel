@@ -15,17 +15,13 @@ public class Sticker {
 
     private List<StickerProduct> stickerProducts;
     private String number;
-
-
     private String origin;
     private String place;
-
     private String recipient;
     private String appointment;
     private double area;
     private String external_sings;
     private String provisional_definition;
-
     private String position;
     private String date;
     private String fio1;

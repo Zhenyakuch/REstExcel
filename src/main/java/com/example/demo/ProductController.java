@@ -531,33 +531,157 @@ public class ProductController {
 
         String nameFile = "ЗАКЛЮЧЕНИЕ";
         File tempFile = null;
+        String nameFile2 = "ПОДПИСЬ";
+        File tempFile2 = null;
         try {
             tempFile = File.createTempFile(nameFile, null);
-            InputStream doc = getClass().getClassLoader().getResourceAsStream("Conclusion.docx");
-            Document document = new Document(doc);
+            tempFile2 = File.createTempFile(nameFile2, null);
 
-            // Replace a specific text
-            document.replace("name_legal", conclusion.getName_legal(), true, true);
-            document.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
-            document.replace("date2", String.valueOf(conclusion.getDate2()), true, true);
-            document.replace("date3", String.valueOf(conclusion.getDate3()), true, true);
-            document.replace("date4", String.valueOf(conclusion.getDate4()), true, true);
-            document.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
-            document.replace("number2", String.valueOf(conclusion.getNumber2()), true, true);
-            document.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
-            document.replace("issued", conclusion.getIssued(), true, true);
-            document.replace("name", conclusion.getName(), true, true);
-            document.replace("weight", String.valueOf(conclusion.getWeight()), true, true);
-            document.replace("origin", conclusion.getOrigin(), true, true);
-            document.replace("place", conclusion.getPlace(), true, true);
-            document.replace("from_whos", conclusion.getFrom_whos(), true, true);
-            document.replace("recipient", conclusion.getRecipient(), true, true);
-            document.replace("result", conclusion.getResult(), true, true);
-            document.replace("events", conclusion.getEvents(), true, true);
-            document.replace("FIO", conclusion.getFio(), true, true);
 
-            //Save the result document
-            document.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+            InputStream doc = getClass().getClassLoader().getResourceAsStream("ConclusionAll.docx");
+            Document documentAll = new Document(doc);
+            InputStream doc2 = getClass().getClassLoader().getResourceAsStream("ConclusionSignature.docx");
+            Document documentSign = new Document(doc2);
+            InputStream doc4 = getClass().getClassLoader().getResourceAsStream("ConclusionOne.docx");
+            Document documentOne = new Document(doc4);
+
+            documentAll.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
+
+            if (conclusion.getConclusionProducts().size() > 1) {
+                // Replace a specific text
+                documentAll.replace("name_legal", conclusion.getName_legal(), true, true);
+                documentAll.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
+                documentAll.replace("date2", "согласно приложению", true, true);
+                documentAll.replace("date3", String.valueOf(conclusion.getDate3()), true, true);
+                documentAll.replace("date4", String.valueOf(conclusion.getDate4()), true, true);
+                documentAll.replace("number2", "согласно приложению", true, true);
+                documentAll.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
+                documentAll.replace("issued", conclusion.getIssued(), true, true);
+                documentAll.replace("name", "согласно приложению", true, true);
+                documentAll.replace("weight", "", true, true);
+                documentAll.replace("origin", "согласно приложению", true, true);
+                documentAll.replace("place", conclusion.getPlace(), true, true);
+                documentAll.replace("from_whos", "согласно приложению", true, true);
+                documentAll.replace("recipient", conclusion.getRecipient(), true, true);
+                documentAll.replace("result", "согласно приложению", true, true);
+                documentAll.replace("events", conclusion.getEvents(), true, true);
+                documentAll.replace("FIO", conclusion.getFio(), true, true);
+
+                documentSign.replace("FIO", conclusion.getFio(), true, true);
+
+
+                Section section = documentAll.addSection();
+                String[] header = {"№\nп/п",
+                        "Наименование растительного материала",
+                        "Фитосанитарный сертификат",
+                        "Количество образцов",
+                        "Результаты экспертизы",
+                };
+
+
+                Table table = section.addTable(true);
+                table.resetCells(conclusion.getConclusionProducts().size() + 1, header.length);
+                table.autoFit(AutoFitBehaviorType.Auto_Fit_To_Window);
+
+                TableRow row = table.getRows().get(0);
+                for (int i = 0; i < header.length; i++) {
+                    row.getCells().get(i).getCellFormat().setVerticalAlignment(VerticalAlignment.Middle);
+                    Paragraph p = row.getCells().get(i).addParagraph();
+                    p.getFormat().setHorizontalAlignment(HorizontalAlignment.Center);
+                    TextRange txtRange = p.appendText(header[i]);
+                    txtRange.getCharacterFormat().setFontSize(11);
+                    txtRange.getCharacterFormat().setFontName("Times New Roman");
+                }
+
+
+                String text = "/происхождением из страны: ";
+                String text2 = " от ";
+                String text3 = ", выданный в стране:  ";
+
+                for (int r = 0; r < conclusion.getConclusionProducts().size(); r++) {
+                    TableRow dataRow = table.getRows().get(r + 1);
+                    dataRow.getCells().get(0).addParagraph().appendText(String.valueOf(r + 1));
+
+                    dataRow.getCells().get(1).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getName()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(1).addParagraph().appendText(text);
+                    dataRow.getCells().get(1).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getOrigin()).getCharacterFormat().setFontSize(11);
+
+                    dataRow.getCells().get(2).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getNumber2()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(2).addParagraph().appendText(text2);
+                    dataRow.getCells().get(2).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getDate2()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(2).addParagraph().appendText(text3);
+                    dataRow.getCells().get(2).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getFrom_whos()).getCharacterFormat().setFontSize(11);
+
+                    dataRow.getCells().get(3).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getWeight()).getCharacterFormat().setFontSize(11);
+                    dataRow.getCells().get(4).addParagraph().appendText(conclusion.getConclusionProducts().get(r).getResult()).getCharacterFormat().setFontSize(11);
+
+                }
+
+                documentAll.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
+                documentSign.saveToFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
+
+                //нумерация страниц
+                //get footer object of the first section
+                HeaderFooter footer = documentAll.getSections().get(0).getHeadersFooters().getFooter();
+                //add a paragraph to footer
+                Paragraph footerParagraph = footer.addParagraph();
+                footerParagraph.appendText("страница ");
+                footerParagraph.appendField("page number", FieldType.Field_Page);
+                footerParagraph.appendText(" из ");
+                footerParagraph.appendField("number of pages", FieldType.Field_Num_Pages);
+                footerParagraph.getFormat().setHorizontalAlignment(HorizontalAlignment.Right);
+
+                if (documentAll.getSections().getCount() > 1) {
+                    //loop through the sections except the first one
+                    for (int i = 1; i < documentAll.getSections().getCount(); i++) {
+                        //restart page numbering of the current section
+                        documentAll.getSections().get(i).getPageSetup().setRestartPageNumbering(true);
+                        //set the starting number to 1
+                        documentAll.getSections().get(i).getPageSetup().setPageStartingNumber(1);
+                    }
+                }
+
+                //save to file
+                documentAll.insertTextFromFile(tempFile2.getAbsolutePath(), FileFormat.Docx_2013);
+                documentAll.saveToFile(tempFile.getAbsolutePath(), FileFormat.Docx_2013);//
+
+                Document doc3 = new Document(tempFile.getAbsolutePath(), FileFormat.Docx_2013);
+                Section sec = doc3.getSections().get(0);
+                int sections = doc3.getSections().getCount() - 1;
+                for (int i = 0; i < sections; i++) {
+                    Section section2 = doc3.getSections().get(1);
+                    for (int j = 0; j < section2.getBody().getChildObjects().getCount(); j++) {
+                        sec.getBody().getChildObjects().add(section2.getBody().getChildObjects().get(j).deepClone());
+                    }
+                    doc3.getSections().remove(section2);
+                }
+                doc3.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+
+            } else {
+
+                // Replace a specific text
+                documentOne.replace("name_legal", conclusion.getName_legal(), true, true);
+                documentOne.replace("date1", String.valueOf(conclusion.getDate1()), true, true);
+                documentOne.replace("date2", String.valueOf(conclusion.getConclusionProducts().get(0).getDate2()), true, true);
+                documentOne.replace("date3", String.valueOf(conclusion.getDate3()), true, true);
+                documentOne.replace("date4", String.valueOf(conclusion.getDate4()), true, true);
+                documentOne.replace("number1", String.valueOf(conclusion.getNumber1()), true, true);
+                documentOne.replace("number2", String.valueOf(conclusion.getConclusionProducts().get(0).getNumber2()), true, true);
+                documentOne.replace("number3", String.valueOf(conclusion.getNumber3()), true, true);
+                documentOne.replace("issued", conclusion.getIssued(), true, true);
+                documentOne.replace("name", conclusion.getConclusionProducts().get(0).getName(), true, true);
+                documentOne.replace("weight", String.valueOf(conclusion.getConclusionProducts().get(0).getWeight()), true, true);
+                documentOne.replace("origin", conclusion.getConclusionProducts().get(0).getOrigin(), true, true);
+                documentOne.replace("place", conclusion.getPlace(), true, true);
+                documentOne.replace("from_whos", conclusion.getConclusionProducts().get(0).getFrom_whos(), true, true);
+                documentOne.replace("recipient", conclusion.getRecipient(), true, true);
+                documentOne.replace("result", conclusion.getConclusionProducts().get(0).getResult(), true, true);
+                documentOne.replace("events", conclusion.getEvents(), true, true);
+                documentOne.replace("FIO", conclusion.getFio(), true, true);
+
+                //Save the result document
+                documentOne.saveToFile(tempFile.getAbsolutePath(), FileFormat.PDF);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
